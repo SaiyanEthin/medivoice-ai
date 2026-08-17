@@ -1,0 +1,92 @@
+{
+  "Common Cold": {
+    "severity": "mild",
+    "advice": [
+      "Drink warm fluids and rest well",
+      "Use steam inhalation to relieve congestion",
+      "Take paracetamol only if fever crosses 100°F",
+      "Visit a doctor if symptoms last more than 7 days"
+    ]
+  },
+  "Gastroenteritis": {
+    "severity": "moderate",
+    "advice": [
+      "Drink ORS (oral rehydration solution) frequently",
+      "Avoid oily and spicy food until recovered",
+      "Eat small, bland meals (rice, banana, toast)",
+      "Visit a doctor immediately if there is blood in stool or high fever"
+    ]
+  },
+  "Diabetes": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Reduce sugar and refined carbohydrate intake",
+      "Walk for at least 30 minutes daily",
+      "Monitor blood sugar levels regularly",
+      "Consult a physician for proper diagnosis and medication"
+    ]
+  },
+  "Hypertension": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Reduce salt intake in daily meals",
+      "Avoid stress and ensure adequate sleep",
+      "Monitor blood pressure regularly",
+      "Consult a physician before starting any medication"
+    ]
+  },
+  "Migraine": {
+    "severity": "moderate",
+    "advice": [
+      "Rest in a quiet, dark room",
+      "Stay hydrated and avoid skipping meals",
+      "Avoid known triggers (bright light, loud noise, certain foods)",
+      "Consult a doctor if headaches are frequent or severe"
+    ]
+  },
+  "Malaria": {
+    "severity": "serious - needs prompt medical attention",
+    "advice": [
+      "Visit the nearest PHC or hospital immediately for a blood test",
+      "Use mosquito nets and repellents to prevent spread",
+      "Stay hydrated and rest",
+      "Do not self-medicate with antimalarial drugs without diagnosis"
+    ]
+  },
+  "Typhoid": {
+    "severity": "serious - needs prompt medical attention",
+    "advice": [
+      "Visit a doctor for blood test confirmation and antibiotics",
+      "Drink only boiled or purified water",
+      "Eat soft, easily digestible food",
+      "Complete the full course of prescribed antibiotics"
+    ]
+  },
+  "Dengue": {
+    "severity": "serious - needs prompt medical attention",
+    "advice": [
+      "Visit the nearest hospital immediately, especially if platelet count is a concern",
+      "Do not take aspirin or ibuprofen (risk of bleeding)",
+      "Drink plenty of fluids and rest",
+      "Watch for warning signs: severe abdominal pain, bleeding, breathlessness"
+    ]
+  },
+  "Bronchial Asthma": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Avoid dust, smoke, and known allergens",
+      "Keep prescribed inhaler accessible at all times",
+      "Practice breathing exercises",
+      "Seek emergency care if breathlessness is severe"
+    ]
+  },
+  "Jaundice": {
+    "severity": "serious - needs prompt medical attention",
+    "advice": [
+      "Visit a doctor for liver function tests",
+      "Avoid alcohol and fatty/oily food completely",
+      "Rest adequately and stay hydrated",
+      "Eat light, easily digestible meals"
+    ]
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "_note": "Maps natural spoken phrases (Kannada/Hindi/English) to the model's English symptom column names. Kannada/Hindi phrases should be verified by a native speaker before final deployment - these are best-effort translations for prototyping.",
+
+  "high_fever": {
+    "en": ["fever", "high temperature"],
+    "hi": ["bukhar", "tez bukhar", "बुखार", "तेज़ बुखार"],
+    "kn": ["jwara", "ಜ್ವರ"]
+  },
+  "cough": {
+    "en": ["cough", "coughing"],
+    "hi": ["khansi", "खांसी"],
+    "kn": ["kemmu", "ಕೆಮ್ಮು"]
+  },
+  "headache": {
+    "en": ["headache", "head pain"],
+    "hi": ["sir dard", "सिरदर्द"],
+    "kn": ["talenovu", "ತಲೆನೋವು"]
+  },
+  "vomiting": {
+    "en": ["vomiting", "throwing up"],
+    "hi": ["ulti", "उल्टी"],
+    "kn": ["vaanti", "ವಾಂತಿ"]
+  },
+  "nausea": {
+    "en": ["nausea", "feeling like vomiting"],
+    "hi": ["jee michlana", "जी मिचलाना"],
+    "kn": ["hottehulasu", "ಹೊಟ್ಟೆ ತೊಳಸುವಿಕೆ"]
+  },
+  "abdominal_pain": {
+    "en": ["stomach pain", "abdominal pain", "belly pain"],
+    "hi": ["pet dard", "पेट दर्द"],
+    "kn": ["hotte novu", "ಹೊಟ್ಟೆ ನೋವು"]
+  },
+  "diarrhoea": {
+    "en": ["diarrhea", "loose motion"],
+    "hi": ["dast", "दस्त"],
+    "kn": ["bhedi", "ಭೇದಿ"]
+  },
+  "chills": {
+    "en": ["chills", "shivering"],
+    "hi": ["thand lagna", "kanpkanpi", "ठंड लगना"],
+    "kn": ["chali", "ನಡುಕ"]
+  },
+  "joint_pain": {
+    "en": ["joint pain"],
+    "hi": ["jodo mein dard", "जोड़ों में दर्द"],
+    "kn": ["kiluvu novu", "ಕೀಲು ನೋವು"]
+  },
+  "muscle_pain": {
+    "en": ["muscle pain", "body ache"],
+    "hi": ["badan dard", "बदन दर्द"],
+    "kn": ["mansakhanda novu", "ಮಾಂಸಖಂಡ ನೋವು"]
+  },
+  "back_pain": {
+    "en": ["back pain"],
+    "hi": ["kamar dard", "कमर दर्द"],
+    "kn": ["bennu novu", "ಬೆನ್ನು ನೋವು"]
+  },
+  "chest_pain": {
+    "en": ["chest pain"],
+    "hi": ["seene mein dard", "सीने में दर्द"],
+    "kn": ["eda novu", "ಎದೆ ನೋವು"]
+  },
+  "breathlessness": {
+    "en": ["breathlessness", "shortness of breath", "difficulty breathing"],
+    "hi": ["saans lene mein taklif", "सांस लेने में तकलीफ"],
+    "kn": ["usiraata takarare", "ಉಸಿರಾಟ ತೊಂದರೆ"]
+  },
+  "fatigue": {
+    "en": ["fatigue", "tiredness", "weakness"],
+    "hi": ["thakan", "kamzori", "थकान", "कमज़ोरी"],
+    "kn": ["aayasa", "ಆಯಾಸ"]
+  },
+  "dizziness": {
+    "en": ["dizziness", "feeling dizzy"],
+    "hi": ["chakkar", "चक्कर"],
+    "kn": ["tale suttuvike", "ತಲೆ ಸುತ್ತುವಿಕೆ"]
+  },
+  "skin_rash": {
+    "en": ["rash", "skin rash"],
+    "hi": ["chakatte", "त्वचा पर चकत्ते"],
+    "kn": ["chaayi", "ಚರ್ಮದ ದದ್ದು"]
+  },
+  "itching": {
+    "en": ["itching"],
+    "hi": ["khujli", "खुजली"],
+    "kn": ["tureeke", "ತುರಿಕೆ"]
+  },
+  "throat_irritation": {
+    "en": ["sore throat", "throat irritation"],
+    "hi": ["gale mein kharash", "गले में खराश"],
+    "kn": ["gantalu kirikiri", "ಗಂಟಲು ಕಿರಿಕಿರಿ"]
+  },
+  "runny_nose": {
+    "en": ["runny nose"],
+    "hi": ["naak behna", "नाक बहना"],
+    "kn": ["muku sori", "ಮೂಗು ಸೋರುವಿಕೆ"]
+  },
+  "continuous_sneezing": {
+    "en": ["sneezing"],
+    "hi": ["cheenk", "छींक"],
+    "kn": ["seemte", "ಸೀನುವಿಕೆ"]
+  },
+  "loss_of_appetite": {
+    "en": ["loss of appetite", "not feeling hungry"],
+    "hi": ["bhookh na lagna", "भूख न लगना"],
+    "kn": ["hasivu illa", "ಹಸಿವು ಇಲ್ಲ"]
+  },
+  "weight_loss": {
+    "en": ["weight loss", "losing weight"],
+    "hi": ["vajan kam hona", "वज़न कम होना"],
+    "kn": ["tooka kadime", "ತೂಕ ಕಡಿಮೆ"]
+  },
+  "sweating": {
+    "en": ["sweating", "excessive sweating"],
+    "hi": ["paseena aana", "पसीना आना"],
+    "kn": ["benave", "ಬೆವರುವಿಕೆ"]
+  },
+  "constipation": {
+    "en": ["constipation"],
+    "hi": ["kabj", "कब्ज़"],
+    "kn": ["malabaddhata", "ಮಲಬದ್ಧತೆ"]
+  },
+  "yellowish_skin": {
+    "en": ["yellow skin", "yellowing of skin"],
+    "hi": ["twacha peeli hona", "त्वचा पीली होना"],
+    "kn": ["chime haladi", "ಚರ್ಮ ಹಳದಿ"]
+  },
+  "dark_urine": {
+    "en": ["dark urine"],
+    "hi": ["peshab ka rang gehra", "पेशाब का रंग गहरा"],
+    "kn": ["mutra kappu", "ಮೂತ್ರ ಕಪ್ಪು"]
+  },
+  "redness_of_eyes": {
+    "en": ["red eyes", "redness in eyes"],
+    "hi": ["aankhen laal", "आँखें लाल"],
+    "kn": ["kannu kempu", "ಕಣ್ಣು ಕೆಂಪು"]
+  },
+  "blurred_and_distorted_vision": {
+    "en": ["blurred vision"],
+    "hi": ["dhundhla dikhna", "धुंधला दिखना"],
+    "kn": ["mabbaagi kaanuvudu", "ಮಬ್ಬಾಗಿ ಕಾಣುವುದು"]
+  },
+  "stiff_neck": {
+    "en": ["stiff neck"],
+    "hi": ["gardan akadna", "गर्दन अकड़ना"],
+    "kn": ["kazhutthu bigi", "ಕುತ್ತಿಗೆ ಬಿಗಿ"]
+  },
+  "restlessness": {
+    "en": ["restlessness", "feeling restless"],
+    "hi": ["bechaini", "बेचैनी"],
+    "kn": ["chanchalate", "ಚಂಚಲತೆ"]
+  },
+  "red_spots_over_body": {
+    "en": ["red spots on body"],
+    "hi": ["shareer par laal chakatte", "शरीर पर लाल चकत्ते"],
+    "kn": ["mai mele kempu chukke", "ಮೈ ಮೇಲೆ ಕೆಂಪು ಚುಕ್ಕೆ"]
+  },
+  "loss_of_smell": {
+    "en": ["loss of smell", "can't smell"],
+    "hi": ["sunghne ki shakti kam", "सूंघने की शक्ति कम"],
+    "kn": ["vaasane gotthaguttilla", "ವಾಸನೆ ಗೊತ್ತಾಗುವುದಿಲ್ಲ"]
+  },
+  "acidity": {
+    "en": ["acidity", "acid reflux"],
+    "hi": ["acidity", "khatti dakaar", "खट्टी डकार"],
+    "kn": ["amla", "ಆಮ್ಲೀಯತೆ"]
+  }
+}
