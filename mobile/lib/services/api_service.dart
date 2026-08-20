@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import '../core/config.dart';
 import '../models/prediction_result.dart';
 import '../models/advice.dart';
+import '../models/doctor.dart';
 
 /// The ONLY class in this app that knows HTTP exists.
 /// When we move to offline inference later, this file gets replaced
@@ -29,9 +30,9 @@ class ApiService {
         .timeout(AppConfig.apiTimeout);
 
     if (response.statusCode == 200) {
-      return PredictionResult.fromJson(jsonDecode(response.body));
+      return PredictionResult.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     } else {
-      final body = jsonDecode(response.body);
+      final body = jsonDecode(utf8.decode(response.bodyBytes));
       throw ApiException(body['detail']?.toString() ?? 'Prediction failed');
     }
   }
@@ -48,14 +49,16 @@ class ApiService {
     }
   }
 
-  Future<List<dynamic>> getDoctors(String disease) async {
+  Future<List<Doctor>> getDoctors(String disease) async {
     final uri = Uri.parse(
         '${AppConfig.apiBaseUrl}/doctors/${Uri.encodeComponent(disease)}');
     final response = await http.get(uri).timeout(AppConfig.apiTimeout);
 
     if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
-      return data['doctors'] as List<dynamic>;
+      return (data['doctors'] as List)
+          .map((e) => Doctor.fromJson(e as Map<String, dynamic>))
+          .toList();
     } else {
       throw ApiException('Could not fetch doctors for $disease');
     }

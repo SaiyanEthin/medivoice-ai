@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../core/theme/app_theme.dart';
 import '../providers/consultation_provider.dart';
 import '../services/symptom_matcher_service.dart';
-import 'placeholder_screen.dart';
 import 'advice_screen.dart';
+import 'doctor_list_screen.dart';
 
 /// The real Prediction Screen. Only reached once ConsultationProvider has
 /// a FINAL result (no more follow-ups pending). Handles two states:
@@ -70,7 +70,9 @@ class PredictionResultScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const PlaceholderScreen(title: "Find Doctors"),
+                      builder: (_) => DoctorListScreen(
+                        disease: result.topPrediction.disease,
+                      ),
                     ),
                   ),
                   icon: const Icon(Icons.local_hospital_outlined),

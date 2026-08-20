@@ -1,11 +1,8 @@
 import '../services/api_service.dart';
 import '../models/prediction_result.dart';
 import '../models/advice.dart';
+import '../models/doctor.dart';
 
-/// Sits between Provider and ApiService. Today it just forwards to the
-/// backend, but when we move to offline inference, ONLY this file changes -
-/// ApiService gets swapped for on-device weight-matrix math, and
-/// ConsultationProvider never has to know the difference.
 class ConsultationRepository {
   final ApiService _apiService;
 
@@ -28,7 +25,7 @@ class ConsultationRepository {
     return _apiService.getAdvice(disease);
   }
 
-  Future<List<dynamic>> getDoctors(String disease) {
+  Future<List<Doctor>> getDoctors(String disease) {
     return _apiService.getDoctors(disease);
   }
 }
