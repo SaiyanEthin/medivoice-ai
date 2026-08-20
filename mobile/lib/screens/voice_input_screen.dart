@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../core/theme/app_theme.dart';
 import '../providers/consultation_provider.dart';
 import '../services/symptom_matcher_service.dart';
+import '../widgets/follow_up_question_card.dart';
+import 'prediction_result_screen.dart';
 
 /// This screen's input mechanism is intentionally abstracted:
 /// today, [_buildInputArea] returns a TextField. When Whisper-Tiny is
@@ -102,7 +104,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              const _ResultArea(), // temporary inline result display - see below
+              const _ConsultationStatusArea(),
             ],
           ),
         ),
@@ -125,11 +127,12 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   }
 }
 
-/// TEMPORARY inline result display - NOT the real Prediction/Follow-up/
-/// Advice/Doctor screens (those are separate upcoming milestones). This
-/// exists only to verify the full pipeline works end-to-end right now.
-class _ResultArea extends StatelessWidget {
-  const _ResultArea();
+/// Handles loading/error states and the follow-up question loop.
+/// Once the provider has a FINAL result (no more follow-ups needed),
+/// this auto-navigates to the real Prediction Screen - it never renders
+/// a result itself, keeping that entirely out of this screen as required.
+class _ConsultationStatusArea extends StatelessWidget {
+  const _ConsultationStatusArea();
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +154,7 @@ class _ResultArea extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  "Error: ${provider.errorMessage}\n\nIs the backend running? Check http://10.0.2.2:8000/docs",
+                  "Error: ${provider.errorMessage}\n\nIs the backend running? Check http://127.0.0.1:8000/docs",
                   style: const TextStyle(color: AppTheme.danger),
                 ),
               ),
@@ -159,58 +162,25 @@ class _ResultArea extends StatelessWidget {
 
           case ConsultationStatus.success:
             final result = provider.result!;
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("[TEMP RESULT VIEW]",
-                        style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Top: ${result.topPrediction.disease} "
-                      "(${(result.topPrediction.confidence * 100).toStringAsFixed(1)}%)",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 12),
 
-                    if (result.needsFollowup) ...[
-                      Text("A few quick questions:", style: Theme.of(context).textTheme.bodyLarge),
-                      const SizedBox(height: 8),
-                      ...result.followUpQuestions.map((q) => Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Expanded(child: Text(q.question)),
-                                TextButton(
-                                  onPressed: () => context
-                                      .read<ConsultationProvider>()
-                                      .answerFollowUp(q.symptom, true),
-                                  child: const Text("Yes"),
-                                ),
-                                TextButton(
-                                  onPressed: () => context
-                                      .read<ConsultationProvider>()
-                                      .answerFollowUp(q.symptom, false),
-                                  child: const Text("No"),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ] else ...[
-                      const Divider(),
-                      Text("All predictions:", style: Theme.of(context).textTheme.bodyLarge),
-                      ...result.allPredictions.take(3).map(
-                            (p) => Text(
-                              "${p.disease}: ${(p.confidence * 100).toStringAsFixed(1)}%",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ),
-                    ],
-                  ],
-                ),
-              ),
+            if (result.needsFollowup) {
+              return FollowUpQuestionCard(questions: result.followUpQuestions);
+            }
+
+            // Final result ready - navigate to the real Prediction Screen.
+            // Scheduled after the current build so it's safe to call
+            // Navigator during a Consumer rebuild.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (context.mounted) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const PredictionResultScreen()),
+                );
+              }
+            });
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 24),
+              child: Center(child: CircularProgressIndicator()),
             );
         }
       },

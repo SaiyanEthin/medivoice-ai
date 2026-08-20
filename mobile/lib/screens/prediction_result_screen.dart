@@ -1,0 +1,203 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../core/theme/app_theme.dart';
+import '../providers/consultation_provider.dart';
+import '../services/symptom_matcher_service.dart';
+import 'placeholder_screen.dart';
+
+/// The real Prediction Screen. Only reached once ConsultationProvider has
+/// a FINAL result (confidence above threshold, or follow-up rounds
+/// exhausted) - follow-up questions are handled earlier, on the Voice
+/// Input Screen, so this screen only ever shows a resolved assessment.
+class PredictionResultScreen extends StatelessWidget {
+  const PredictionResultScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<ConsultationProvider>();
+    final result = provider.result;
+
+    if (result == null) {
+      // Defensive fallback - shouldn't normally happen since we only
+      // navigate here once a result exists, but avoids a crash if it does.
+      return Scaffold(
+        appBar: AppBar(title: const Text("Assessment")),
+        body: const Center(child: Text("No result available.")),
+      );
+    }
+
+    final matcher = SymptomMatcherService();
+    final recognizedLabels = provider.symptoms.map(matcher.getReadableLabel).toList();
+    final confidencePct = (result.topPrediction.confidence * 100).toStringAsFixed(1);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Preliminary Health Assessment")),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // --- Main assessment card ---
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Preliminary Health Assessment",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        result.topPrediction.disease,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Icon(Icons.insights_rounded, size: 18, color: AppTheme.primary),
+                          const SizedBox(width: 6),
+                          Text(
+                            "Model confidence: $confidencePct%",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        _assessmentBlurb(result.topPrediction.disease, double.parse(confidencePct)),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // --- Recognized symptoms ---
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Recognized Symptoms", style: Theme.of(context).textTheme.titleLarge),
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: recognizedLabels
+                            .map((label) => Chip(
+                                  label: Text(label),
+                                  backgroundColor: AppTheme.primary.withOpacity(0.08),
+                                ))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // --- Disclaimer ---
+              Card(
+                color: AppTheme.accent.withOpacity(0.10),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.info_outline_rounded, color: AppTheme.primaryDark),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          "This is a preliminary, non-diagnostic assessment generated by an "
+                          "AI model. It is not a substitute for professional medical advice. "
+                          "Please consult a qualified doctor for accurate diagnosis and treatment.",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // --- Navigation buttons ---
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PlaceholderScreen(title: "Health Advice"),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.health_and_safety_outlined),
+                label: const Text("View Health Advice"),
+              ),
+              const SizedBox(height: 10),
+              OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const PlaceholderScreen(title: "Find Doctors"),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.local_hospital_outlined),
+                label: const Text("Find Doctors"),
+              ),
+              const SizedBox(height: 10),
+              TextButton.icon(
+                onPressed: () {
+                  provider.reset();
+                  Navigator.pop(context); // back to Voice Input Screen
+                },
+                icon: const Icon(Icons.refresh_rounded),
+                label: const Text("Try Again"),
+              ),
+
+              // --- Debug-only full ranked list ---
+              if (kDebugMode) ...[
+                const SizedBox(height: 24),
+                const Divider(),
+                const SizedBox(height: 8),
+                Text("[DEBUG] Full ranked predictions:",
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+                ...result.allPredictions.map(
+                  (p) => Text(
+                    "${p.disease}: ${(p.confidence * 100).toStringAsFixed(1)}%",
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Short, non-diagnostic explanatory blurb. Deliberately generic/hedged
+  /// language - this is NOT a diagnosis, just a plain-language summary of
+  /// what the model output means.
+  String _assessmentBlurb(String disease, double confidencePct) {
+    final confidenceWord = confidencePct >= 70
+        ? "fairly confident"
+        : confidencePct >= 50
+            ? "moderately confident"
+            : "not highly confident";
+
+    return "Based on the symptoms you described, the model is $confidenceWord "
+        "this may be consistent with $disease. This assessment is generated "
+        "from patterns in training data, not a medical examination.";
+  }
+}

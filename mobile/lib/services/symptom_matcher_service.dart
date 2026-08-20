@@ -59,4 +59,19 @@ class SymptomMatcherService {
 
     return matched.toList();
   }
+
+  /// Reverse lookup for DISPLAY purposes: given a raw symptom column name
+  /// (e.g. "high_fever"), return a readable English phrase (e.g. "fever").
+  /// Used by the Prediction Screen's "Recognized Symptoms" list.
+  /// Falls back to a readable version of the column name if not found.
+  String getReadableLabel(String symptomColumn) {
+    if (_dictionary == null) {
+      return symptomColumn.replaceAll('_', ' ');
+    }
+    final entry = _dictionary![symptomColumn] as Map<String, dynamic>?;
+    if (entry != null && entry['en'] is List && (entry['en'] as List).isNotEmpty) {
+      return entry['en'][0].toString();
+    }
+    return symptomColumn.replaceAll('_', ' ');
+  }
 }
