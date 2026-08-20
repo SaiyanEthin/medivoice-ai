@@ -34,13 +34,19 @@ class ConsultationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Starts a fresh consultation with the initial symptom list
+   /// Starts a fresh consultation with the initial symptom list
   /// (e.g. parsed from the text stub or, later, Whisper transcription).
-  Future<void> submitInitialSymptoms(List<String> initialSymptoms) async {
+  /// [initialDenied] carries symptoms the user explicitly negated in their
+  /// description ("I don't have a cough").
+  Future<void> submitInitialSymptoms(
+    List<String> initialSymptoms, {
+    List<String> initialDenied = const [],
+  }) async {
     symptoms.clear();
     deniedSymptoms.clear();
     followUpRound = 0;
     symptoms.addAll(initialSymptoms);
+    deniedSymptoms.addAll(initialDenied);
     await _predict();
   }
 

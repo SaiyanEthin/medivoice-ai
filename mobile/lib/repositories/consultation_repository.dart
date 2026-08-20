@@ -1,5 +1,6 @@
 import '../services/api_service.dart';
 import '../models/prediction_result.dart';
+import '../models/advice.dart';
 
 /// Sits between Provider and ApiService. Today it just forwards to the
 /// backend, but when we move to offline inference, ONLY this file changes -
@@ -23,7 +24,7 @@ class ConsultationRepository {
     );
   }
 
-  Future<Map<String, dynamic>> getAdvice(String disease) {
+  Future<Advice> getAdvice(String disease) {
     return _apiService.getAdvice(disease);
   }
 

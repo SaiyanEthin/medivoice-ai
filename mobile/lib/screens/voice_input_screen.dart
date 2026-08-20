@@ -38,12 +38,12 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     super.dispose();
   }
 
-  void _handleSubmit(BuildContext context) {
+    void _handleSubmit(BuildContext context) {
     if (!_matcherReady) return;
 
-    final matched = _matcher.matchSymptoms(_controller.text);
+    final analysis = _matcher.analyze(_controller.text);
 
-    if (matched.isEmpty) {
+    if (analysis.isEmpty) {
       setState(() {
         _noMatchWarning =
             "Couldn't recognize any symptoms in that text. Try describing them more simply, e.g. \"fever and cough\".";
@@ -51,8 +51,19 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
       return;
     }
 
+    if (analysis.present.isEmpty) {
+      setState(() {
+        _noMatchWarning =
+            "You mentioned what you don't have, but not what you do. Please describe your symptoms.";
+      });
+      return;
+    }
+
     setState(() => _noMatchWarning = null);
-    context.read<ConsultationProvider>().submitInitialSymptoms(matched);
+    context.read<ConsultationProvider>().submitInitialSymptoms(
+          analysis.present,
+          initialDenied: analysis.denied,
+        );
   }
 
   @override
