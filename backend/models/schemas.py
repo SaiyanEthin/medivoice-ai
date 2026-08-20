@@ -5,6 +5,7 @@ from typing import List
 class PredictRequest(BaseModel):
     symptoms: List[str]              # confirmed present
     denied_symptoms: List[str] = []  # confirmed absent (from follow-up "No" answers)
+    followup_round: int = 0          # how many follow-up rounds already completed
 
 
 class PredictionResult(BaseModel):
@@ -22,6 +23,12 @@ class PredictResponse(BaseModel):
     all_predictions: List[PredictionResult]
     needs_followup: bool
     follow_up_questions: List[FollowUpQuestion] = []
+
+    # Uncertainty state: when True, the UI must NOT present top_prediction as
+    # a named condition. Show "symptoms unclear" guidance instead.
+    is_uncertain: bool = False
+    uncertainty_reason: str | None = None   # "insufficient_symptoms" | "low_confidence"
+    followup_round: int = 0
 
 
 class AdviceResponse(BaseModel):

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pyo
+mobile/.dart_tool/
+mobile/build/
+mobile/.idea/
+.venv/

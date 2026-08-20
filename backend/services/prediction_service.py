@@ -8,6 +8,8 @@ import joblib
 import numpy as np
 import pandas as pd
 
+from backend import config
+
 _ML_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "ml", "exported_models")
 
 _model = joblib.load(os.path.join(_ML_DIR, "lr_model.joblib"))
@@ -79,4 +81,23 @@ def get_distinguishing_symptoms(top_candidates: list[str], already_known: list[s
     return [_symptom_columns[i] for i in top_indices if variance_per_symptom[i] >= 0]
 
 
-CONFIDENCE_THRESHOLD = 0.50
+def get_informative_symptoms(already_known: list[str], n: int = 3) -> list[str]:
+    """
+    For the MINIMUM EVIDENCE gate: when the user has given too few symptoms
+    to distinguish anything meaningfully, we can't use top-candidate variance
+    (all candidates are near-equally weak). Instead, pick the symptoms that
+    are globally most discriminative ACROSS ALL diseases - i.e. the questions
+    that split the 10-disease space most usefully.
+    """
+    variance_per_symptom = np.var(_model.coef_, axis=0)
+
+    for i, col in enumerate(_symptom_columns):
+        if col in already_known:
+            variance_per_symptom[i] = -1
+
+    top_indices = np.argsort(variance_per_symptom)[::-1][:n]
+    return [_symptom_columns[i] for i in top_indices if variance_per_symptom[i] >= 0]
+
+
+# Kept for backwards compatibility; canonical value lives in backend/config.py
+CONFIDENCE_THRESHOLD = config.CONFIDENCE_THRESHOLD
