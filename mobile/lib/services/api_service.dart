@@ -11,6 +11,7 @@ class ApiService {
   Future<PredictionResult> predict({
     required List<String> symptoms,
     List<String> deniedSymptoms = const [],
+    int followupRound = 0,
   }) async {
     final uri = Uri.parse('${AppConfig.apiBaseUrl}/predict');
 
@@ -21,6 +22,7 @@ class ApiService {
           body: jsonEncode({
             'symptoms': symptoms,
             'denied_symptoms': deniedSymptoms,
+            'followup_round': followupRound,
           }),
         )
         .timeout(AppConfig.apiTimeout);

@@ -14,8 +14,13 @@ class ConsultationRepository {
   Future<PredictionResult> getPrediction({
     required List<String> symptoms,
     List<String> deniedSymptoms = const [],
+    int followupRound = 0,
   }) {
-    return _apiService.predict(symptoms: symptoms, deniedSymptoms: deniedSymptoms);
+    return _apiService.predict(
+      symptoms: symptoms,
+      deniedSymptoms: deniedSymptoms,
+      followupRound: followupRound,
+    );
   }
 
   Future<Map<String, dynamic>> getAdvice(String disease) {

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import '../core/config.dart';
 import '../models/prediction_result.dart';
 import '../repositories/consultation_repository.dart';
 
@@ -7,6 +6,10 @@ enum ConsultationStatus { idle, loading, success, error }
 
 /// Holds the state of a single consultation session: confirmed symptoms,
 /// denied symptoms, current prediction, and the follow-up round counter.
+///
+/// NOTE: the follow-up round CAP lives in backend/config.py, not here.
+/// This provider just tracks and reports the current round; the backend
+/// decides when to stop asking. Single source of truth.
 class ConsultationProvider extends ChangeNotifier {
   final ConsultationRepository _repository;
 
@@ -52,32 +55,17 @@ class ConsultationProvider extends ChangeNotifier {
     await _predict();
   }
 
-  bool get canAskMoreFollowUps => followUpRound < AppConfig.maxFollowUpRounds;
-
   Future<void> _predict() async {
     status = ConsultationStatus.loading;
     errorMessage = null;
     notifyListeners();
 
     try {
-      final prediction = await _repository.getPrediction(
+      result = await _repository.getPrediction(
         symptoms: symptoms,
         deniedSymptoms: deniedSymptoms,
+        followupRound: followUpRound,
       );
-
-      // Respect the round cap even if the backend still thinks it needs more -
-      // after maxFollowUpRounds, show the current top predictions regardless.
-      if (prediction.needsFollowup && !canAskMoreFollowUps) {
-        result = PredictionResult(
-          topPrediction: prediction.topPrediction,
-          allPredictions: prediction.allPredictions,
-          needsFollowup: false,
-          followUpQuestions: [],
-        );
-      } else {
-        result = prediction;
-      }
-
       status = ConsultationStatus.success;
     } catch (e) {
       status = ConsultationStatus.error;

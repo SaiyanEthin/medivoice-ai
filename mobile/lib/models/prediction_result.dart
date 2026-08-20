@@ -32,11 +32,20 @@ class PredictionResult {
   final bool needsFollowup;
   final List<FollowUpQuestion> followUpQuestions;
 
+  /// When true, the UI must NOT present topPrediction as a named condition.
+  final bool isUncertain;
+  /// "insufficient_symptoms" | "low_confidence" | null
+  final String? uncertaintyReason;
+  final int followupRound;
+
   PredictionResult({
     required this.topPrediction,
     required this.allPredictions,
     required this.needsFollowup,
     required this.followUpQuestions,
+    required this.isUncertain,
+    required this.uncertaintyReason,
+    required this.followupRound,
   });
 
   factory PredictionResult.fromJson(Map<String, dynamic> json) {
@@ -49,6 +58,9 @@ class PredictionResult {
       followUpQuestions: (json['follow_up_questions'] as List)
           .map((e) => FollowUpQuestion.fromJson(e))
           .toList(),
+      isUncertain: json['is_uncertain'] as bool? ?? false,
+      uncertaintyReason: json['uncertainty_reason'] as String?,
+      followupRound: json['followup_round'] as int? ?? 0,
     );
   }
 }
