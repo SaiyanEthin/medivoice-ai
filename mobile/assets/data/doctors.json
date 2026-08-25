@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Anitha Rao",
+    "specialization": "General Physician",
+    "district": "Bengaluru Urban",
+    "phone": "9880011223",
+    "distance_km": 3.2
+  },
+  {
+    "id": 2,
+    "name": "Dr. Suresh Kumar",
+    "specialization": "General Physician",
+    "district": "Bengaluru Rural",
+    "phone": "9880011224",
+    "distance_km": 8.5
+  },
+  {
+    "id": 3,
+    "name": "Dr. Meera Nair",
+    "specialization": "Endocrinologist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011225",
+    "distance_km": 5.1
+  },
+  {
+    "id": 4,
+    "name": "Dr. Prakash Shetty",
+    "specialization": "Cardiologist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011226",
+    "distance_km": 4.7
+  },
+  {
+    "id": 5,
+    "name": "Dr. Lakshmi Iyer",
+    "specialization": "Neurologist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011227",
+    "distance_km": 6.3
+  },
+  {
+    "id": 6,
+    "name": "Dr. Ravi Chandran",
+    "specialization": "Pulmonologist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011228",
+    "distance_km": 7.0
+  },
+  {
+    "id": 7,
+    "name": "Dr. Fatima Khan",
+    "specialization": "Gastroenterologist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011229",
+    "distance_km": 3.9
+  },
+  {
+    "id": 8,
+    "name": "Dr. Deepak Gowda",
+    "specialization": "Hepatologist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011230",
+    "distance_km": 9.2
+  },
+  {
+    "id": 9,
+    "name": "Dr. Sunita Patil",
+    "specialization": "Infectious Disease Specialist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011231",
+    "distance_km": 5.6
+  },
+  {
+    "id": 10,
+    "name": "Dr. Manoj Bhat",
+    "specialization": "ENT Specialist",
+    "district": "Bengaluru Urban",
+    "phone": "9880011232",
+    "distance_km": 4.0
+  },
+  {
+    "id": 11,
+    "name": "Dr. Kavya Reddy",
+    "specialization": "General Physician",
+    "district": "Mandya",
+    "phone": "9880011233",
+    "distance_km": 42.0
+  },
+  {
+    "id": 12,
+    "name": "Dr. Arjun Naik",
+    "specialization": "General Physician",
+    "district": "Tumkur",
+    "phone": "9880011234",
+    "distance_km": 65.0
+  },
+  {
+    "id": 13,
+    "name": "Dr. Shalini Menon",
+    "specialization": "Cardiologist",
+    "district": "Mysuru",
+    "phone": "9880011235",
+    "distance_km": 140.0
+  },
+  {
+    "id": 14,
+    "name": "Dr. Vikram Rao",
+    "specialization": "Endocrinologist",
+    "district": "Mysuru",
+    "phone": "9880011236",
+    "distance_km": 142.0
+  },
+  {
+    "id": 15,
+    "name": "Dr. Pooja Hegde",
+    "specialization": "General Physician",
+    "district": "Ramanagara",
+    "phone": "9880011237",
+    "distance_km": 50.0
+  }
+]
