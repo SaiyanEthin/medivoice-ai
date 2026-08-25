@@ -35,3 +35,5 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/data/symptom_dictionary.json
+    - assets/data/lr_model_weights.json
+    - assets/data/advice_templates.json
