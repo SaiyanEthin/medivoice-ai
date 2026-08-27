@@ -1,0 +1,134 @@
+Rows for our 25 target diseases (BEFORE dedup): 3000
+Rows AFTER deduplication: 192 (removed 2808 exact-duplicate rows)
+
+=== Unique rows per disease (after dedup) ===
+  (vertigo) Paroymsal  Positional Vertigo: 7
+  Arthritis: 6
+  Bronchial Asthma: 7
+  Cervical spondylosis: 6
+  Chicken pox: 10
+  Common Cold: 9
+  Dengue: 10
+  Diabetes: 9
+  Drug Reaction: 6
+  GERD: 7
+  Gastroenteritis: 5
+  Hypertension: 6
+  Hyperthyroidism: 9
+  Hypoglycemia: 9
+  Hypothyroidism: 8
+  Impetigo: 6
+  Jaundice: 9
+  Malaria: 8
+  Migraine: 10
+  Peptic ulcer diseae: 7
+  Psoriasis: 7
+  Tuberculosis: 9
+  Typhoid: 9
+  Urinary tract infection: 5
+  Varicose veins: 8
+
+OK - smallest class has 5 unique rows, >= N_SPLITS=5. Proceeding.
+
+Symptom columns used (nonzero for this 25-disease subset, out of 132): 102
+
+========== Logistic_Regression_25class ==========
+Per-fold accuracy: ['1.0000', '1.0000', '1.0000', '1.0000', '1.0000']
+Mean accuracy: 1.0000  (std: 0.0000)
+
+Overall accuracy (aggregated out-of-fold): 1.0000
+Weighted precision: 1.0000
+Weighted recall:    1.0000
+Weighted F1:        1.0000
+Macro precision:    1.0000
+Macro recall:       1.0000
+Macro F1:           1.0000
+
+Per-class report:
+                                         precision    recall  f1-score   support
+
+(vertigo) Paroymsal  Positional Vertigo       1.00      1.00      1.00         7
+                              Arthritis       1.00      1.00      1.00         6
+                       Bronchial Asthma       1.00      1.00      1.00         7
+                   Cervical spondylosis       1.00      1.00      1.00         6
+                            Chicken pox       1.00      1.00      1.00        10
+                            Common Cold       1.00      1.00      1.00         9
+                                 Dengue       1.00      1.00      1.00        10
+                               Diabetes       1.00      1.00      1.00         9
+                          Drug Reaction       1.00      1.00      1.00         6
+                                   GERD       1.00      1.00      1.00         7
+                        Gastroenteritis       1.00      1.00      1.00         5
+                           Hypertension       1.00      1.00      1.00         6
+                        Hyperthyroidism       1.00      1.00      1.00         9
+                           Hypoglycemia       1.00      1.00      1.00         9
+                         Hypothyroidism       1.00      1.00      1.00         8
+                               Impetigo       1.00      1.00      1.00         6
+                               Jaundice       1.00      1.00      1.00         9
+                                Malaria       1.00      1.00      1.00         8
+                               Migraine       1.00      1.00      1.00        10
+                    Peptic ulcer diseae       1.00      1.00      1.00         7
+                              Psoriasis       1.00      1.00      1.00         7
+                           Tuberculosis       1.00      1.00      1.00         9
+                                Typhoid       1.00      1.00      1.00         9
+                Urinary tract infection       1.00      1.00      1.00         5
+                         Varicose veins       1.00      1.00      1.00         8
+
+                               accuracy                           1.00       192
+                              macro avg       1.00      1.00      1.00       192
+                           weighted avg       1.00      1.00      1.00       192
+
+Full confusion matrix written to: C:\dev\medivoice-ai\ml\training\confusion_matrix_Logistic_Regression_25class.csv
+
+========== Random_Forest_25class ==========
+Per-fold accuracy: ['1.0000', '1.0000', '1.0000', '1.0000', '1.0000']
+Mean accuracy: 1.0000  (std: 0.0000)
+
+Overall accuracy (aggregated out-of-fold): 1.0000
+Weighted precision: 1.0000
+Weighted recall:    1.0000
+Weighted F1:        1.0000
+Macro precision:    1.0000
+Macro recall:       1.0000
+Macro F1:           1.0000
+
+Per-class report:
+                                         precision    recall  f1-score   support
+
+(vertigo) Paroymsal  Positional Vertigo       1.00      1.00      1.00         7
+                              Arthritis       1.00      1.00      1.00         6
+                       Bronchial Asthma       1.00      1.00      1.00         7
+                   Cervical spondylosis       1.00      1.00      1.00         6
+                            Chicken pox       1.00      1.00      1.00        10
+                            Common Cold       1.00      1.00      1.00         9
+                                 Dengue       1.00      1.00      1.00        10
+                               Diabetes       1.00      1.00      1.00         9
+                          Drug Reaction       1.00      1.00      1.00         6
+                                   GERD       1.00      1.00      1.00         7
+                        Gastroenteritis       1.00      1.00      1.00         5
+                           Hypertension       1.00      1.00      1.00         6
+                        Hyperthyroidism       1.00      1.00      1.00         9
+                           Hypoglycemia       1.00      1.00      1.00         9
+                         Hypothyroidism       1.00      1.00      1.00         8
+                               Impetigo       1.00      1.00      1.00         6
+                               Jaundice       1.00      1.00      1.00         9
+                                Malaria       1.00      1.00      1.00         8
+                               Migraine       1.00      1.00      1.00        10
+                    Peptic ulcer diseae       1.00      1.00      1.00         7
+                              Psoriasis       1.00      1.00      1.00         7
+                           Tuberculosis       1.00      1.00      1.00         9
+                                Typhoid       1.00      1.00      1.00         9
+                Urinary tract infection       1.00      1.00      1.00         5
+                         Varicose veins       1.00      1.00      1.00         8
+
+                               accuracy                           1.00       192
+                              macro avg       1.00      1.00      1.00       192
+                           weighted avg       1.00      1.00      1.00       192
+
+Full confusion matrix written to: C:\dev\medivoice-ai\ml\training\confusion_matrix_Random_Forest_25class.csv
+
+=== Model file sizes (candidate 25-class models, NOT yet deployed) ===
+  lr_model_25class.joblib: 23.3 KB
+  rf_model_25class.joblib: 2006.8 KB
+
+Existing production files (lr_model.joblib, lr_model_weights.json, 10-disease) were NOT modified.
+Nothing has been exported for Flutter yet - awaiting review of these results.

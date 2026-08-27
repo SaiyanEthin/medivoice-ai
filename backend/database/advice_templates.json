@@ -88,5 +88,140 @@
       "Rest adequately and stay hydrated",
       "Eat light, easily digestible meals"
     ]
+  },
+  "Tuberculosis": {
+    "severity": "serious - needs prompt medical attention",
+    "advice": [
+      "This is a preliminary, non-diagnostic result - some of your symptoms can occur with tuberculosis among other conditions, so evaluation at a healthcare facility is recommended as soon as possible",
+      "Until you've been evaluated, it may be sensible to limit prolonged close contact with others as a general precaution, particularly around infants or those with weaker immunity",
+      "Eat nutritious, protein-rich food and get adequate rest in the meantime",
+      "If tuberculosis is confirmed by a doctor, completing the full prescribed treatment course is essential - stopping early carries serious risk"
+    ]
+  },
+  "Urinary tract infection": {
+    "severity": "moderate",
+    "advice": [
+      "Drink plenty of water to help flush the urinary tract",
+      "Avoid holding urine for long periods",
+      "Maintain good personal hygiene",
+      "See a doctor for proper testing, especially if fever or back pain is present"
+    ]
+  },
+  "Chicken pox": {
+    "severity": "mild",
+    "advice": [
+      "Rest at home and avoid contact with others, especially pregnant women and infants",
+      "Keep skin clean and avoid scratching to prevent infection or scarring",
+      "Wear loose, comfortable clothing",
+      "Consult a doctor if fever is high or blisters show signs of infection"
+    ]
+  },
+  "GERD": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Avoid large meals, spicy or fatty food, and lying down soon after eating",
+      "Elevate the head while sleeping if symptoms occur at night",
+      "Limit caffeine, alcohol, and smoking",
+      "See a doctor if symptoms are frequent or persist despite lifestyle changes"
+    ]
+  },
+  "Peptic ulcer diseae": {
+    "severity": "moderate",
+    "advice": [
+      "Eat smaller, more frequent meals rather than large ones",
+      "Avoid spicy food, alcohol, and smoking",
+      "Avoid stomach-irritating pain relievers unless advised by a doctor",
+      "See a doctor promptly if there is persistent pain or dark stools"
+    ]
+  },
+  "Arthritis": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Stay physically active with gentle, joint-friendly exercise",
+      "Maintain a healthy weight to reduce joint stress",
+      "Apply warm or cold compresses for comfort as needed",
+      "Consult a doctor for a proper assessment and long-term plan"
+    ]
+  },
+  "Cervical spondylosis": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Maintain good posture, especially while using phones or computers",
+      "Do gentle neck stretches and avoid sudden neck movements",
+      "Use a supportive pillow while sleeping",
+      "See a doctor if pain, numbness, or arm weakness occurs"
+    ]
+  },
+  "(vertigo) Paroymsal  Positional Vertigo": {
+    "severity": "moderate",
+    "advice": [
+      "Sit or lie down immediately when dizziness occurs, to avoid falls",
+      "Move your head slowly and avoid sudden position changes",
+      "Stay hydrated and avoid triggers like sudden standing",
+      "See a doctor if episodes are frequent or come with hearing changes"
+    ]
+  },
+  "Hypothyroidism": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Maintain a balanced diet and regular physical activity",
+      "Get adequate rest, as fatigue is common",
+      "Monitor changes in weight, energy, or mood",
+      "Consult a doctor for thyroid function testing and management"
+    ]
+  },
+  "Hyperthyroidism": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Avoid excess caffeine and stimulants, which can worsen symptoms",
+      "Rest adequately and manage stress",
+      "Monitor heart rate and report irregularities",
+      "Consult a doctor for thyroid function testing and management"
+    ]
+  },
+  "Hypoglycemia": {
+    "severity": "serious - needs prompt medical attention",
+    "advice": [
+      "This is a preliminary, non-diagnostic result - these symptoms can have several possible causes, including low blood sugar",
+      "If you have a history of low blood sugar episodes, keeping a quick sugar source on hand is a commonly recommended general precaution",
+      "Try to eat at regular intervals and avoid skipping meals",
+      "Seek prompt medical evaluation to determine the actual cause, especially if this happens often or feels severe"
+    ]
+  },
+  "Varicose veins": {
+    "severity": "mild",
+    "advice": [
+      "Elevate the legs when resting",
+      "Avoid standing or sitting for long periods without movement",
+      "Wear compression stockings if recommended",
+      "See a doctor if veins become painful, swollen, or discolored"
+    ]
+  },
+  "Psoriasis": {
+    "severity": "chronic - needs monitoring",
+    "advice": [
+      "Keep skin moisturized to reduce dryness and irritation",
+      "Avoid known triggers such as stress or skin injury",
+      "Avoid scratching or picking at affected areas",
+      "Consult a dermatologist for proper diagnosis and treatment"
+    ]
+  },
+  "Impetigo": {
+    "severity": "moderate",
+    "advice": [
+      "Keep affected areas clean and covered to prevent spreading",
+      "Avoid sharing towels, clothing, or bedding",
+      "Wash hands frequently, especially after touching the affected area",
+      "See a doctor for treatment, as this can spread to others"
+    ]
+  },
+  "Drug Reaction": {
+    "severity": "moderate",
+    "advice": [
+      "Do not stop any prescribed medication without consulting a doctor first",
+      "Avoid taking any new medication until evaluated",
+      "Note what medication was taken and when symptoms started",
+      "Seek prompt medical attention if there is swelling, breathing difficulty, or widespread rash"
+    ]
   }
 }

@@ -14,6 +14,21 @@ DISEASE_TO_SPECIALIZATION = {
     "Dengue": ["General Physician", "Infectious Disease Specialist"],
     "Bronchial Asthma": ["Pulmonologist", "General Physician"],
     "Jaundice": ["Hepatologist", "Gastroenterologist", "General Physician"],
+    "Tuberculosis": ["Pulmonologist", "Infectious Disease Specialist", "General Physician"],
+    "Urinary tract infection": ["Urologist", "General Physician"],
+    "Chicken pox": ["Dermatologist", "Infectious Disease Specialist", "General Physician"],
+    "GERD": ["Gastroenterologist", "General Physician"],
+    "Peptic ulcer diseae": ["Gastroenterologist", "General Physician"],
+    "Arthritis": ["Rheumatologist", "General Physician"],
+    "Cervical spondylosis": ["Orthopedist", "Neurologist", "General Physician"],
+    "(vertigo) Paroymsal  Positional Vertigo": ["Neurologist", "ENT Specialist", "General Physician"],
+    "Hypothyroidism": ["Endocrinologist", "General Physician"],
+    "Hyperthyroidism": ["Endocrinologist", "General Physician"],
+    "Hypoglycemia": ["Endocrinologist", "General Physician"],
+    "Varicose veins": ["Vascular Surgeon", "General Physician"],
+    "Psoriasis": ["Dermatologist", "General Physician"],
+    "Impetigo": ["Dermatologist", "General Physician"],
+    "Drug Reaction": ["General Physician"],
 }
 
 

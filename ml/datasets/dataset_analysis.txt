@@ -1,0 +1,96 @@
+Total rows: 4920
+Total unique diseases: 41
+Total symptom columns: 132
+
+=== Rows per disease (all diseases in dataset) ===
+(vertigo) Paroymsal  Positional Vertigo: 120
+AIDS: 120
+Acne: 120
+Alcoholic hepatitis: 120
+Allergy: 120
+Arthritis: 120
+Bronchial Asthma: 120
+Cervical spondylosis: 120
+Chicken pox: 120
+Chronic cholestasis: 120
+Common Cold: 120
+Dengue: 120
+Diabetes: 120
+Dimorphic hemmorhoids(piles): 120
+Drug Reaction: 120
+Fungal infection: 120
+GERD: 120
+Gastroenteritis: 120
+Heart attack: 120
+Hepatitis B: 120
+Hepatitis C: 120
+Hepatitis D: 120
+Hepatitis E: 120
+Hypertension: 120
+Hyperthyroidism: 120
+Hypoglycemia: 120
+Hypothyroidism: 120
+Impetigo: 120
+Jaundice: 120
+Malaria: 120
+Migraine: 120
+Osteoarthristis: 120
+Paralysis (brain hemorrhage): 120
+Peptic ulcer diseae: 120
+Pneumonia: 120
+Psoriasis: 120
+Tuberculosis: 120
+Typhoid: 120
+Urinary tract infection: 120
+Varicose veins: 120
+hepatitis A: 120
+
+Exact duplicate rows (full row, including prognosis): 4616 out of 4920
+
+=== Unique symptom combinations per disease ===
+(If a disease has many rows but only 1-2 unique combinations, that's a red flag
+ for artificially easy/duplicated data, not real diversity.)
+(vertigo) Paroymsal  Positional Vertigo: 120 rows, 7 unique symptom combination(s)
+AIDS: 120 rows, 5 unique symptom combination(s)
+Acne: 120 rows, 5 unique symptom combination(s)
+Alcoholic hepatitis: 120 rows, 8 unique symptom combination(s)
+Allergy: 120 rows, 5 unique symptom combination(s)
+Arthritis: 120 rows, 6 unique symptom combination(s)
+Bronchial Asthma: 120 rows, 7 unique symptom combination(s)
+Cervical spondylosis: 120 rows, 6 unique symptom combination(s)
+Chicken pox: 120 rows, 10 unique symptom combination(s)
+Chronic cholestasis: 120 rows, 8 unique symptom combination(s)
+Common Cold: 120 rows, 9 unique symptom combination(s)
+Dengue: 120 rows, 10 unique symptom combination(s)
+Diabetes: 120 rows, 9 unique symptom combination(s)
+Dimorphic hemmorhoids(piles): 120 rows, 6 unique symptom combination(s)
+Drug Reaction: 120 rows, 6 unique symptom combination(s)
+Fungal infection: 120 rows, 5 unique symptom combination(s)
+GERD: 120 rows, 7 unique symptom combination(s)
+Gastroenteritis: 120 rows, 5 unique symptom combination(s)
+Heart attack: 120 rows, 5 unique symptom combination(s)
+Hepatitis B: 120 rows, 9 unique symptom combination(s)
+Hepatitis C: 120 rows, 7 unique symptom combination(s)
+Hepatitis D: 120 rows, 10 unique symptom combination(s)
+Hepatitis E: 120 rows, 9 unique symptom combination(s)
+Hypertension: 120 rows, 6 unique symptom combination(s)
+Hyperthyroidism: 120 rows, 9 unique symptom combination(s)
+Hypoglycemia: 120 rows, 9 unique symptom combination(s)
+Hypothyroidism: 120 rows, 8 unique symptom combination(s)
+Impetigo: 120 rows, 6 unique symptom combination(s)
+Jaundice: 120 rows, 9 unique symptom combination(s)
+Malaria: 120 rows, 8 unique symptom combination(s)
+Migraine: 120 rows, 10 unique symptom combination(s)
+Osteoarthristis: 120 rows, 7 unique symptom combination(s)
+Paralysis (brain hemorrhage): 120 rows, 5 unique symptom combination(s)
+Peptic ulcer diseae: 120 rows, 7 unique symptom combination(s)
+Pneumonia: 120 rows, 9 unique symptom combination(s)
+Psoriasis: 120 rows, 7 unique symptom combination(s)
+Tuberculosis: 120 rows, 9 unique symptom combination(s)
+Typhoid: 120 rows, 9 unique symptom combination(s)
+Urinary tract infection: 120 rows, 5 unique symptom combination(s)
+Varicose veins: 120 rows, 8 unique symptom combination(s)
+hepatitis A: 120 rows, 9 unique symptom combination(s)
+
+Symptom columns that are all-zero across the ENTIRE dataset: 1
+  ['fluid_overload']
