@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import '../services/language_prefs_service.dart';
 import 'language_select_screen.dart';
 import 'placeholder_screen.dart';
 import 'voice_input_screen.dart';
-import 'speech_test_screen.dart';
 
 /// Landing screen. Introduces the app and starts a new consultation.
 class HomeScreen extends StatelessWidget {
@@ -103,24 +101,6 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: const Text("About MediVoice AI"),
                 ),
-
-                // TEMPORARY: debug-only entry point for the Whisper validation
-                // test. Remove once speech input is wired into the real flow.
-                if (kDebugMode) ...[
-                  const SizedBox(height: 8),
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const SpeechTestScreen(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.science_outlined, size: 18),
-                    label: const Text("[DEBUG] Whisper Test"),
-                  ),
-                ],
 
                 const SizedBox(height: 40),
 
