@@ -19,6 +19,21 @@ import 'package:flutter/services.dart' show rootBundle;
 /// shape (top_prediction / all_predictions) so nothing above it needs to
 /// change - same pattern already used for api_service.dart.
 class DiseasePredictorService {
+  /// The verified 10-class model - still the production default until the
+  /// 25-class model has been checked on a real device.
+  static const String tenClassModelAsset = 'assets/data/lr_model_weights.json';
+
+  /// The expanded 25-class model. Same JSON schema, so nothing else in this
+  /// class changes - the math already sizes itself off whatever it loads.
+  static const String twentyFiveClassModelAsset =
+      'assets/data/lr_model_weights_25class.json';
+
+  /// Which weights file this instance loads. Kept as a parameter so the old
+  /// model stays available for regression tests and rollback.
+  final String assetPath;
+
+  DiseasePredictorService({this.assetPath = tenClassModelAsset});
+
   List<String>? _classes;
   List<String>? _symptomColumns;
   List<List<double>>? _coefficients; // [class][symptom]
@@ -27,10 +42,11 @@ class DiseasePredictorService {
 
   bool get isLoaded => _loaded;
   List<String> get symptomColumns => _symptomColumns ?? const [];
+  List<String> get classes => _classes ?? const [];
 
   Future<void> loadModel() async {
     if (_loaded) return;
-    final raw = await rootBundle.loadString('assets/data/lr_model_weights.json');
+    final raw = await rootBundle.loadString(assetPath);
     final Map<String, dynamic> data = jsonDecode(raw);
 
     _classes = List<String>.from(data['classes']);

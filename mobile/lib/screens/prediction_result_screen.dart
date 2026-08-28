@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../providers/consultation_provider.dart';
 import '../services/selfcare_guidance_service.dart';
@@ -253,7 +254,8 @@ class _AssessmentCard extends StatelessWidget {
           children: [
             Text("Possible condition", style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 6),
-            Text(disease, style: Theme.of(context).textTheme.headlineMedium),
+            Text(diseaseDisplayName(disease),
+                style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -265,7 +267,8 @@ class _AssessmentCard extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               "Based on the symptoms you described, the model is $confidenceWord "
-              "these may be consistent with $disease. This is a pattern match "
+              "these may be consistent with ${diseaseDisplayName(disease)}. "
+              "This is a pattern match "
               "against training data, not a medical diagnosis.",
               style: Theme.of(context).textTheme.bodyMedium,
             ),

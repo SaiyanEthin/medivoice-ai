@@ -50,7 +50,35 @@ class ConsultationProvider extends ChangeNotifier {
     await _predict();
   }
 
+  /// Applies a COMPLETE round of follow-up answers at once.
+  ///
+  /// The follow-up system generates a set of mutually-informative questions
+  /// per round - they are chosen together, by coefficient variance across
+  /// the current top candidates. Applying them one at a time threw that
+  /// away: the round advanced after a single tap and the rest of the
+  /// questions were discarded, so the real budget was 1 question per round
+  /// regardless of AppConfig.questionsPerRound.
+  ///
+  /// [answers] maps symptom column -> true (present) / false (denied).
+  /// Questions the user SKIPPED are simply absent from the map and are not
+  /// recorded either way: not answering "do you have chest pain?" is not
+  /// evidence that they don't.
+  Future<void> answerFollowUpBatch(Map<String, bool> answers) async {
+    answers.forEach((symptomColumn, answeredYes) {
+      if (answeredYes) {
+        symptoms.add(symptomColumn);
+      } else {
+        deniedSymptoms.add(symptomColumn);
+      }
+    });
+    followUpRound++;
+    await _predict();
+  }
+
   /// Called when the user answers a follow-up question.
+  @Deprecated('Ends the round after a single answer, discarding the other '
+      'questions in the batch. Use answerFollowUpBatch() instead. Kept only '
+      'so the regression test can document the original behaviour.')
   Future<void> answerFollowUp(String symptomColumn, bool answeredYes) async {
     if (answeredYes) {
       symptoms.add(symptomColumn);

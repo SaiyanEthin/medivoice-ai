@@ -15,7 +15,7 @@ CONFIDENCE_THRESHOLD = 0.65
 
 # Maximum follow-up rounds before we stop asking and report whatever we have
 # (possibly as an uncertain result). Mirrors AppConfig.maxFollowUpRounds.
-MAX_FOLLOWUP_ROUNDS = 2
+MAX_FOLLOWUP_ROUNDS = 3
 
 # How many yes/no questions to ask per follow-up round.
 QUESTIONS_PER_ROUND = 3

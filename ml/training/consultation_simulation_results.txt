@@ -1,0 +1,60 @@
+======================================================================
+25-CLASS: 25 diseases, 192 unique rows
+======================================================================
+  Simulated consultations: 576
+    uncertain_low_confidence: 400 (69.4%)
+    named: 128 (22.2%)
+    uncertain_insufficient: 48 (8.3%)
+  Of those that NAMED a condition, correct: 128/128 (100.0%)
+  Mean confidence when naming: 73.1%
+  Overall correct-and-named rate: 128/576 (22.2%)
+
+  Diseases that rarely reach a named answer (<50% of the time):
+    Diabetes: named 0/27, correct 0
+    Migraine: named 0/30, correct 0
+    Jaundice: named 0/27, correct 0
+    Chicken pox: named 0/30, correct 0
+    Dengue: named 0/30, correct 0
+    Typhoid: named 0/27, correct 0
+    Tuberculosis: named 0/27, correct 0
+    Common Cold: named 0/27, correct 0
+    Varicose veins: named 0/24, correct 0
+    Hypothyroidism: named 0/24, correct 0
+    Hyperthyroidism: named 0/27, correct 0
+    Hypoglycemia: named 0/27, correct 0
+    Bronchial Asthma: named 6/21, correct 6
+    Malaria: named 7/24, correct 7
+    Peptic ulcer diseae: named 7/21, correct 7
+    Psoriasis: named 7/21, correct 7
+    Gastroenteritis: named 7/15, correct 7
+    GERD: named 10/21, correct 10
+
+======================================================================
+10-CLASS (current production): 10 diseases, 82 unique rows
+======================================================================
+  Simulated consultations: 246
+    named: 128 (52.0%)
+    uncertain_low_confidence: 105 (42.7%)
+    uncertain_insufficient: 13 (5.3%)
+  Of those that NAMED a condition, correct: 128/128 (100.0%)
+  Mean confidence when naming: 83.1%
+  Overall correct-and-named rate: 128/246 (52.0%)
+
+  Diseases that rarely reach a named answer (<50% of the time):
+    Dengue: named 0/30, correct 0
+    Common Cold: named 0/27, correct 0
+    Diabetes: named 7/27, correct 7
+    Typhoid: named 9/27, correct 9
+
+======================================================================
+HOW TO READ THIS
+======================================================================
+'named' = the app showed a condition. 'uncertain_*' = it showed the
+Symptoms Unclear card instead. A high uncertain rate is not a failure
+in itself - it means the gates are refusing thin evidence - but if the
+25-class model almost never names anything, the extra diseases add
+little in practice and that must be reported honestly.
+
+Caveat: a simulated user answers every follow-up truthfully from the
+dataset row. Real users misremember, and Whisper mistranscribes, so
+these numbers are an optimistic ceiling, not expected field accuracy.
