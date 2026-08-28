@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../models/doctor.dart';
 import '../repositories/consultation_repository.dart';
@@ -107,7 +108,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
               children: [
                 Text("Doctors for", style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(height: 4),
-                Text(widget.disease,
+                Text(diseaseDisplayName(widget.disease),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(height: 8),
                 Text("${doctors.length} found, nearest first",

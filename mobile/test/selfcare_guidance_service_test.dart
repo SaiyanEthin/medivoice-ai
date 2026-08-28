@@ -20,6 +20,8 @@ void main() {
     test('GI symptoms produce hydration/small-meal guidance', () {
       final g = service.guidanceFor(['vomiting', 'diarrhoea'])!;
       expect(g.guidance.any((t) => t.toLowerCase().contains('small amounts')), isTrue);
+      // Still present because gi_upset is ordered to keep this within the
+      // per-group cap - it is the most safety-relevant line in that group.
       expect(g.guidance.any((t) => t.toLowerCase().contains('dehydration')), isTrue);
     });
 
@@ -44,6 +46,38 @@ void main() {
       final g = service.guidanceFor(['malaise', 'high_fever', 'fatigue'])!;
       expect(g.guidance.length, g.guidance.toSet().length,
           reason: 'duplicate bullets should be removed');
+    });
+  });
+
+  group('bullet caps', () {
+    test('a single matched group yields at most 2 bullets', () {
+      final g = service.guidanceFor(['high_fever'])!;
+      expect(g.guidance.length, lessThanOrEqualTo(2));
+    });
+
+    test('a broad symptom set is capped at 8 bullets total', () {
+      // The live screenshot case: Yes to nearly everything matched four
+      // groups and produced ~13 bullets.
+      final g = service.guidanceFor([
+        'high_fever', 'cough', 'fatigue', 'muscle_pain', 'diarrhoea',
+        'sweating', 'sunken_eyes', 'breathlessness', 'headache',
+        'skin_rash', 'burning_micturition', 'throat_irritation',
+      ])!;
+      expect(g.guidance.length, lessThanOrEqualTo(8));
+      expect(g.guidance.length, g.guidance.toSet().length,
+          reason: 'no duplicate bullets');
+    });
+
+    test('every matched group is represented before any gets a second bullet', () {
+      // fever/respiratory + GI: both must appear, neither may be crowded out.
+      final g = service.guidanceFor(['high_fever', 'vomiting'])!;
+      expect(g.guidance.any((t) => t.toLowerCase().contains('warm fluids')), isTrue);
+      expect(g.guidance.any((t) => t.toLowerCase().contains('small amounts')), isTrue);
+    });
+
+    test('red flags are NOT capped - all safety lines always show', () {
+      final g = service.guidanceFor(['high_fever'])!;
+      expect(g.redFlags.length, greaterThanOrEqualTo(6));
     });
   });
 

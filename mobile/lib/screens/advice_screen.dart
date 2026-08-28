@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../models/advice.dart';
 import '../repositories/consultation_repository.dart';
@@ -197,7 +198,7 @@ class _SeverityBanner extends StatelessWidget {
           children: [
             Text("Advice for", style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 4),
-            Text(advice.disease,
+            Text(diseaseDisplayName(advice.disease),
                 style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 12),
             Row(

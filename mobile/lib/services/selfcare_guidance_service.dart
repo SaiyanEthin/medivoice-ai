@@ -53,13 +53,30 @@ class SelfCareGuidanceService {
     final symptomSet = symptoms.toSet();
     final bullets = <String>[];
 
+    // Caps. Without them a broad symptom set matched four groups and
+    // produced ~13 bullets, which is a wall of text for someone who is
+    // already unwell.
+    const maxPerGroup = 2;
+    const maxTotal = 8;
+
+    final matchedGroups = <List<String>>[];
     for (final entry in groups.entries) {
       final group = entry.value as Map<String, dynamic>;
       final groupSymptoms = List<String>.from(group['symptoms'] as List);
       if (groupSymptoms.any(symptomSet.contains)) {
-        for (final line in List<String>.from(group['guidance'] as List)) {
-          if (!bullets.contains(line)) bullets.add(line);
-        }
+        matchedGroups.add(List<String>.from(group['guidance'] as List));
+      }
+    }
+
+    // Round-robin: one bullet from every matched group, then a second from
+    // every group. Draining each group in turn would let the first groups
+    // consume the total cap and drop later ones entirely.
+    for (var pass = 0; pass < maxPerGroup; pass++) {
+      for (final groupLines in matchedGroups) {
+        if (bullets.length >= maxTotal) break;
+        if (pass >= groupLines.length) continue;
+        final line = groupLines[pass];
+        if (!bullets.contains(line)) bullets.add(line);
       }
     }
 
