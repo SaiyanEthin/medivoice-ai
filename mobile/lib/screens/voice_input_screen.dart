@@ -4,6 +4,7 @@ import '../core/theme/app_theme.dart';
 import '../providers/consultation_provider.dart';
 import '../services/language_prefs_service.dart';
 import '../services/speech_service.dart';
+import '../services/selfcare_guidance_service.dart';
 import '../services/symptom_matcher_service.dart';
 import '../widgets/follow_up_question_card.dart';
 import 'prediction_result_screen.dart';
@@ -49,6 +50,10 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     _matcher.initialize().then((_) {
       if (mounted) setState(() => _matcherReady = true);
     });
+    // Warm up the self-care guidance asset here so PredictionResultScreen
+    // (a StatelessWidget) can read it synchronously later. Fire-and-forget:
+    // if it fails, the result screen falls back to its own static bullets.
+    SelfCareGuidanceService().initialize();
     _loadPreferredLanguage();
   }
 

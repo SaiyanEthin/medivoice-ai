@@ -1,0 +1,155 @@
+{
+  "_note": "Rule-based supportive guidance shown when the assessment is uncertain. English-only in this version (documented limitation). Never names or implies a condition.",
+  "groups": {
+    "fever_respiratory": {
+      "symptoms": [
+        "high_fever",
+        "mild_fever",
+        "cough",
+        "chills",
+        "breathlessness",
+        "phlegm",
+        "runny_nose",
+        "congestion",
+        "mucoid_sputum",
+        "continuous_sneezing",
+        "sinus_pressure",
+        "malaise",
+        "sweating"
+      ],
+      "guidance": [
+        "Drink warm fluids regularly - water, soup, or warm tea",
+        "Rest as much as you can and keep comfortably warm",
+        "Avoid smoke, dust, and strong fumes",
+        "Check your temperature from time to time"
+      ]
+    },
+    "headache_neuro": {
+      "symptoms": [
+        "headache",
+        "dizziness",
+        "visual_disturbances",
+        "lack_of_concentration",
+        "spinning_movements",
+        "unsteadiness",
+        "loss_of_balance",
+        "stiff_neck",
+        "blurred_and_distorted_vision"
+      ],
+      "guidance": [
+        "Rest in a quiet, dimly lit room",
+        "Drink water regularly - mild dehydration can worsen headaches",
+        "Reduce screen brightness, screen time, and loud noise where possible",
+        "Stand up slowly if you feel unsteady, and sit down if dizziness starts"
+      ]
+    },
+    "gi_upset": {
+      "symptoms": [
+        "vomiting",
+        "diarrhoea",
+        "nausea",
+        "abdominal_pain",
+        "belly_pain",
+        "stomach_pain",
+        "indigestion",
+        "acidity",
+        "dehydration",
+        "sunken_eyes",
+        "passage_of_gases",
+        "loss_of_appetite",
+        "constipation"
+      ],
+      "guidance": [
+        "Sip fluids frequently in small amounts rather than large quantities at once",
+        "Eat small, bland meals if you feel able - rice, banana, or plain toast",
+        "Avoid oily, spicy, and heavy food for now",
+        "Watch for signs of dehydration such as passing very little urine or a dry mouth"
+      ]
+    },
+    "sore_throat": {
+      "symptoms": [
+        "throat_irritation",
+        "ulcers_on_tongue",
+        "patches_in_throat"
+      ],
+      "guidance": [
+        "Sip warm fluids to soothe the throat",
+        "Stay hydrated through the day",
+        "Rest your voice where you can"
+      ]
+    },
+    "aches_fatigue": {
+      "symptoms": [
+        "fatigue",
+        "muscle_pain",
+        "joint_pain",
+        "lethargy",
+        "malaise",
+        "muscle_weakness",
+        "weakness_in_limbs",
+        "back_pain",
+        "movement_stiffness",
+        "painful_walking",
+        "swelling_joints",
+        "neck_pain",
+        "cramps",
+        "swollen_legs"
+      ],
+      "guidance": [
+        "Rest and give your body time to recover",
+        "Stay hydrated through the day",
+        "Keep activity gentle and only as much as feels comfortable",
+        "Warm or cold compresses may help with localized aches"
+      ]
+    },
+    "skin": {
+      "symptoms": [
+        "itching",
+        "skin_rash",
+        "red_spots_over_body",
+        "skin_peeling",
+        "blister",
+        "yellow_crust_ooze",
+        "red_sore_around_nose",
+        "small_dents_in_nails",
+        "brittle_nails",
+        "inflammatory_nails"
+      ],
+      "guidance": [
+        "Keep the affected area clean and dry",
+        "Avoid scratching, which can worsen irritation or spread it",
+        "Wear loose, comfortable clothing",
+        "Avoid sharing towels, clothing, or bedding with others"
+      ]
+    },
+    "urinary": {
+      "symptoms": [
+        "burning_micturition",
+        "polyuria",
+        "continuous_feel_of_urine",
+        "foul_smell_of urine",
+        "bladder_discomfort",
+        "dark_urine"
+      ],
+      "guidance": [
+        "Drink plenty of water through the day",
+        "Avoid holding urine for long periods",
+        "Maintain good personal hygiene"
+      ]
+    }
+  },
+  "fallback_guidance": [
+    "Rest and drink plenty of fluids",
+    "Monitor your symptoms over the next 24-48 hours",
+    "See a doctor if symptoms worsen or persist beyond a few days"
+  ],
+  "red_flags": [
+    "Difficulty breathing or shortness of breath",
+    "Chest pain or pressure",
+    "Confusion, fainting, or difficulty staying awake",
+    "Severe dehydration - passing very little urine, or dizziness on standing",
+    "Symptoms that are severe or getting worse quickly",
+    "A high fever that does not come down, or a fever lasting several days"
+  ],
+  "disclaimer": "This is general supportive guidance for comfort only. It does not diagnose or treat any condition. If you are unsure or feel worse, please consult a qualified doctor."
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/theme/app_theme.dart';
 import '../providers/consultation_provider.dart';
+import '../services/selfcare_guidance_service.dart';
 import '../services/symptom_matcher_service.dart';
 import 'advice_screen.dart';
 import 'doctor_list_screen.dart';
@@ -38,7 +39,10 @@ class PredictionResultScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (result.isUncertain)
-                _UncertainCard(reason: result.uncertaintyReason)
+                _UncertainCard(
+                  reason: result.uncertaintyReason,
+                  symptoms: provider.symptoms,
+                )
               else
                 _AssessmentCard(
                   disease: result.topPrediction.disease,
@@ -121,7 +125,8 @@ class PredictionResultScreen extends StatelessWidget {
 /// Deliberately does NOT name any condition.
 class _UncertainCard extends StatelessWidget {
   final String? reason;
-  const _UncertainCard({this.reason});
+  final List<String> symptoms;
+  const _UncertainCard({this.reason, required this.symptoms});
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +135,23 @@ class _UncertainCard extends StatelessWidget {
           "a specific condition. Many everyday causes can produce these symptoms."
         : "Your symptoms don't clearly match any single condition this app "
           "can assess. This is common with mild or early-stage illness.";
+
+    // Rule-based, offline. Falls back to generic bullets if the asset
+    // hasn't loaded, so this card can never render empty.
+    final guidance = SelfCareGuidanceService().guidanceFor(symptoms);
+    final careBullets = guidance?.guidance ??
+        const [
+          "Rest and drink plenty of fluids",
+          "Monitor your symptoms over the next 24-48 hours",
+          "See a doctor if symptoms worsen or persist beyond a few days",
+        ];
+    final redFlags = guidance?.redFlags ??
+        const [
+          "Difficulty breathing or shortness of breath",
+          "Chest pain or pressure",
+          "Confusion, fainting, or difficulty staying awake",
+          "Symptoms that are severe or getting worse quickly",
+        ];
 
     return Card(
       child: Padding(
@@ -149,27 +171,65 @@ class _UncertainCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(explanation, style: Theme.of(context).textTheme.bodyLarge),
-            const SizedBox(height: 16),
-            Text("General care", style: Theme.of(context).textTheme.titleLarge),
+
+            const SizedBox(height: 20),
+            Text("What You Can Do Now",
+                style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
-            ...[
-              "Rest and drink plenty of fluids",
-              "Monitor your symptoms over the next 24-48 hours",
-              "See a doctor if symptoms worsen or persist beyond a few days",
-              "Seek care immediately if you have difficulty breathing, chest pain, "
-                  "or a very high fever",
-            ].map((t) => Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("•  "),
-                      Expanded(child: Text(t, style: Theme.of(context).textTheme.bodyMedium)),
-                    ],
+            ...careBullets.map((t) => _Bullet(text: t)),
+
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                const Icon(Icons.warning_amber_rounded,
+                    size: 20, color: AppTheme.danger),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text("Seek medical care if you have",
+                      style: Theme.of(context).textTheme.titleLarge),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            ...redFlags.map((t) => _Bullet(text: t, color: AppTheme.danger)),
+
+            const SizedBox(height: 16),
+            Text(
+              guidance?.disclaimer ??
+                  "This is general supportive guidance for comfort only. It does "
+                      "not diagnose or treat any condition.",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 12,
                   ),
-                )),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _Bullet extends StatelessWidget {
+  final String text;
+  final Color? color;
+  const _Bullet({required this.text, this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("\u2022  ", style: TextStyle(color: color)),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: color),
+            ),
+          ),
+        ],
       ),
     );
   }

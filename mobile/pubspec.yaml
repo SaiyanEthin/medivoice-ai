@@ -38,3 +38,4 @@ flutter:
     - assets/data/lr_model_weights.json
     - assets/data/advice_templates.json
     - assets/data/doctors.json
+    - assets/data/selfcare_guidance.json
