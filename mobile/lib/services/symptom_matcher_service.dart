@@ -54,6 +54,12 @@ class SymptomMatcherService {
     _dictionary!.forEach((column, data) {
       if (column.startsWith('_')) return; // skip the "_note" field
       final langs = data as Map<String, dynamic>;
+      // Entries flagged "match": false supply a readable label for follow-up
+      // questions WITHOUT becoming free-text match targets. Used for
+      // background/history features (family_history), third-person
+      // observations (toxic_look_(typhos)), and concepts a user would not
+      // naturally volunteer aloud (internal_itching).
+      if (langs['match'] == false) return;
       for (final lang in ['en', 'hi', 'kn']) {
         final phrases = (langs[lang] as List<dynamic>?) ?? [];
         for (final phrase in phrases) {
@@ -106,8 +112,15 @@ class SymptomMatcherService {
       return symptomColumn.replaceAll('_', ' ');
     }
     final entry = _dictionary![symptomColumn] as Map<String, dynamic>?;
-    if (entry != null && entry['en'] is List && (entry['en'] as List).isNotEmpty) {
-      return entry['en'][0].toString();
+    if (entry != null) {
+      // Prefer an explicit display label. Natural voice phrases read badly
+      // in the follow-up template ("Do you have room is spinning?"), so
+      // entries carry a separate grammatical label for display.
+      final label = entry['label'];
+      if (label is String && label.isNotEmpty) return label;
+      if (entry['en'] is List && (entry['en'] as List).isNotEmpty) {
+        return entry['en'][0].toString();
+      }
     }
     return symptomColumn.replaceAll('_', ' ');
   }

@@ -521,5 +521,894 @@
       "kapha",
       "ಕಫ"
     ]
+  },
+  "belly_pain": {
+    "label": "belly pain",
+    "en": [
+      "belly pain",
+      "belly ache",
+      "tummy ache",
+      "tummy pain",
+      "stomach pain",
+      "stomach ache",
+      "stomach hurts",
+      "pain in my stomach",
+      "pain in stomach"
+    ],
+    "hi": [
+      "पेट दर्द",
+      "पेट में दर्द",
+      "पेट दुख रहा है"
+    ],
+    "kn": [
+      "ಹೊಟ್ಟೆ ನೋವು",
+      "ಹೊಟ್ಟೆ ನೋಯುತ್ತಿದೆ"
+    ]
+  },
+  "dehydration": {
+    "label": "dehydration",
+    "en": [
+      "feeling dehydrated",
+      "dehydrated",
+      "very thirsty",
+      "mouth is dry",
+      "feeling parched"
+    ],
+    "hi": [
+      "पानी की कमी",
+      "प्यास ज्यादा लग रही है",
+      "मुंह सूख रहा है"
+    ],
+    "kn": [
+      "ನೀರಿನ ಕೊರತೆ",
+      "ತುಂಬಾ ಬಾಯಾರಿಕೆ"
+    ]
+  },
+  "depression": {
+    "label": "low mood",
+    "en": [
+      "feeling low",
+      "feeling down",
+      "feeling gloomy",
+      "no energy for anything"
+    ],
+    "hi": [
+      "मन उदास है",
+      "मन नहीं लग रहा"
+    ],
+    "kn": [
+      "ಮನಸ್ಸು ಬೇಸರವಾಗಿದೆ"
+    ],
+    "_note": "Used as a physical migraine-associated feature from the dataset, not a mental health assessment."
+  },
+  "excessive_hunger": {
+    "label": "excessive hunger",
+    "en": [
+      "very hungry all the time",
+      "always hungry",
+      "eating more than usual",
+      "increased appetite",
+      "feel hungry all the time"
+    ],
+    "hi": [
+      "बहुत भूख लगती है",
+      "भूख बढ़ गई है"
+    ],
+    "kn": [
+      "ತುಂಬಾ ಹಸಿವು ಆಗುತ್ತಿದೆ",
+      "ಹಸಿವು ಜಾಸ್ತಿ ಆಗಿದೆ"
+    ]
+  },
+  "family_history": {
+    "label": "a family history of asthma",
+    "en": [
+      "asthma runs in my family",
+      "family history of asthma",
+      "my parents have breathing problems"
+    ],
+    "hi": [
+      "मेरे परिवार में किसी को अस्थमा है",
+      "परिवार में अस्थमा है"
+    ],
+    "kn": [
+      "ನಮ್ಮ ಕುಟುಂಬದಲ್ಲಿ ಯಾರಿಗಾದರೂ ಅಸ್ತಮಾ ಇದೆ"
+    ],
+    "match": false,
+    "_note": "Background/history, not a felt symptom - follow-up question only."
+  },
+  "increased_appetite": {
+    "label": "increased appetite",
+    "en": [
+      "very hungry all the time",
+      "always hungry",
+      "eating more than usual",
+      "increased appetite",
+      "feel hungry all the time"
+    ],
+    "hi": [
+      "बहुत भूख लगती है",
+      "भूख बढ़ गई है"
+    ],
+    "kn": [
+      "ತುಂಬಾ ಹಸಿವು ಆಗುತ್ತಿದೆ",
+      "ಹಸಿವು ಜಾಸ್ತಿ ಆಗಿದೆ"
+    ]
+  },
+  "indigestion": {
+    "label": "indigestion",
+    "en": [
+      "indigestion",
+      "food is not digesting",
+      "stomach feels heavy after eating",
+      "food sitting heavy"
+    ],
+    "hi": [
+      "बदहज़मी",
+      "खाना नहीं पच रहा"
+    ],
+    "kn": [
+      "ಅಜೀರ್ಣ",
+      "ಹೊಟ್ಟೆ ಭಾರವಾಗಿದೆ"
+    ]
+  },
+  "irregular_sugar_level": {
+    "label": "irregular sugar levels",
+    "en": [
+      "sugar levels go up and down",
+      "sugar is not steady",
+      "blood sugar fluctuates"
+    ],
+    "hi": [
+      "शुगर लेवल ऊपर नीचे होता है",
+      "शुगर ठीक नहीं रहती"
+    ],
+    "kn": [
+      "ಸಕ್ಕರೆ ಮಟ್ಟ ಏರುಪೇರು ಆಗುತ್ತದೆ"
+    ]
+  },
+  "irritability": {
+    "label": "irritability",
+    "en": [
+      "getting angry easily",
+      "short tempered lately",
+      "feeling irritable",
+      "on edge"
+    ],
+    "hi": [
+      "चिड़चिड़ापन",
+      "गुस्सा जल्दी आता है"
+    ],
+    "kn": [
+      "ಕಿರಿಕಿರಿ ಆಗುತ್ತಿದೆ"
+    ]
+  },
+  "lack_of_concentration": {
+    "label": "difficulty concentrating",
+    "en": [
+      "cannot concentrate",
+      "can't concentrate",
+      "cannot focus",
+      "mind keeps wandering"
+    ],
+    "hi": [
+      "ध्यान नहीं लग रहा",
+      "ध्यान केंद्रित नहीं कर पा रहा"
+    ],
+    "kn": [
+      "ಗಮನ ಕೊಡಲು ಆಗುತ್ತಿಲ್ಲ"
+    ]
+  },
+  "lethargy": {
+    "label": "lethargy",
+    "en": [
+      "feeling lethargic",
+      "feeling sluggish",
+      "always feel slow",
+      "no get up and go"
+    ],
+    "hi": [
+      "सुस्ती महसूस हो रही है",
+      "सुस्ती लग रही है"
+    ],
+    "kn": [
+      "ಆಲಸ್ಯ ಆಗುತ್ತಿದೆ"
+    ]
+  },
+  "loss_of_balance": {
+    "label": "loss of balance",
+    "en": [
+      "losing balance",
+      "loss of balance",
+      "feel unsteady",
+      "feeling unsteady",
+      "unsteady on my feet",
+      "feel wobbly"
+    ],
+    "hi": [
+      "संतुलन बिगड़ रहा है",
+      "संतुलन नहीं रहता",
+      "लड़खड़ा रहा हूं"
+    ],
+    "kn": [
+      "ಸಮತೋಲನ ತಪ್ಪುತ್ತಿದೆ",
+      "ಅಸ್ಥಿರತೆ ಅನಿಸುತ್ತಿದೆ"
+    ]
+  },
+  "malaise": {
+    "label": "a general feeling of being unwell",
+    "en": [
+      "feeling unwell overall",
+      "body feels off",
+      "just feel off",
+      "generally unwell"
+    ],
+    "hi": [
+      "तबीयत ठीक नहीं लग रही",
+      "शरीर ठीक नहीं लग रहा"
+    ],
+    "kn": [
+      "ಆರೋಗ್ಯ ಸರಿಯಿಲ್ಲ ಅನ್ನಿಸುತ್ತಿದೆ"
+    ]
+  },
+  "mucoid_sputum": {
+    "label": "thick mucus when coughing",
+    "en": [
+      "coughing up thick mucus",
+      "phlegm when i cough",
+      "phlegmy cough",
+      "thick mucus"
+    ],
+    "hi": [
+      "खांसी में बलगम आता है",
+      "बलगम वाली खांसी"
+    ],
+    "kn": [
+      "ಕೆಮ್ಮಿದಾಗ ಕಫ ಬರುತ್ತದೆ"
+    ]
+  },
+  "obesity": {
+    "label": "significant weight gain",
+    "en": [
+      "gained a lot of weight",
+      "gaining weight",
+      "put on weight",
+      "weight has increased"
+    ],
+    "hi": [
+      "वज़न बढ़ गया है",
+      "वज़न बहुत बढ़ गया है"
+    ],
+    "kn": [
+      "ತೂಕ ಹೆಚ್ಚಾಗಿದೆ",
+      "ತೂಕ ತುಂಬಾ ಜಾಸ್ತಿಯಾಗಿದೆ"
+    ]
+  },
+  "pain_behind_the_eyes": {
+    "label": "pain behind the eyes",
+    "en": [
+      "pain behind my eyes",
+      "pain behind the eyes",
+      "pressure behind the eyes",
+      "eyeballs hurt"
+    ],
+    "hi": [
+      "आंखों के पीछे दर्द"
+    ],
+    "kn": [
+      "ಕಣ್ಣುಗಳ ಹಿಂದೆ ನೋವು"
+    ]
+  },
+  "polyuria": {
+    "label": "frequent urination",
+    "en": [
+      "urinating frequently",
+      "frequent urination",
+      "peeing very often",
+      "always need to pee",
+      "urge to pee does not go away",
+      "keep feeling like i need to urinate"
+    ],
+    "hi": [
+      "बार बार पेशाब आता है",
+      "बार बार पेशाब जाने का मन करता है"
+    ],
+    "kn": [
+      "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುತ್ತದೆ",
+      "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುವ ಅನುಭವ"
+    ]
+  },
+  "sinus_pressure": {
+    "label": "sinus pressure",
+    "en": [
+      "sinus pressure",
+      "stuffy feeling around nose",
+      "face feels blocked",
+      "pressure in my face"
+    ],
+    "hi": [
+      "साइनस में दबाव",
+      "नाक के आसपास भारीपन"
+    ],
+    "kn": [
+      "ಸೈನಸ್ ಒತ್ತಡ"
+    ]
+  },
+  "sunken_eyes": {
+    "label": "sunken eyes",
+    "en": [
+      "eyes look sunken",
+      "sunken eyes",
+      "eyes look hollow"
+    ],
+    "hi": [
+      "आंखें अंदर धंस गई हैं",
+      "आंखें धंसी हुई हैं"
+    ],
+    "kn": [
+      "ಕಣ್ಣುಗಳು ಒಳಗೆ ಹೋಗಿವೆ"
+    ]
+  },
+  "swelled_lymph_nodes": {
+    "label": "swollen glands in the neck",
+    "en": [
+      "swollen glands in neck",
+      "swollen glands",
+      "lumps in my neck"
+    ],
+    "hi": [
+      "गले में गिल्टियां सूज गई हैं",
+      "गले में गांठ"
+    ],
+    "kn": [
+      "ಕುತ್ತಿಗೆಯಲ್ಲಿ ಗ್ರಂಥಿಗಳು ಊದಿಕೊಂಡಿವೆ"
+    ]
+  },
+  "toxic_look_(typhos)": {
+    "label": "a very unwell appearance",
+    "en": [
+      "looking very unwell",
+      "look pale and drained"
+    ],
+    "hi": [
+      "बहुत बीमार दिख रहा हूं"
+    ],
+    "kn": [
+      "ತುಂಬಾ ಅನಾರೋಗ್ಯದಂತೆ ಕಾಣುತ್ತಿದ್ದೇನೆ"
+    ],
+    "match": false,
+    "_note": "Third-person observation, not naturally self-reported - follow-up only."
+  },
+  "visual_disturbances": {
+    "label": "visual disturbances",
+    "en": [
+      "blurry vision",
+      "blurred vision",
+      "seeing flashing lights",
+      "seeing spots",
+      "vision going weird"
+    ],
+    "hi": [
+      "धुंधला दिखना",
+      "आंखों के सामने रोशनी चमकना"
+    ],
+    "kn": [
+      "ಮಸುಕಾಗಿ ಕಾಣುತ್ತಿದೆ"
+    ]
+  },
+  "blood_in_sputum": {
+    "label": "blood when coughing",
+    "en": [
+      "coughing up blood",
+      "blood in my spit",
+      "spitting blood",
+      "blood when i cough"
+    ],
+    "hi": [
+      "खांसी में खून आता है",
+      "थूक में खून"
+    ],
+    "kn": [
+      "ಕೆಮ್ಮಿದಾಗ ರಕ್ತ ಬರುತ್ತದೆ"
+    ]
+  },
+  "continuous_feel_of_urine": {
+    "label": "a constant urge to urinate",
+    "en": [
+      "urinating frequently",
+      "frequent urination",
+      "peeing very often",
+      "always need to pee",
+      "urge to pee does not go away",
+      "keep feeling like i need to urinate"
+    ],
+    "hi": [
+      "बार बार पेशाब आता है",
+      "बार बार पेशाब जाने का मन करता है"
+    ],
+    "kn": [
+      "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುತ್ತದೆ",
+      "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುವ ಅನುಭವ"
+    ]
+  },
+  "foul_smell_of urine": {
+    "label": "foul-smelling urine",
+    "en": [
+      "urine smells bad",
+      "urine has a bad smell",
+      "pee smells off"
+    ],
+    "hi": [
+      "पेशाब से बदबू आती है"
+    ],
+    "kn": [
+      "ಮೂತ್ರದಲ್ಲಿ ದುರ್ವಾಸನೆ"
+    ]
+  },
+  "burning_micturition": {
+    "label": "burning when urinating",
+    "en": [
+      "burning when i pee",
+      "burning sensation when urinating",
+      "burns when urinating",
+      "pain while urinating"
+    ],
+    "hi": [
+      "पेशाब करते समय जलन",
+      "पेशाब में जलन"
+    ],
+    "kn": [
+      "ಮೂತ್ರ ವಿಸರ್ಜನೆ ಸಮಯದಲ್ಲಿ ಉರಿ"
+    ]
+  },
+  "ulcers_on_tongue": {
+    "label": "ulcers on the tongue",
+    "en": [
+      "mouth ulcers",
+      "sores on my tongue",
+      "ulcers on tongue"
+    ],
+    "hi": [
+      "जीभ पर छाले",
+      "मुंह में छाले"
+    ],
+    "kn": [
+      "ನಾಲಿಗೆಯಲ್ಲಿ ಹುಣ್ಣುಗಳು"
+    ]
+  },
+  "stomach_pain": {
+    "label": "stomach pain",
+    "en": [
+      "belly pain",
+      "belly ache",
+      "tummy ache",
+      "tummy pain",
+      "stomach pain",
+      "stomach ache",
+      "stomach hurts",
+      "pain in my stomach",
+      "pain in stomach"
+    ],
+    "hi": [
+      "पेट दर्द",
+      "पेट में दर्द",
+      "पेट दुख रहा है"
+    ],
+    "kn": [
+      "ಹೊಟ್ಟೆ ನೋವು",
+      "ಹೊಟ್ಟೆ ನೋಯುತ್ತಿದೆ"
+    ]
+  },
+  "passage_of_gases": {
+    "label": "excessive gas",
+    "en": [
+      "passing a lot of gas",
+      "too much gas",
+      "lot of gas",
+      "excessive gas"
+    ],
+    "hi": [
+      "बहुत गैस बनती है",
+      "गैस की समस्या"
+    ],
+    "kn": [
+      "ಗ್ಯಾಸ್ ಜಾಸ್ತಿ ಆಗುತ್ತಿದೆ"
+    ]
+  },
+  "internal_itching": {
+    "label": "internal itching",
+    "en": [
+      "itching inside the stomach"
+    ],
+    "hi": [
+      "पेट के अंदर खुजली जैसा महसूस होना"
+    ],
+    "kn": [
+      "ಹೊಟ್ಟೆಯ ಒಳಗೆ ತುರಿಕೆಯಂತೆ ಅನಿಸುವುದು"
+    ],
+    "match": false,
+    "_note": "Not naturally speakable - follow-up only (decision #6)."
+  },
+  "swelling_joints": {
+    "label": "swollen joints",
+    "en": [
+      "swollen joints",
+      "joints are swollen",
+      "swelling in my joints"
+    ],
+    "hi": [
+      "जोड़ों में सूजन"
+    ],
+    "kn": [
+      "ಕೀಲುಗಳಲ್ಲಿ ಊತ"
+    ]
+  },
+  "movement_stiffness": {
+    "label": "stiffness when moving",
+    "en": [
+      "joints feel stiff",
+      "stiffness when moving",
+      "hard to move my joints"
+    ],
+    "hi": [
+      "जोड़ों में अकड़न",
+      "शरीर अकड़ रहा है"
+    ],
+    "kn": [
+      "ಕೀಲುಗಳಲ್ಲಿ ಬಿಗಿತ"
+    ]
+  },
+  "painful_walking": {
+    "label": "pain when walking",
+    "en": [
+      "hurts to walk",
+      "pain while walking",
+      "painful to walk"
+    ],
+    "hi": [
+      "चलने में दर्द होता है"
+    ],
+    "kn": [
+      "ನಡೆಯುವಾಗ ನೋವು"
+    ]
+  },
+  "neck_pain": {
+    "label": "neck pain",
+    "en": [
+      "neck pain",
+      "my neck hurts",
+      "pain in my neck"
+    ],
+    "hi": [
+      "गर्दन में दर्द",
+      "गर्दन दुख रही है"
+    ],
+    "kn": [
+      "ಕುತ್ತಿಗೆ ನೋವು"
+    ]
+  },
+  "weakness_in_limbs": {
+    "label": "weakness in the arms or legs",
+    "en": [
+      "arms and legs feel weak",
+      "hands and legs weak",
+      "limbs feel weak",
+      "muscles feel weak",
+      "muscle weakness",
+      "body feels weak"
+    ],
+    "hi": [
+      "हाथ पैर कमज़ोर लग रहे हैं",
+      "मांसपेशियों में कमज़ोरी",
+      "शरीर कमज़ोर लग रहा है"
+    ],
+    "kn": [
+      "ಕೈಕಾಲುಗಳು ದುರ್ಬಲವಾಗಿವೆ",
+      "ಸ್ನಾಯುಗಳಲ್ಲಿ ದೌರ್ಬಲ್ಯ"
+    ]
+  },
+  "spinning_movements": {
+    "label": "a spinning sensation",
+    "en": [
+      "room is spinning",
+      "everything is spinning",
+      "head is spinning",
+      "feels like spinning"
+    ],
+    "hi": [
+      "सब कुछ घूम रहा है",
+      "सिर घूम रहा है"
+    ],
+    "kn": [
+      "ಎಲ್ಲಾ ತಿರುಗುತ್ತಿದೆ",
+      "ತಲೆ ಸುತ್ತುತ್ತಿದೆ"
+    ]
+  },
+  "unsteadiness": {
+    "label": "unsteadiness",
+    "en": [
+      "losing balance",
+      "loss of balance",
+      "feel unsteady",
+      "feeling unsteady",
+      "unsteady on my feet",
+      "feel wobbly"
+    ],
+    "hi": [
+      "संतुलन बिगड़ रहा है",
+      "संतुलन नहीं रहता",
+      "लड़खड़ा रहा हूं"
+    ],
+    "kn": [
+      "ಸಮತೋಲನ ತಪ್ಪುತ್ತಿದೆ",
+      "ಅಸ್ಥಿರತೆ ಅನಿಸುತ್ತಿದೆ"
+    ]
+  },
+  "enlarged_thyroid": {
+    "label": "swelling at the front of the neck",
+    "en": [
+      "swelling in front of my neck",
+      "swelling at the front of the neck",
+      "lump in my throat area"
+    ],
+    "hi": [
+      "गले के आगे सूजन"
+    ],
+    "kn": [
+      "ಕುತ್ತಿಗೆ ಮುಂಭಾಗದಲ್ಲಿ ಊತ"
+    ]
+  },
+  "brittle_nails": {
+    "label": "brittle nails",
+    "en": [
+      "nails break easily",
+      "brittle nails",
+      "nails keep breaking"
+    ],
+    "hi": [
+      "नाखून आसानी से टूट जाते हैं",
+      "नाखून कमज़ोर हैं"
+    ],
+    "kn": [
+      "ಉಗುರುಗಳು ಸುಲಭವಾಗಿ ಮುರಿಯುತ್ತವೆ"
+    ]
+  },
+  "weight_gain": {
+    "label": "weight gain",
+    "en": [
+      "gained a lot of weight",
+      "gaining weight",
+      "put on weight",
+      "weight has increased"
+    ],
+    "hi": [
+      "वज़न बढ़ गया है",
+      "वज़न बहुत बढ़ गया है"
+    ],
+    "kn": [
+      "ತೂಕ ಹೆಚ್ಚಾಗಿದೆ",
+      "ತೂಕ ತುಂಬಾ ಜಾಸ್ತಿಯಾಗಿದೆ"
+    ]
+  },
+  "cold_hands_and_feets": {
+    "label": "cold hands and feet",
+    "en": [
+      "hands and feet are cold",
+      "cold hands and feet",
+      "my hands and feet feel cold"
+    ],
+    "hi": [
+      "हाथ पैर ठंडे रहते हैं"
+    ],
+    "kn": [
+      "ಕೈಕಾಲುಗಳು ತಣ್ಣಗಿರುತ್ತವೆ"
+    ]
+  },
+  "muscle_weakness": {
+    "label": "muscle weakness",
+    "en": [
+      "arms and legs feel weak",
+      "hands and legs weak",
+      "limbs feel weak",
+      "muscles feel weak",
+      "muscle weakness",
+      "body feels weak"
+    ],
+    "hi": [
+      "हाथ पैर कमज़ोर लग रहे हैं",
+      "मांसपेशियों में कमज़ोरी",
+      "शरीर कमज़ोर लग रहा है"
+    ],
+    "kn": [
+      "ಕೈಕಾಲುಗಳು ದುರ್ಬಲವಾಗಿವೆ",
+      "ಸ್ನಾಯುಗಳಲ್ಲಿ ದೌರ್ಬಲ್ಯ"
+    ]
+  },
+  "fast_heart_rate": {
+    "label": "a fast heartbeat",
+    "en": [
+      "heart racing",
+      "heart pounding",
+      "heart beating fast",
+      "fast heartbeat",
+      "palpitations",
+      "heart is racing"
+    ],
+    "hi": [
+      "दिल की धड़कन तेज़ है",
+      "धड़कन तेज़ हो रही है"
+    ],
+    "kn": [
+      "ಹೃದಯ ಬಡಿತ ವೇಗವಾಗಿದೆ",
+      "ಹೃದಯ ಬಡಿತ ಜಾಸ್ತಿಯಾಗಿದೆ"
+    ]
+  },
+  "palpitations": {
+    "label": "palpitations",
+    "en": [
+      "heart racing",
+      "heart pounding",
+      "heart beating fast",
+      "fast heartbeat",
+      "palpitations",
+      "heart is racing"
+    ],
+    "hi": [
+      "दिल की धड़कन तेज़ है",
+      "धड़कन तेज़ हो रही है"
+    ],
+    "kn": [
+      "ಹೃದಯ ಬಡಿತ ವೇಗವಾಗಿದೆ",
+      "ಹೃದಯ ಬಡಿತ ಜಾಸ್ತಿಯಾಗಿದೆ"
+    ]
+  },
+  "slurred_speech": {
+    "label": "slurred speech",
+    "en": [
+      "speech is slurred",
+      "slurred speech",
+      "words come out unclear",
+      "trouble speaking clearly"
+    ],
+    "hi": [
+      "बोलने में लड़खड़ाहट",
+      "साफ़ बोल नहीं पा रहा"
+    ],
+    "kn": [
+      "ಮಾತು ತೊದಲುತ್ತಿದೆ"
+    ]
+  },
+  "anxiety": {
+    "label": "anxiety",
+    "en": [
+      "feeling anxious",
+      "feeling uneasy",
+      "feeling nervous",
+      "anxiety"
+    ],
+    "hi": [
+      "घबराहट",
+      "बेचैनी"
+    ],
+    "kn": [
+      "ಆತಂಕ",
+      "ಚಡಪಡಿಕೆ"
+    ]
+  },
+  "swollen_blood_vessels": {
+    "label": "swollen veins",
+    "en": [
+      "swollen veins",
+      "bulging veins",
+      "veins are swollen",
+      "veins standing out"
+    ],
+    "hi": [
+      "नसें सूजी हुई हैं",
+      "नसें उभरी हुई हैं"
+    ],
+    "kn": [
+      "ರಕ್ತನಾಳಗಳು ಊದಿಕೊಂಡಿವೆ"
+    ]
+  },
+  "swollen_legs": {
+    "label": "swollen legs",
+    "en": [
+      "legs are swollen",
+      "swollen legs",
+      "swelling in my legs"
+    ],
+    "hi": [
+      "पैरों में सूजन"
+    ],
+    "kn": [
+      "ಕಾಲುಗಳಲ್ಲಿ ಊತ"
+    ]
+  },
+  "cramps": {
+    "label": "cramps",
+    "en": [
+      "leg cramps",
+      "cramps in my legs",
+      "muscle cramps"
+    ],
+    "hi": [
+      "पैरों में ऐंठन",
+      "ऐंठन हो रही है"
+    ],
+    "kn": [
+      "ಕಾಲುಗಳಲ್ಲಿ ಸೆಳೆತ"
+    ]
+  },
+  "skin_peeling": {
+    "label": "peeling skin",
+    "en": [
+      "skin is peeling",
+      "peeling skin",
+      "skin is flaking"
+    ],
+    "hi": [
+      "त्वचा छिल रही है",
+      "चमड़ी उतर रही है"
+    ],
+    "kn": [
+      "ಚರ್ಮ ಸುಲಿಯುತ್ತಿದೆ"
+    ]
+  },
+  "small_dents_in_nails": {
+    "label": "small dents in the nails",
+    "en": [
+      "small dents in my nails",
+      "pits in my nails",
+      "dents in nails"
+    ],
+    "hi": [
+      "नाखूनों में छोटे गड्ढे"
+    ],
+    "kn": [
+      "ಉಗುರುಗಳಲ್ಲಿ ಸಣ್ಣ ಗುಳಿಗಳು"
+    ]
+  },
+  "blister": {
+    "label": "blisters",
+    "en": [
+      "blisters on my skin",
+      "blisters",
+      "fluid filled bumps"
+    ],
+    "hi": [
+      "फफोले",
+      "त्वचा पर फफोले"
+    ],
+    "kn": [
+      "ಗುಳ್ಳೆಗಳು"
+    ]
+  },
+  "yellow_crust_ooze": {
+    "label": "yellow crusting or oozing",
+    "en": [
+      "yellow crust oozing",
+      "yellow discharge from a sore",
+      "yellow crust on skin"
+    ],
+    "hi": [
+      "त्वचा से पीला मवाद रिसना"
+    ],
+    "kn": [
+      "ಚರ್ಮದಿಂದ ಹಳದಿ ಸ್ರಾವ"
+    ]
+  },
+  "red_sore_around_nose": {
+    "label": "a red sore around the nose",
+    "en": [
+      "red sore around my nose",
+      "sore around the nose",
+      "red rash around nose"
+    ],
+    "hi": [
+      "नाक के आसपास लाल घाव"
+    ],
+    "kn": [
+      "ಮೂಗಿನ ಸುತ್ತ ಕೆಂಪು ಹುಣ್ಣು"
+    ]
   }
 }

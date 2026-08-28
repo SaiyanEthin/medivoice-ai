@@ -32,6 +32,18 @@ class ConsultationOrchestratorService {
   })  : _predictor = predictor ?? DiseasePredictorService(),
         _matcher = matcher ?? SymptomMatcherService();
 
+  /// Symptoms never auto-selected as follow-up questions.
+  ///
+  /// abnormal_menstruation applies only to menstruating users, and the
+  /// current UI has no way to ask conditionally - so rather than presenting
+  /// it indiscriminately, it stays in the model (the classifier still uses
+  /// it as a feature if the user volunteers it) but is never generated as a
+  /// question. Implemented by appending to the "already answered" list the
+  /// question-selectors receive, which sets its variance to -1 so it is
+  /// never picked - this keeps a full set of questions rather than
+  /// filtering afterwards and returning fewer.
+  static const List<String> _excludedFromFollowUp = ['abnormal_menstruation'];
+
   Future<void> loadModel() => _predictor.loadModel();
 
   PredictionResult predict({
@@ -41,7 +53,7 @@ class ConsultationOrchestratorService {
   }) {
     final rawResult = _predictor.predict(symptoms, deniedSymptoms: deniedSymptoms);
     final topConfidence = (rawResult['top_prediction'] as Map)['confidence'] as double;
-    final alreadyAnswered = [...symptoms, ...deniedSymptoms];
+    final alreadyAnswered = [...symptoms, ...deniedSymptoms, ..._excludedFromFollowUp];
     final roundsRemaining = followupRound < AppConfig.maxFollowUpRounds;
 
     // --- GATE 1: MINIMUM EVIDENCE ---
