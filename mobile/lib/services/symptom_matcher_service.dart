@@ -30,6 +30,19 @@ class SymptomMatcherService {
   Map<String, dynamic>? _dictionary;
   List<MapEntry<String, String>> _phraseToColumn = [];
 
+  /// Phrase-level suppression. When one of these phrases appears in a
+  /// clause, the listed columns are blocked FOR THAT CLAUSE ONLY.
+  ///
+  /// Needed because matching is plain substring containment, so a short
+  /// phrase can fire inside an unrelated longer one:
+  ///   "rash" (skin_rash) inside "gale mein kharash" (throat_irritation)
+  ///   "vomiting" (vomiting) inside "feeling like vomiting" (nausea)
+  ///
+  /// Deliberately an explicit opt-in list rather than a general
+  /// longest-phrase-wins rule: a general rule would also stop
+  /// "coughing up blood" from crediting cough, which is not wanted.
+  Map<String, List<String>> _matchOverrides = {};
+
   /// Negation cues across our three supported languages.
   static const List<String> _negationCues = [
     'not', 'no ', 'never', 'without',
@@ -49,6 +62,15 @@ class SymptomMatcherService {
 
     final jsonString = await rootBundle.loadString('assets/data/symptom_dictionary.json');
     _dictionary = jsonDecode(jsonString) as Map<String, dynamic>;
+
+    final overrides = _dictionary!['_match_overrides'] as Map<String, dynamic>?;
+    _matchOverrides = {};
+    if (overrides != null) {
+      overrides.forEach((phrase, cols) {
+        _matchOverrides[phrase.toString().toLowerCase()] =
+            List<String>.from(cols as List);
+      });
+    }
 
     final entries = <MapEntry<String, String>>[];
     _dictionary!.forEach((column, data) {
@@ -89,9 +111,17 @@ class SymptomMatcherService {
 
       final isNegated = _negationCues.any((cue) => clause.contains(cue));
 
+      // Columns blocked for this clause because a more specific phrase
+      // containing them as a substring is present (see _matchOverrides).
+      final blocked = <String>{};
+      _matchOverrides.forEach((phrase, cols) {
+        if (clause.contains(phrase)) blocked.addAll(cols);
+      });
+
       for (final entry in _phraseToColumn) {
         if (!clause.contains(entry.key)) continue;
         final column = entry.value;
+        if (blocked.contains(column)) continue;
         // First mention wins - don't let a later clause flip an earlier decision
         if (present.contains(column) || denied.contains(column)) continue;
         (isNegated ? denied : present).add(column);

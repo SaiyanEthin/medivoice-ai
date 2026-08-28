@@ -105,6 +105,54 @@ void main() {
     });
   });
 
+  group('substring false-positive fixes', () {
+    test('"gale mein kharash" gives throat_irritation, NOT skin_rash', () {
+      final r = matcher.analyze('gale mein kharash');
+      expect(r.present, contains('throat_irritation'));
+      expect(r.present, isNot(contains('skin_rash')),
+          reason: '"rash" must not fire as a substring of "kharash"');
+    });
+
+    test('"feeling like vomiting" gives nausea, NOT vomiting', () {
+      final r = matcher.analyze('feeling like vomiting');
+      expect(r.present, contains('nausea'));
+      expect(r.present, isNot(contains('vomiting')),
+          reason: 'feeling like vomiting is nausea, not actual vomiting');
+    });
+
+    test('a genuine rash still matches skin_rash', () {
+      final r = matcher.analyze('I have a rash on my skin');
+      expect(r.present, contains('skin_rash'));
+    });
+
+    test('genuine vomiting still matches vomiting', () {
+      final r = matcher.analyze('I have been vomiting since morning');
+      expect(r.present, contains('vomiting'));
+    });
+
+    test('suppression is scoped to the clause containing the phrase', () {
+      // Clause splitter breaks on commas, so the rash is in its own clause
+      // and must still register.
+      final r = matcher.analyze('gale mein kharash, and a rash on my arm');
+      expect(r.present, contains('throat_irritation'));
+      expect(r.present, contains('skin_rash'));
+    });
+
+    test('unrelated multi-symptom matching is unchanged', () {
+      final r = matcher.analyze('I have fever and cough');
+      expect(r.present, contains('cough'));
+      expect(r.present.length, greaterThanOrEqualTo(2));
+    });
+
+    test('"coughing up blood" still credits cough as well', () {
+      // Guards against a future switch to longest-phrase-wins, which would
+      // silently drop cough here.
+      final r = matcher.analyze('I am coughing up blood');
+      expect(r.present, contains('blood_in_sputum'));
+      expect(r.present, contains('cough'));
+    });
+  });
+
   group('negation still works on new phrases', () {
     test('"no neck pain" routes to denied, not present', () {
       final result = matcher.analyze('no neck pain');

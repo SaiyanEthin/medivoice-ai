@@ -1410,5 +1410,13 @@
     "kn": [
       "ಮೂಗಿನ ಸುತ್ತ ಕೆಂಪು ಹುಣ್ಣು"
     ]
+  },
+  "_match_overrides": {
+    "gale mein kharash": [
+      "skin_rash"
+    ],
+    "feeling like vomiting": [
+      "vomiting"
+    ]
   }
 }
