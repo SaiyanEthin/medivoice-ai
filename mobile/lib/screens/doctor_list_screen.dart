@@ -113,6 +113,35 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                 const SizedBox(height: 8),
                 Text("${doctors.length} found, nearest first",
                     style: Theme.of(context).textTheme.bodyMedium),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppTheme.danger.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.info_outline_rounded,
+                          size: 16, color: AppTheme.danger),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          "Demonstration data. These are sample records used "
+                          "to show how the directory works - they are not "
+                          "real doctors, and the numbers do not connect to "
+                          "anyone.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: AppTheme.danger),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
