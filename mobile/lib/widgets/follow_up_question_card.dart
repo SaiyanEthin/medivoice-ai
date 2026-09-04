@@ -1,37 +1,41 @@
 import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../core/theme/app_theme.dart';
 import '../models/prediction_result.dart';
-import '../providers/consultation_provider.dart';
 
-/// Isolated on purpose: the Prediction Screen should stay clean and only
-/// deal with FINAL results. This widget owns all follow-up question
-/// UI/logic and is used from the Voice Input Screen while a consultation
-/// is still being resolved (not shown on the final Prediction Screen).
+/// A round of follow-up questions, rendered inside a chat bubble.
 ///
-/// Stateful because a round of questions is answered as a BATCH. Answers
-/// are held locally until submitted, then applied together in one call.
-/// Previously each button submitted immediately, which advanced the round
-/// after a single answer and discarded the rest of the questions.
+/// A round is answered as a BATCH: answers are held locally until the user
+/// submits, then applied together. Submitting one at a time used to advance
+/// the round after a single tap and discard the rest of the questions.
+///
+/// Reports through [onSubmit] rather than calling ConsultationProvider
+/// directly, so the hosting screen can also append a summary of what was
+/// answered to the thread.
 class FollowUpQuestionCard extends StatefulWidget {
   final List<FollowUpQuestion> questions;
+  final void Function(Map<String, bool> answers) onSubmit;
 
-  const FollowUpQuestionCard({super.key, required this.questions});
+  /// When true the round is already answered: render a static summary.
+  final Map<String, bool>? submittedAnswers;
+
+  const FollowUpQuestionCard({
+    super.key,
+    required this.questions,
+    required this.onSubmit,
+    this.submittedAnswers,
+  });
 
   @override
   State<FollowUpQuestionCard> createState() => _FollowUpQuestionCardState();
 }
 
 class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
-  /// symptom column -> answer. Absent means "not answered yet".
   final Map<String, bool> _answers = {};
 
   @override
   void didUpdateWidget(covariant FollowUpQuestionCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Flutter reuses this State object across rounds, so clear stale
-    // answers when a new set of questions arrives.
     final oldSymptoms = oldWidget.questions.map((q) => q.symptom).toList();
     final newSymptoms = widget.questions.map((q) => q.symptom).toList();
     if (!listEquals(oldSymptoms, newSymptoms)) {
@@ -41,105 +45,99 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
 
   bool get _allAnswered => _answers.length == widget.questions.length;
 
-  void _submit() {
-    // Copy: the provider triggers a rebuild that may clear _answers.
-    context.read<ConsultationProvider>().answerFollowUpBatch(Map.of(_answers));
-  }
-
   @override
   Widget build(BuildContext context) {
+    final submitted = widget.submittedAnswers;
+    if (submitted != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("A few quick questions",
+              style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          ...widget.questions.map((q) {
+            final a = submitted[q.symptom];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    a == null
+                        ? Icons.remove_circle_outline
+                        : (a ? Icons.check_circle : Icons.cancel_outlined),
+                    size: 18,
+                    color: a == null
+                        ? Colors.grey
+                        : (a ? AppTheme.primary : Colors.grey),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(q.question,
+                        style: Theme.of(context).textTheme.bodyMedium),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
+      );
+    }
+
     final answered = _answers.length;
     final total = widget.questions.length;
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.help_outline_rounded, color: AppTheme.primary),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text("A few quick questions",
-                      style: Theme.of(context).textTheme.titleLarge),
-                ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              "This helps narrow down the assessment.",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 16),
-            ...widget.questions.map((q) => _QuestionRow(
-                  question: q,
-                  answer: _answers[q.symptom],
-                  onAnswer: (value) => setState(() => _answers[q.symptom] = value),
-                )),
-            const SizedBox(height: 8),
-            Text(
-              "$answered of $total answered",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: _allAnswered ? _submit : null,
-              child: const Text("Continue"),
-            ),
-            if (answered > 0 && !_allAnswered) ...[
-              const SizedBox(height: 6),
-              TextButton(
-                onPressed: _submit,
-                child: const Text("Skip the rest"),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("A few quick questions",
+            style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 2),
+        Text("This helps narrow things down.",
+            style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 12),
+        ...widget.questions.map((q) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(q.question,
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      _choice(context, "Yes", _answers[q.symptom] == true,
+                          () => setState(() => _answers[q.symptom] = true)),
+                      const SizedBox(width: 8),
+                      _choice(context, "No", _answers[q.symptom] == false,
+                          () => setState(() => _answers[q.symptom] = false)),
+                    ],
+                  ),
+                ],
               ),
-              Text(
-                "Skipped questions are ignored, not counted as \"No\".",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _QuestionRow extends StatelessWidget {
-  final FollowUpQuestion question;
-  final bool? answer;
-  final ValueChanged<bool> onAnswer;
-
-  const _QuestionRow({
-    required this.question,
-    required this.answer,
-    required this.onAnswer,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 14),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(question.question,
-                style: Theme.of(context).textTheme.bodyLarge),
+            )),
+        Text("$answered of $total answered",
+            style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed:
+                _allAnswered ? () => widget.onSubmit(Map.of(_answers)) : null,
+            child: const Text("Continue"),
           ),
-          const SizedBox(width: 8),
-          _choice(context, "Yes", answer == true, () => onAnswer(true)),
-          const SizedBox(width: 8),
-          _choice(context, "No", answer == false, () => onAnswer(false)),
-        ],
-      ),
+        ),
+        if (answered > 0 && !_allAnswered)
+          TextButton(
+            onPressed: () => widget.onSubmit(Map.of(_answers)),
+            child: const Text("Skip the rest"),
+          ),
+      ],
     );
   }
 
-  /// Selected answers render filled so the user can see what they picked
-  /// before committing the round.
-  Widget _choice(BuildContext context, String label, bool selected,
-      VoidCallback onTap) {
+  Widget _choice(
+      BuildContext context, String label, bool selected, VoidCallback onTap) {
     return selected
         ? ElevatedButton(onPressed: onTap, child: Text(label))
         : OutlinedButton(onPressed: onTap, child: Text(label));

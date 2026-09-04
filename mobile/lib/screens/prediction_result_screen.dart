@@ -29,7 +29,18 @@ class PredictionResultScreen extends StatelessWidget {
     }
 
     final matcher = SymptomMatcherService();
-    final recognizedLabels = provider.symptoms.map(matcher.getReadableLabel).toList();
+    // De-duplicated by display LABEL, not by symptom column. Several
+    // columns deliberately share phrases in the symptom dictionary
+    // (abdominal_pain / belly_pain / stomach_pain all match "stomach
+    // pain"), so one complaint would otherwise render as three chips,
+    // two of them reading identically. The provider still holds every
+    // column and the model still scores on all of them - only the chip
+    // row collapses them.
+    final recognizedLabels = <String>[];
+    for (final symptom in provider.symptoms) {
+      final label = matcher.getReadableLabel(symptom);
+      if (!recognizedLabels.contains(label)) recognizedLabels.add(label);
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text("Preliminary Health Assessment")),

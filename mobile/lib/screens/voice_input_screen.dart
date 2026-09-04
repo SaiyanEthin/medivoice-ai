@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
+import '../models/chat_message.dart';
 import '../providers/consultation_provider.dart';
 import '../services/language_prefs_service.dart';
-import '../services/speech_service.dart';
 import '../services/selfcare_guidance_service.dart';
+import '../services/speech_service.dart';
 import '../services/symptom_matcher_service.dart';
+import '../widgets/chat_bubble.dart';
 import '../widgets/follow_up_question_card.dart';
 import 'prediction_result_screen.dart';
 
-/// Real voice input, wired to SpeechService (Whisper-Tiny, on-device).
+/// The consultation, presented as a message thread.
 ///
-/// Transcribed text lands in the SAME TextField used for typed input, so
-/// _handleSubmit/matching/prediction below are completely unaware of
-/// whether the text came from a keyboard or a microphone - exactly the
-/// seam this screen was designed around from the start. The field stays
-/// editable so a mistranscription can be corrected by hand rather than
-/// forcing a re-record.
+/// This is a VIEW change only. Symptom matching, prediction, the confidence
+/// gates and the follow-up logic are untouched - ConsultationProvider is
+/// still the single source of truth and this screen only renders what it
+/// reports.
+///
+/// Voice and typing feed the same text path, so the pipeline below cannot
+/// tell which was used.
 class VoiceInputScreen extends StatefulWidget {
   const VoiceInputScreen({super.key});
 
@@ -26,20 +30,25 @@ class VoiceInputScreen extends StatefulWidget {
 
 class _VoiceInputScreenState extends State<VoiceInputScreen> {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scroll = ScrollController();
   final SymptomMatcherService _matcher = SymptomMatcherService();
   final SpeechService _speech = SpeechService();
   final LanguagePrefsService _prefsService = LanguagePrefsService();
 
-  bool _matcherReady = false;
-  String? _noMatchWarning;
+  final List<ChatMessage> _messages = [];
 
-  String _selectedLanguage = 'en'; // overwritten once the saved preference loads
+  bool _matcherReady = false;
+  String _selectedLanguage = 'en';
   bool _isRecording = false;
   bool _isTranscribing = false;
 
+  ConsultationProvider? _provider;
+  ConsultationStatus? _lastStatus;
+  int _lastRound = -1;
+
   static const _languages = [
-    {'code': 'kn', 'label': 'ಕನ್ನಡ'},
-    {'code': 'hi', 'label': 'हिंदी'},
+    {'code': 'kn', 'label': '\u0c95\u0ca8\u0ccd\u0ca8\u0ca1'},
+    {'code': 'hi', 'label': '\u0939\u093f\u0902\u0926\u0940'},
     {'code': 'en', 'label': 'English'},
     {'code': 'auto', 'label': 'Auto'},
   ];
@@ -47,14 +56,27 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   @override
   void initState() {
     super.initState();
+    _messages.add(ChatMessage.app(
+        "Hello! Tell me how you're feeling - you can speak or type.\n\n"
+        "For example: \"I have fever and a cough\"."));
     _matcher.initialize().then((_) {
       if (mounted) setState(() => _matcherReady = true);
     });
-    // Warm up the self-care guidance asset here so PredictionResultScreen
-    // (a StatelessWidget) can read it synchronously later. Fire-and-forget:
-    // if it fails, the result screen falls back to its own static bullets.
+    // Warm up the guidance asset so the result screen can read it
+    // synchronously. Fire-and-forget: it falls back to static text.
     SelfCareGuidanceService().initialize();
     _loadPreferredLanguage();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final p = context.read<ConsultationProvider>();
+    if (!identical(p, _provider)) {
+      _provider?.removeListener(_onConsultationChanged);
+      _provider = p;
+      _provider!.addListener(_onConsultationChanged);
+    }
   }
 
   Future<void> _loadPreferredLanguage() async {
@@ -66,40 +88,102 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
 
   @override
   void dispose() {
+    _provider?.removeListener(_onConsultationChanged);
     _controller.dispose();
-    // Fire-and-forget: free the ~100MB model from native memory once this
-    // screen goes away. Not awaited because dispose() can't be async.
+    _scroll.dispose();
+    // Fire-and-forget: release the speech model from native memory.
     _speech.releaseModel();
     _speech.dispose();
     super.dispose();
   }
 
-  void _handleSubmit(BuildContext context) {
-    if (!_matcherReady) return;
+  /// Appends thread entries as the provider progresses. Guarded on
+  /// (status, round) so a rebuild for any other reason doesn't duplicate a
+  /// bubble.
+  void _onConsultationChanged() {
+    final p = _provider;
+    if (p == null) return;
+    if (p.status == _lastStatus && p.followUpRound == _lastRound) return;
 
-    final analysis = _matcher.analyze(_controller.text);
+    setState(() {
+      switch (p.status) {
+        case ConsultationStatus.idle:
+          // reset() was called (Try Again) - start a fresh thread.
+          _messages
+            ..clear()
+            ..add(ChatMessage.app(
+                "Let's start again. How are you feeling?"));
+          break;
+        case ConsultationStatus.success:
+          final r = p.result!;
+          if (r.needsFollowup) {
+            _messages.add(ChatMessage.questions(r.followUpQuestions));
+          } else {
+            _messages.add(ChatMessage.result(r));
+          }
+          break;
+        case ConsultationStatus.error:
+          _messages.add(ChatMessage.app(
+              "Something went wrong working that out. Please try again."));
+          break;
+        case ConsultationStatus.loading:
+          break;
+      }
+      _lastStatus = p.status;
+      _lastRound = p.followUpRound;
+    });
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scroll.hasClients) return;
+      _scroll.animateTo(
+        _scroll.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  void _send() {
+    if (!_matcherReady) return;
+    final text = _controller.text.trim();
+    if (text.isEmpty) return;
+
+    final analysis = _matcher.analyze(text);
+
+    setState(() {
+      _messages.add(ChatMessage.user(text));
+      _controller.clear();
+    });
 
     if (analysis.isEmpty) {
-      setState(() {
-        _noMatchWarning =
-            "Couldn't recognize any symptoms in that text. Try describing them more simply, e.g. \"fever and cough\".";
-      });
+      setState(() => _messages.add(ChatMessage.app(
+          "I couldn't pick out any symptoms there. Try describing them "
+          "more simply - for example \"fever and cough\".")));
+      _scrollToBottom();
       return;
     }
 
     if (analysis.present.isEmpty) {
-      setState(() {
-        _noMatchWarning =
-            "You mentioned what you don't have, but not what you do. Please describe your symptoms.";
-      });
+      setState(() => _messages.add(ChatMessage.app(
+          "You told me what you don't have, but not what you do. "
+          "What symptoms are you experiencing?")));
+      _scrollToBottom();
       return;
     }
 
-    setState(() => _noMatchWarning = null);
-    context.read<ConsultationProvider>().submitInitialSymptoms(
-          analysis.present,
-          initialDenied: analysis.denied,
-        );
+    _scrollToBottom();
+    _provider!.submitInitialSymptoms(
+      analysis.present,
+      initialDenied: analysis.denied,
+    );
+  }
+
+  void _submitAnswers(ChatMessage message, Map<String, bool> answers) {
+    setState(() => message.submittedAnswers = answers);
+    _provider!.answerFollowUpBatch(answers);
   }
 
   Future<void> _toggleRecording() async {
@@ -108,33 +192,22 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
         _isRecording = false;
         _isTranscribing = true;
       });
-
       try {
-        final result = await _speech.stopAndTranscribe(
-          languageCode: _selectedLanguage,
-        );
-
+        final result =
+            await _speech.stopAndTranscribe(languageCode: _selectedLanguage);
         if (!mounted) return;
-
         if (result != null && !result.isEmpty) {
-          setState(() {
-            // Overwrites rather than appends - each new recording replaces
-            // whatever was there before, so the field always shows exactly
-            // what was just said (still editable by hand afterward).
-            _controller.text = result.text;
-            _noMatchWarning = null;
-          });
+          setState(() => _controller.text = result.text);
         } else {
-          setState(() {
-            _noMatchWarning =
-                "Didn't catch that. Please try recording again, speaking clearly.";
-          });
+          setState(() => _messages.add(ChatMessage.app(
+              "I didn't catch that. Please try again, speaking clearly.")));
+          _scrollToBottom();
         }
-      } catch (e) {
+      } catch (_) {
         if (!mounted) return;
-        setState(() {
-          _noMatchWarning = "Something went wrong during transcription. Please try again.";
-        });
+        setState(() => _messages.add(ChatMessage.app(
+            "Something went wrong while listening. Please try again.")));
+        _scrollToBottom();
       } finally {
         if (mounted) setState(() => _isTranscribing = false);
       }
@@ -144,184 +217,199 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
       if (started) {
         setState(() => _isRecording = true);
       } else {
-        setState(() {
-          _noMatchWarning =
-              "Microphone permission is needed to record. Please allow it in your phone's settings.";
-        });
+        setState(() => _messages.add(ChatMessage.app(
+            "I need microphone permission to listen. You can allow it in "
+            "your phone's settings, or type instead.")));
+        _scrollToBottom();
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final status = context.watch<ConsultationProvider>().status;
+    final isThinking = status == ConsultationStatus.loading;
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Describe Your Symptoms")),
+      backgroundColor: const Color(0xFFF2F5F4),
+      appBar: AppBar(
+        title: const Text("MediVoice"),
+        actions: [_buildLanguageMenu()],
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Describe Your Symptoms", style: Theme.of(context).textTheme.titleLarge),
-                      const SizedBox(height: 16),
-                      _buildLanguageSelector(),
-                      const SizedBox(height: 16),
-                      _buildInputArea(),
-                      const SizedBox(height: 10),
-                      Text(
-                        "Examples: \"fever and cough\" · \"headache, nausea\" · \"pet dard, ulti\"",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      if (_noMatchWarning != null) ...[
-                        const SizedBox(height: 10),
-                        Text(
-                          _noMatchWarning!,
-                          style: const TextStyle(color: AppTheme.danger, fontSize: 13),
-                        ),
-                      ],
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _matcherReady ? () => _handleSubmit(context) : null,
-                        child: const Text("Predict"),
-                      ),
-                    ],
-                  ),
-                ),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                controller: _scroll,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                itemCount: _messages.length + (isThinking ? 1 : 0),
+                itemBuilder: (context, i) {
+                  if (i == _messages.length) return const TypingBubble();
+                  return _buildMessage(_messages[i]);
+                },
               ),
-              const SizedBox(height: 20),
-              const _ConsultationStatusArea(),
-            ],
-          ),
+            ),
+            _buildInputBar(),
+          ],
         ),
       ),
     );
   }
 
-  /// Pill row for picking the recording language. Defaults to the saved
-  /// preference from LanguagePrefsService but can be overridden per
-  /// recording without changing that saved default. Locked while a
-  /// recording/transcription is in flight to avoid switching mid-take.
-  Widget _buildLanguageSelector() {
+  Widget _buildLanguageMenu() {
     final locked = _isRecording || _isTranscribing;
-    return Wrap(
-      spacing: 8,
-      children: _languages.map((lang) {
-        final isSelected = _selectedLanguage == lang['code'];
-        return ChoiceChip(
-          label: Text(lang['label']!),
-          selected: isSelected,
-          onSelected: locked ? null : (_) => setState(() => _selectedLanguage = lang['code']!),
+    final current = _languages
+        .firstWhere((l) => l['code'] == _selectedLanguage)['label']!;
+    return PopupMenuButton<String>(
+      enabled: !locked,
+      onSelected: (code) => setState(() => _selectedLanguage = code),
+      itemBuilder: (_) => _languages
+          .map((l) => PopupMenuItem(
+                value: l['code'],
+                child: Text(l['label']!),
+              ))
+          .toList(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: Row(
+          children: [
+            const Icon(Icons.translate_rounded, size: 18),
+            const SizedBox(width: 6),
+            Text(current),
+            const Icon(Icons.arrow_drop_down),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMessage(ChatMessage m) {
+    switch (m.kind) {
+      case ChatKind.text:
+        return ChatBubble(
+          isUser: m.role == ChatRole.user,
+          child: Text(m.text),
         );
-      }).toList(),
-    );
-  }
 
-  /// Mic button + editable text field. Voice fills the field; the field
-  /// stays editable so a user can correct a mistranscription, or type
-  /// instead entirely (e.g. in a noisy room, or if the mic fails).
-  Widget _buildInputArea() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SizedBox(
-          height: 52,
-          child: ElevatedButton.icon(
-            onPressed: _isTranscribing ? null : _toggleRecording,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: _isRecording ? AppTheme.danger : AppTheme.primary,
-            ),
-            icon: _isTranscribing
-                ? const SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                  )
-                : Icon(_isRecording ? Icons.stop_rounded : Icons.mic_rounded),
-            label: Text(_isTranscribing ? "Transcribing..." : (_isRecording ? "Stop" : "Record")),
+      case ChatKind.questions:
+        return ChatBubble(
+          child: FollowUpQuestionCard(
+            questions: m.questions,
+            submittedAnswers: m.submittedAnswers,
+            onSubmit: (answers) => _submitAnswers(m, answers),
           ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          "First recording after install may take a bit longer while the offline speech model loads.",
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
-        ),
-        const SizedBox(height: 12),
-        TextField(
-          controller: _controller,
-          maxLines: 3,
-          decoration: const InputDecoration(
-            hintText: "e.g. I have fever and a cough",
-            border: OutlineInputBorder(),
-          ),
-        ),
-      ],
-    );
-  }
-}
+        );
 
-/// Handles loading/error states and the follow-up question loop.
-/// Once the provider has a FINAL result (no more follow-ups needed),
-/// this auto-navigates to the real Prediction Screen - it never renders
-/// a result itself, keeping that entirely out of this screen as required.
-class _ConsultationStatusArea extends StatelessWidget {
-  const _ConsultationStatusArea();
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<ConsultationProvider>(
-      builder: (context, provider, _) {
-        switch (provider.status) {
-          case ConsultationStatus.idle:
-            return const SizedBox.shrink();
-
-          case ConsultationStatus.loading:
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 24),
-              child: Center(child: CircularProgressIndicator()),
-            );
-
-          case ConsultationStatus.error:
-            return Card(
-              color: AppTheme.danger.withOpacity(0.08),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  "Error: ${provider.errorMessage}\n\nIs the backend running? Check http://127.0.0.1:8000/docs",
-                  style: const TextStyle(color: AppTheme.danger),
+      case ChatKind.result:
+        final r = m.result!;
+        return ChatBubble(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (r.isUncertain) ...[
+                Text("I'm not confident enough to suggest a specific "
+                    "condition from what you've told me."),
+                const SizedBox(height: 6),
+                Text(
+                  "That's common with mild or early illness. I can still "
+                  "suggest some things that may help.",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ] else ...[
+                Text("This may be consistent with",
+                    style: Theme.of(context).textTheme.bodyMedium),
+                const SizedBox(height: 2),
+                Text(
+                  diseaseDisplayName(r.topPrediction.disease),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  "Model score: "
+                  "${(r.topPrediction.confidence * 100).toStringAsFixed(1)}% "
+                  "- a pattern match, not a diagnosis.",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const PredictionResultScreen()),
+                  ),
+                  icon: const Icon(Icons.article_outlined, size: 18),
+                  label: Text(r.isUncertain
+                      ? "See what you can do"
+                      : "See full assessment"),
                 ),
               ),
-            );
+            ],
+          ),
+        );
+    }
+  }
 
-          case ConsultationStatus.success:
-            final result = provider.result!;
-
-            if (result.needsFollowup) {
-              return FollowUpQuestionCard(questions: result.followUpQuestions);
-            }
-
-            // Final result ready - navigate to the real Prediction Screen.
-            // Scheduled after the current build so it's safe to call
-            // Navigator during a Consumer rebuild.
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (context.mounted) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const PredictionResultScreen()),
-                );
-              }
-            });
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 24),
-              child: Center(child: CircularProgressIndicator()),
-            );
-        }
-      },
+  Widget _buildInputBar() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          IconButton(
+            onPressed: _isTranscribing ? null : _toggleRecording,
+            iconSize: 28,
+            color: _isRecording ? AppTheme.danger : AppTheme.primary,
+            icon: _isTranscribing
+                ? const SizedBox(
+                    width: 22,
+                    height: 22,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Icon(_isRecording ? Icons.stop_circle : Icons.mic_rounded),
+          ),
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              minLines: 1,
+              maxLines: 4,
+              textInputAction: TextInputAction.send,
+              onSubmitted: (_) => _send(),
+              decoration: InputDecoration(
+                hintText: _isRecording
+                    ? "Listening..."
+                    : (_isTranscribing ? "Transcribing..." : "Type or speak"),
+                filled: true,
+                fillColor: const Color(0xFFF2F5F4),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 4),
+          IconButton.filled(
+            onPressed: _matcherReady ? _send : null,
+            icon: const Icon(Icons.send_rounded, size: 20),
+          ),
+        ],
+      ),
     );
   }
 }
