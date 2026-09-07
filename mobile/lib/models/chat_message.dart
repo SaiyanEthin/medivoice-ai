@@ -1,4 +1,5 @@
 import 'prediction_result.dart';
+import 'symptom_severity.dart';
 
 enum ChatRole { app, user }
 
@@ -18,6 +19,9 @@ class ChatMessage {
   /// Set once a question batch has been submitted, which freezes the
   /// bubble into a read-only summary of what was answered.
   Map<String, bool>? submittedAnswers;
+
+  /// Severities chosen alongside those answers, where given.
+  Map<String, SymptomSeverity> submittedSeverities = const {};
 
   ChatMessage.app(this.text)
       : role = ChatRole.app,

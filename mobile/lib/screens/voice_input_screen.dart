@@ -5,6 +5,7 @@ import '../core/theme/app_theme.dart';
 import '../models/chat_message.dart';
 import '../models/consultation_record.dart';
 import '../models/prediction_result.dart';
+import '../models/symptom_severity.dart';
 import '../providers/consultation_provider.dart';
 import '../services/consultation_history_service.dart';
 import '../services/language_prefs_service.dart';
@@ -173,6 +174,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
           isUncertain: result.isUncertain,
           uncertaintyReason: result.uncertaintyReason,
           followupRounds: result.followupRound,
+          severities: Map.of(provider.severities),
         ))
         .catchError((_) {});
   }
@@ -223,9 +225,16 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     );
   }
 
-  void _submitAnswers(ChatMessage message, Map<String, bool> answers) {
-    setState(() => message.submittedAnswers = answers);
-    _provider!.answerFollowUpBatch(answers);
+  void _submitAnswers(
+    ChatMessage message,
+    Map<String, bool> answers,
+    Map<String, SymptomSeverity> severities,
+  ) {
+    setState(() {
+      message.submittedAnswers = answers;
+      message.submittedSeverities = severities;
+    });
+    _provider!.answerFollowUpBatch(answers, reportedSeverities: severities);
   }
 
   Future<void> _toggleRecording() async {
@@ -339,7 +348,9 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
           child: FollowUpQuestionCard(
             questions: m.questions,
             submittedAnswers: m.submittedAnswers,
-            onSubmit: (answers) => _submitAnswers(m, answers),
+            submittedSeverities: m.submittedSeverities,
+            onSubmit: (answers, severities) =>
+                _submitAnswers(m, answers, severities),
           ),
         );
 

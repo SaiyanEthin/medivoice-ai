@@ -1,3 +1,5 @@
+import 'symptom_severity.dart';
+
 /// One completed consultation, stored on the device.
 ///
 /// Symptoms are kept as model COLUMN names rather than display labels, so
@@ -18,6 +20,10 @@ class ConsultationRecord {
   final String? uncertaintyReason;
   final int followupRounds;
 
+  /// Symptom column -> reported severity, for symptoms the user confirmed
+  /// and chose to grade. Optional, so this is usually a partial map.
+  final Map<String, SymptomSeverity> severities;
+
   const ConsultationRecord({
     required this.id,
     required this.timestamp,
@@ -28,6 +34,7 @@ class ConsultationRecord {
     this.isUncertain = false,
     this.uncertaintyReason,
     this.followupRounds = 0,
+    this.severities = const {},
   });
 
   Map<String, dynamic> toJson() => {
@@ -40,7 +47,19 @@ class ConsultationRecord {
         'isUncertain': isUncertain,
         'uncertaintyReason': uncertaintyReason,
         'followupRounds': followupRounds,
+        'severities': severities
+            .map((symptom, severity) => MapEntry(symptom, severity.storageKey)),
       };
+
+  static Map<String, SymptomSeverity> _severitiesFrom(dynamic raw) {
+    if (raw is! Map) return const {};
+    final result = <String, SymptomSeverity>{};
+    raw.forEach((key, value) {
+      final severity = severityFromKey(value as String?);
+      if (severity != null) result[key as String] = severity;
+    });
+    return result;
+  }
 
   factory ConsultationRecord.fromJson(Map<String, dynamic> json) {
     return ConsultationRecord(
@@ -53,6 +72,7 @@ class ConsultationRecord {
       isUncertain: json['isUncertain'] as bool? ?? false,
       uncertaintyReason: json['uncertaintyReason'] as String?,
       followupRounds: json['followupRounds'] as int? ?? 0,
+      severities: _severitiesFrom(json['severities']),
     );
   }
 }

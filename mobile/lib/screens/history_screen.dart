@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../models/consultation_record.dart';
+import '../models/symptom_severity.dart';
 import '../services/consultation_history_service.dart';
 import '../services/symptom_matcher_service.dart';
 
@@ -221,6 +222,17 @@ class _RecordCard extends StatelessWidget {
                       ))
                   .toList(),
             ),
+            if (record.severities.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              Text("Reported severity",
+                  style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 4),
+              ...record.severities.entries.map((entry) => Text(
+                    "${matcher.getReadableLabel(entry.key)} "
+                    "\u2014 ${entry.value.label}",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )),
+            ],
             if (record.deniedSymptoms.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(

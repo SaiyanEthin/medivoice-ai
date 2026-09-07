@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import '../models/prediction_result.dart';
+import '../models/symptom_severity.dart';
 
 /// A round of follow-up questions, rendered inside a chat bubble.
 ///
@@ -14,16 +15,23 @@ import '../models/prediction_result.dart';
 /// answered to the thread.
 class FollowUpQuestionCard extends StatefulWidget {
   final List<FollowUpQuestion> questions;
-  final void Function(Map<String, bool> answers) onSubmit;
+  final void Function(
+    Map<String, bool> answers,
+    Map<String, SymptomSeverity> severities,
+  ) onSubmit;
 
   /// When true the round is already answered: render a static summary.
   final Map<String, bool>? submittedAnswers;
+
+  /// Severities chosen with those answers, for the frozen summary.
+  final Map<String, SymptomSeverity> submittedSeverities;
 
   const FollowUpQuestionCard({
     super.key,
     required this.questions,
     required this.onSubmit,
     this.submittedAnswers,
+    this.submittedSeverities = const {},
   });
 
   @override
@@ -33,6 +41,9 @@ class FollowUpQuestionCard extends StatefulWidget {
 class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
   final Map<String, bool> _answers = {};
 
+  /// Optional - a user who doesn't want to grade a symptom just doesn't.
+  final Map<String, SymptomSeverity> _severities = {};
+
   @override
   void didUpdateWidget(covariant FollowUpQuestionCard oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -40,6 +51,7 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
     final newSymptoms = widget.questions.map((q) => q.symptom).toList();
     if (!listEquals(oldSymptoms, newSymptoms)) {
       _answers.clear();
+      _severities.clear();
     }
   }
 
@@ -73,8 +85,13 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(q.question,
-                        style: Theme.of(context).textTheme.bodyMedium),
+                    child: Text(
+                      widget.submittedSeverities[q.symptom] == null
+                          ? q.question
+                          : "${q.question}  "
+                              "\u00B7  ${widget.submittedSeverities[q.symptom]!.label}",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
                 ],
               ),
@@ -110,9 +127,38 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                           () => setState(() => _answers[q.symptom] = true)),
                       const SizedBox(width: 8),
                       _choice(context, "No", _answers[q.symptom] == false,
-                          () => setState(() => _answers[q.symptom] = false)),
+                          () => setState(() {
+                                _answers[q.symptom] = false;
+                                // A denied symptom cannot have a severity.
+                                _severities.remove(q.symptom);
+                              })),
                     ],
                   ),
+                  if (_answers[q.symptom] == true) ...[
+                    const SizedBox(height: 8),
+                    Text("How severe? (optional)",
+                        style: Theme.of(context).textTheme.bodySmall),
+                    const SizedBox(height: 6),
+                    Wrap(
+                      spacing: 6,
+                      children: SymptomSeverity.values
+                          .map((severity) => ChoiceChip(
+                                label: Text(severity.label),
+                                visualDensity: VisualDensity.compact,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                selected: _severities[q.symptom] == severity,
+                                onSelected: (selected) => setState(() {
+                                  if (selected) {
+                                    _severities[q.symptom] = severity;
+                                  } else {
+                                    _severities.remove(q.symptom);
+                                  }
+                                }),
+                              ))
+                          .toList(),
+                    ),
+                  ],
                 ],
               ),
             )),
@@ -122,14 +168,17 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed:
-                _allAnswered ? () => widget.onSubmit(Map.of(_answers)) : null,
+            onPressed: _allAnswered
+                ? () => widget.onSubmit(
+                    Map.of(_answers), Map.of(_severities))
+                : null,
             child: const Text("Continue"),
           ),
         ),
         if (answered > 0 && !_allAnswered)
           TextButton(
-            onPressed: () => widget.onSubmit(Map.of(_answers)),
+            onPressed: () =>
+                widget.onSubmit(Map.of(_answers), Map.of(_severities)),
             child: const Text("Skip the rest"),
           ),
       ],

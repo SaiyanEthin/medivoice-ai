@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../models/prediction_result.dart';
+import '../models/symptom_severity.dart';
 import '../repositories/consultation_repository.dart';
 
 enum ConsultationStatus { idle, loading, success, error }
@@ -18,6 +19,10 @@ class ConsultationProvider extends ChangeNotifier {
 
   final List<String> symptoms = [];
   final List<String> deniedSymptoms = [];
+
+  /// Reported severity per confirmed symptom. Consultation metadata only -
+  /// _predict() does not read this, and the model never sees it.
+  final Map<String, SymptomSeverity> severities = {};
   int followUpRound = 0;
 
   ConsultationStatus status = ConsultationStatus.idle;
@@ -27,6 +32,7 @@ class ConsultationProvider extends ChangeNotifier {
   void reset() {
     symptoms.clear();
     deniedSymptoms.clear();
+    severities.clear();
     followUpRound = 0;
     status = ConsultationStatus.idle;
     result = null;
@@ -44,6 +50,7 @@ class ConsultationProvider extends ChangeNotifier {
   }) async {
     symptoms.clear();
     deniedSymptoms.clear();
+    severities.clear();
     followUpRound = 0;
     symptoms.addAll(initialSymptoms);
     deniedSymptoms.addAll(initialDenied);
@@ -63,10 +70,15 @@ class ConsultationProvider extends ChangeNotifier {
   /// Questions the user SKIPPED are simply absent from the map and are not
   /// recorded either way: not answering "do you have chest pain?" is not
   /// evidence that they don't.
-  Future<void> answerFollowUpBatch(Map<String, bool> answers) async {
+  Future<void> answerFollowUpBatch(
+    Map<String, bool> answers, {
+    Map<String, SymptomSeverity> reportedSeverities = const {},
+  }) async {
     answers.forEach((symptomColumn, answeredYes) {
       if (answeredYes) {
         symptoms.add(symptomColumn);
+        final severity = reportedSeverities[symptomColumn];
+        if (severity != null) severities[symptomColumn] = severity;
       } else {
         deniedSymptoms.add(symptomColumn);
       }
