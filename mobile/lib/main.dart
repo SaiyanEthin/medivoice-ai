@@ -4,6 +4,7 @@ import 'core/theme/app_theme.dart';
 import 'core/routes/app_routes.dart';
 import 'core/config.dart';
 import 'core/unit_prefs.dart';
+import 'services/speech_output_service.dart';
 import 'providers/consultation_provider.dart';
 
 void main() async {
@@ -12,6 +13,7 @@ void main() async {
   // handle a not-yet-loaded state.
   WidgetsFlutterBinding.ensureInitialized();
   await UnitPrefs().load();
+  await SpeechOutputService().load();
   runApp(const MediVoiceApp());
 }
 

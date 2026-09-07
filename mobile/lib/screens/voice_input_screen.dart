@@ -10,6 +10,7 @@ import '../providers/consultation_provider.dart';
 import '../services/consultation_history_service.dart';
 import '../services/language_prefs_service.dart';
 import '../services/selfcare_guidance_service.dart';
+import '../services/speech_output_service.dart';
 import '../services/speech_service.dart';
 import '../services/symptom_matcher_service.dart';
 import '../widgets/chat_bubble.dart';
@@ -45,6 +46,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   final LanguagePrefsService _prefsService = LanguagePrefsService();
   final ConsultationHistoryService _historyService =
       ConsultationHistoryService();
+  final SpeechOutputService _voice = SpeechOutputService();
 
   final List<ChatMessage> _messages = [];
 
@@ -70,6 +72,8 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     _messages.add(ChatMessage.app(
         "Hello! Tell me how you're feeling - you can speak or type.\n\n"
         "For example: \"I have fever and a cough\"."));
+    _voice.speak(
+        "Hello. Tell me how you're feeling. You can speak or type.");
     _matcher.initialize().then((_) {
       if (mounted) setState(() => _matcherReady = true);
     });
@@ -108,6 +112,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   @override
   void dispose() {
     _provider?.removeListener(_onConsultationChanged);
+    _voice.stop();
     _controller.dispose();
     _scroll.dispose();
     // Fire-and-forget: release the speech model from native memory.
@@ -137,8 +142,10 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
           final r = p.result!;
           if (r.needsFollowup) {
             _messages.add(ChatMessage.questions(r.followUpQuestions));
+            _voice.speak(spokenQuestions(r.followUpQuestions));
           } else {
             _messages.add(ChatMessage.result(r));
+            _voice.speak(spokenResult(r));
             _saveToHistory(p, r);
           }
           break;
@@ -203,9 +210,10 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     });
 
     if (analysis.isEmpty) {
-      setState(() => _messages.add(ChatMessage.app(
-          "I couldn't pick out any symptoms there. Try describing them "
-          "more simply - for example \"fever and cough\".")));
+      const nudge = "I couldn't pick out any symptoms there. Try "
+          "describing them more simply - for example, fever and cough.";
+      setState(() => _messages.add(ChatMessage.app(nudge)));
+      _voice.speak(nudge);
       _scrollToBottom();
       return;
     }
@@ -263,6 +271,8 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
         if (mounted) setState(() => _isTranscribing = false);
       }
     } else {
+      // Talking while listening would record the app's own voice.
+      await _voice.stop();
       final started = await _speech.startRecording();
       if (!mounted) return;
       if (started) {
@@ -285,7 +295,21 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
       backgroundColor: AppTheme.background,
       appBar: AppBar(
         title: const Text("MediVoice"),
-        actions: [_buildLanguageMenu()],
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await _voice.setEnabled(!_voice.enabled);
+              if (mounted) setState(() {});
+            },
+            tooltip: _voice.enabled
+                ? "Turn off voice guidance"
+                : "Turn on voice guidance",
+            icon: Icon(_voice.enabled
+                ? Icons.volume_up_rounded
+                : Icons.volume_off_rounded),
+          ),
+          _buildLanguageMenu(),
+        ],
       ),
       body: SafeArea(
         child: Column(
