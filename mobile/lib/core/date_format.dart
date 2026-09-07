@@ -25,6 +25,11 @@ String relativeDay(DateTime when) {
 String shortDate(DateTime when) =>
     '${when.day} ${_months[when.month - 1]} ${when.year}';
 
+/// Axis-label form: no year, since a chart already sits in a
+/// known time range.
+String dayMonth(DateTime when) =>
+    '${when.day} ${_months[when.month - 1]}';
+
 String clockTime(DateTime when) {
   final hour = when.hour % 12 == 0 ? 12 : when.hour % 12;
   final minute = when.minute.toString().padLeft(2, '0');

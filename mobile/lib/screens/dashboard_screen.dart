@@ -10,6 +10,7 @@ import '../services/health_profile_service.dart';
 import '../services/vitals_service.dart';
 import 'health_profile_screen.dart';
 import 'history_screen.dart';
+import 'trends_screen.dart';
 import 'vitals_screen.dart';
 
 /// An overview of everything the app knows about the user.
@@ -126,6 +127,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       label: const Text("Add a vital reading"),
                     ),
                     const SizedBox(height: 10),
+                    OutlinedButton.icon(
+                      onPressed: () => _go(const TrendsScreen()),
+                      icon: const Icon(Icons.show_chart_rounded, size: 18),
+                      label: const Text("View health trends"),
+                    ),                    const SizedBox(height: 10),
                     OutlinedButton.icon(
                       onPressed: () => _go(const HistoryScreen()),
                       icon: const Icon(Icons.history_rounded, size: 18),

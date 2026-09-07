@@ -4,6 +4,7 @@ import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
+import 'trends_screen.dart';
 import 'vital_history_screen.dart';
 
 
@@ -71,7 +72,19 @@ class _VitalsScreenState extends State<VitalsScreen> {
   Widget build(BuildContext context) {
     final latest = _latest;
     return Scaffold(
-      appBar: AppBar(title: const Text("Vitals")),
+      appBar: AppBar(
+        title: const Text("Vitals"),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const TrendsScreen()),
+            ),
+            tooltip: "Trends",
+            icon: const Icon(Icons.show_chart_rounded),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: latest == null
             ? const Center(child: CircularProgressIndicator())
