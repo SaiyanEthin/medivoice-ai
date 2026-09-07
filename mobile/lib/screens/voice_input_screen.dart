@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../models/chat_message.dart';
+import '../models/consultation_record.dart';
+import '../models/prediction_result.dart';
 import '../providers/consultation_provider.dart';
+import '../services/consultation_history_service.dart';
 import '../services/language_prefs_service.dart';
 import '../services/selfcare_guidance_service.dart';
 import '../services/speech_service.dart';
@@ -39,6 +42,8 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   final SymptomMatcherService _matcher = SymptomMatcherService();
   final SpeechService _speech = SpeechService();
   final LanguagePrefsService _prefsService = LanguagePrefsService();
+  final ConsultationHistoryService _historyService =
+      ConsultationHistoryService();
 
   final List<ChatMessage> _messages = [];
 
@@ -133,6 +138,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
             _messages.add(ChatMessage.questions(r.followUpQuestions));
           } else {
             _messages.add(ChatMessage.result(r));
+            _saveToHistory(p, r);
           }
           break;
         case ConsultationStatus.error:
@@ -146,6 +152,29 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
       _lastRound = p.followUpRound;
     });
     _scrollToBottom();
+  }
+
+  /// Records a completed consultation. Fire-and-forget and wrapped:
+  /// history is a convenience, and a storage failure must not interrupt
+  /// the consultation the user is in the middle of.
+  void _saveToHistory(ConsultationProvider provider, PredictionResult result) {
+    final now = DateTime.now();
+    _historyService
+        .add(ConsultationRecord(
+          id: now.millisecondsSinceEpoch.toString(),
+          timestamp: now,
+          symptoms: List.of(provider.symptoms),
+          deniedSymptoms: List.of(provider.deniedSymptoms),
+          // Deliberately null when uncertain: no condition was shown to
+          // the user, and recording one would misrepresent the result.
+          disease: result.isUncertain ? null : result.topPrediction.disease,
+          confidence:
+              result.isUncertain ? null : result.topPrediction.confidence,
+          isUncertain: result.isUncertain,
+          uncertaintyReason: result.uncertaintyReason,
+          followupRounds: result.followupRound,
+        ))
+        .catchError((_) {});
   }
 
   void _scrollToBottom() {
