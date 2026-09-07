@@ -231,7 +231,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     final isThinking = status == ConsultationStatus.loading;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F5F4),
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
         title: const Text("MediVoice"),
         actions: [_buildLanguageMenu()],
@@ -393,7 +393,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
                     ? "Listening..."
                     : (_isTranscribing ? "Transcribing..." : "Type or speak"),
                 filled: true,
-                fillColor: const Color(0xFFF2F5F4),
+                fillColor: AppTheme.background,
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 border: OutlineInputBorder(

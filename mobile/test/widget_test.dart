@@ -13,6 +13,9 @@ void main() {
     await tester.pump();
 
     expect(find.text('MediVoice AI'), findsWidgets);
-    expect(find.text('Start Consultation'), findsOneWidget);
+    // Exact label, deliberately: this test exists to notice when a
+    // user-facing string on the entry screen changes.
+    expect(find.text('Start consultation'), findsOneWidget);
+    expect(find.text('How MediVoice works'), findsOneWidget);
   });
 }

@@ -163,8 +163,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "Sample directory data for demonstration. Distances are "
-                    "approximate and not based on your live location.",
+                    "Distances are approximate and are not based on your "
+                    "live location.",
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
