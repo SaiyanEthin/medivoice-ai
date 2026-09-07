@@ -4,6 +4,7 @@ import '../models/health_profile.dart';
 import '../services/consultation_history_service.dart';
 import '../services/health_profile_service.dart';
 import '../services/language_prefs_service.dart';
+import 'dashboard_screen.dart';
 import 'health_profile_screen.dart';
 import 'history_screen.dart';
 import 'vitals_screen.dart';
@@ -149,6 +150,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 14),
+                  OutlinedButton.icon(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const DashboardScreen()),
+                    ),
+                    icon: const Icon(Icons.dashboard_outlined, size: 18),
+                    label: const Text("Health dashboard"),
+                  ),
+                  const SizedBox(height: 10),
                   OutlinedButton.icon(
                     onPressed: () => Navigator.push(
                       context,

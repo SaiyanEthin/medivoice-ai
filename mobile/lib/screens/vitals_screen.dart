@@ -1,34 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
 import 'vital_history_screen.dart';
 
-/// "Today", "Yesterday", or a short date. Relative wording is easier to
-/// scan than a bare date when the question is "how recent is this".
-String relativeDay(DateTime when) {
-  const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
-  final now = DateTime.now();
-  final today = DateTime(now.year, now.month, now.day);
-  final day = DateTime(when.year, when.month, when.day);
-  final difference = today.difference(day).inDays;
-
-  if (difference == 0) return 'Today';
-  if (difference == 1) return 'Yesterday';
-  if (difference < 7) return '$difference days ago';
-  return '${when.day} ${months[when.month - 1]} ${when.year}';
-}
-
-String clockTime(DateTime when) {
-  final hour = when.hour % 12 == 0 ? 12 : when.hour % 12;
-  final minute = when.minute.toString().padLeft(2, '0');
-  final period = when.hour < 12 ? 'am' : 'pm';
-  return '$hour:$minute$period';
-}
 
 IconData iconFor(VitalType type) {
   switch (type) {
