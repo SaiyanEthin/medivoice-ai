@@ -212,12 +212,39 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
   String? _error;
   bool _saving = false;
 
+  /// Defaults to today. Kept as a date only - the exact minute of a
+  /// reading logged after the fact is guesswork, so it isn't asked for.
+  DateTime _when = DateTime.now();
+
   @override
   void dispose() {
     _primary.dispose();
     _secondary.dispose();
     _note.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickDate() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _when,
+      // Two years back is more than enough for a health log, and a future
+      // date would be a reading that hasn't happened.
+      firstDate: DateTime(now.year - 2),
+      lastDate: now,
+    );
+    if (picked != null) setState(() => _when = picked);
+  }
+
+  /// Midnight for a past date; the actual time for today, so several
+  /// readings logged on the same day still order correctly.
+  DateTime get _timestamp {
+    final now = DateTime.now();
+    final isToday = _when.year == now.year &&
+        _when.month == now.month &&
+        _when.day == now.day;
+    return isToday ? now : DateTime(_when.year, _when.month, _when.day, 12);
   }
 
   Future<void> _save() async {
@@ -258,11 +285,10 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
     }
 
     setState(() => _saving = true);
-    final now = DateTime.now();
     await _service.add(VitalReading(
-      id: now.microsecondsSinceEpoch.toString(),
+      id: DateTime.now().microsecondsSinceEpoch.toString(),
       type: type,
-      timestamp: now,
+      timestamp: _timestamp,
       value: primary,
       secondaryValue: secondary,
       note: _note.text.trim().isEmpty ? null : _note.text.trim(),
@@ -333,6 +359,38 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
                   ),
                 ],
               ],
+            ),
+            const SizedBox(height: 12),
+            InkWell(
+              onTap: _pickDate,
+              borderRadius: BorderRadius.circular(14),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  color: AppTheme.background,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppTheme.border),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.event_outlined,
+                        size: 18, color: AppTheme.textSecondary),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        "Recorded ${relativeDay(_when).toLowerCase()}",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                    Text("Change",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: AppTheme.primary)),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 12),
             TextField(

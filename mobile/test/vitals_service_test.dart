@@ -85,6 +85,45 @@ void main() {
   });
 
   group('per-type behaviour', () {
+    test('backdated readings sort into the right place', () async {
+      // Entry allows picking a past date, so a reading added later can be
+      // older than one already stored.
+      final service = VitalsService();
+      await service.add(_reading(
+          id: 'today', type: VitalType.weight, at: DateTime(2026, 9, 7)));
+      await service.add(_reading(
+          id: 'last_week',
+          type: VitalType.weight,
+          at: DateTime(2026, 8, 31)));
+      await service.add(_reading(
+          id: 'yesterday',
+          type: VitalType.weight,
+          at: DateTime(2026, 9, 6)));
+
+      final ids =
+          (await service.loadByType(VitalType.weight)).map((r) => r.id);
+      expect(ids, ['today', 'yesterday', 'last_week'],
+          reason: 'order follows the reading date, not the order added');
+    });
+
+    test('latest respects dates rather than insertion order', () async {
+      final service = VitalsService();
+      await service.add(_reading(
+          id: 'recent',
+          type: VitalType.pulse,
+          at: DateTime(2026, 9, 7),
+          value: 72));
+      await service.add(_reading(
+          id: 'backdated',
+          type: VitalType.pulse,
+          at: DateTime(2026, 9, 1),
+          value: 80));
+
+      final latest = await service.latest(VitalType.pulse);
+      expect(latest!.id, 'recent',
+          reason: 'adding an older reading must not change the latest');
+    });
+
     test('loadByType returns only that type', () async {
       final service = VitalsService();
       await service.add(_reading(
