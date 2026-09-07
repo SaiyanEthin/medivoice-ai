@@ -12,15 +12,18 @@ class HomeScreen extends StatelessWidget {
   /// First-ever "Start Consultation" tap routes through the one-time
   /// language picker. Every tap after that goes straight to the voice
   /// input screen, which already knows the saved preference.
-  Future<void> _startConsultation(BuildContext context) async {
+  Future<void> _startConsultation(
+    BuildContext context, {
+    bool speakNow = false,
+  }) async {
     final hasPreference = await LanguagePrefsService().hasPreference();
     if (!context.mounted) return;
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => hasPreference
-            ? const VoiceInputScreen()
-            : const LanguageSelectScreen(),
+            ? VoiceInputScreen(autoStartRecording: speakNow)
+            : LanguageSelectScreen(autoStartRecording: speakNow),
       ),
     );
   }
@@ -38,7 +41,11 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _StartCard(onStart: () => _startConsultation(context)),
+                  _StartCard(
+                    onStart: () => _startConsultation(context),
+                    onSpeakNow: () =>
+                        _startConsultation(context, speakNow: true),
+                  ),
                   const SizedBox(height: 14),
                   Row(
                     children: const [
@@ -146,7 +153,8 @@ class _Header extends StatelessWidget {
 
 class _StartCard extends StatelessWidget {
   final VoidCallback onStart;
-  const _StartCard({required this.onStart});
+  final VoidCallback onSpeakNow;
+  const _StartCard({required this.onStart, required this.onSpeakNow});
 
   @override
   Widget build(BuildContext context) {
@@ -164,12 +172,21 @@ class _StartCard extends StatelessWidget {
               "whichever is easier.",
               style: Theme.of(context).textTheme.bodyMedium,
             ),
+            const SizedBox(height: 20),
+            // Shortcut: opens the consultation with the microphone already
+            // listening, so describing a symptom is a single tap.
+            Center(child: _SpeakNowButton(onTap: onSpeakNow)),
+            const SizedBox(height: 10),
+            Center(
+              child: Text("Tap to speak now",
+                  style: Theme.of(context).textTheme.bodyMedium),
+            ),
             const SizedBox(height: 18),
             SizedBox(
-              height: 54,
-              child: ElevatedButton.icon(
+              height: 52,
+              child: OutlinedButton.icon(
                 onPressed: onStart,
-                icon: const Icon(Icons.mic_rounded),
+                icon: const Icon(Icons.keyboard_alt_outlined, size: 18),
                 label: const Text("Start consultation"),
               ),
             ),
@@ -185,6 +202,40 @@ class _StartCard extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Large circular microphone. Deliberately the most prominent control on
+/// the screen: speaking is the primary interaction, and typing is the
+/// fallback rather than the other way round.
+class _SpeakNowButton extends StatelessWidget {
+  final VoidCallback onTap;
+  const _SpeakNowButton({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppTheme.danger.withOpacity(0.10),
+        shape: BoxShape.circle,
+      ),
+      child: Material(
+        color: AppTheme.danger,
+        shape: const CircleBorder(),
+        elevation: 3,
+        shadowColor: AppTheme.danger.withOpacity(0.5),
+        child: InkWell(
+          onTap: onTap,
+          customBorder: const CircleBorder(),
+          child: const SizedBox(
+            width: 92,
+            height: 92,
+            child: Icon(Icons.mic_rounded, size: 44, color: Colors.white),
+          ),
         ),
       ),
     );

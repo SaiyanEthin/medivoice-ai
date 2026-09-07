@@ -8,7 +8,12 @@ import 'voice_input_screen.dart';
 /// by default; they can still switch per-recording on the voice input
 /// screen itself, and this choice is never asked again.
 class LanguageSelectScreen extends StatefulWidget {
-  const LanguageSelectScreen({super.key});
+  /// Passed straight through to VoiceInputScreen. On a first run the
+  /// speak-now shortcut routes through here, and the intent to start
+  /// recording shouldn't be lost on the way.
+  final bool autoStartRecording;
+
+  const LanguageSelectScreen({super.key, this.autoStartRecording = false});
 
   @override
   State<LanguageSelectScreen> createState() => _LanguageSelectScreenState();
@@ -24,7 +29,11 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
     if (!mounted) return;
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const VoiceInputScreen()),
+      MaterialPageRoute(
+        builder: (_) => VoiceInputScreen(
+          autoStartRecording: widget.autoStartRecording,
+        ),
+      ),
     );
   }
 

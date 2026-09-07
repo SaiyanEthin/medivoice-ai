@@ -22,7 +22,12 @@ import 'prediction_result_screen.dart';
 /// Voice and typing feed the same text path, so the pipeline below cannot
 /// tell which was used.
 class VoiceInputScreen extends StatefulWidget {
-  const VoiceInputScreen({super.key});
+  /// When true, recording begins as soon as the screen appears. Used by the
+  /// home screen's speak-now shortcut so the user doesn't have to tap the
+  /// mic a second time.
+  final bool autoStartRecording;
+
+  const VoiceInputScreen({super.key, this.autoStartRecording = false});
 
   @override
   State<VoiceInputScreen> createState() => _VoiceInputScreenState();
@@ -66,6 +71,14 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     // synchronously. Fire-and-forget: it falls back to static text.
     SelfCareGuidanceService().initialize();
     _loadPreferredLanguage();
+
+    if (widget.autoStartRecording) {
+      // After the first frame, so the screen is visible before the
+      // microphone permission prompt can appear over it.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _toggleRecording();
+      });
+    }
   }
 
   @override
