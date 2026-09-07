@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import '../models/health_profile.dart';
-import '../services/consultation_history_service.dart';
 import '../services/health_profile_service.dart';
 import '../services/language_prefs_service.dart';
 import 'dashboard_screen.dart';
 import 'health_profile_screen.dart';
-import 'history_screen.dart';
-import 'vitals_screen.dart';
 import 'how_it_works_screen.dart';
 import 'language_select_screen.dart';
 import 'voice_input_screen.dart';
@@ -22,9 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _profileService = HealthProfileService();
-  final _historyService = ConsultationHistoryService();
   HealthProfile? _profile;
-  int _historyCount = 0;
 
   @override
   void initState() {
@@ -60,24 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _refreshProfile() async {
     final profile = await _profileService.load();
     if (mounted) setState(() => _profile = profile);
-    _refreshHistoryCount();
-  }
-
-  Future<void> _refreshHistoryCount() async {
-    try {
-      final count = await _historyService.count();
-      if (mounted) setState(() => _historyCount = count);
-    } catch (_) {
-      // Count is decorative - leave it at zero if storage is unavailable.
-    }
-  }
-
-  Future<void> _openHistory() async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const HistoryScreen()),
-    );
-    _refreshHistoryCount();
   }
 
   Future<void> _openProfile() async {
@@ -104,8 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
             : LanguageSelectScreen(autoStartRecording: speakNow),
       ),
     );
-    // A consultation may have added a record while we were away.
-    _refreshHistoryCount();
   }
 
   @override
@@ -158,23 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     icon: const Icon(Icons.dashboard_outlined, size: 18),
                     label: const Text("Health dashboard"),
-                  ),
-                  const SizedBox(height: 10),
-                  OutlinedButton.icon(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const VitalsScreen()),
-                    ),
-                    icon: const Icon(Icons.monitor_heart_outlined, size: 18),
-                    label: const Text("Vitals"),
-                  ),
-                  const SizedBox(height: 10),
-                  OutlinedButton.icon(
-                    onPressed: _openHistory,
-                    icon: const Icon(Icons.history_rounded, size: 18),
-                    label: Text(_historyCount == 0
-                        ? "Past assessments"
-                        : "Past assessments ($_historyCount)"),
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(
