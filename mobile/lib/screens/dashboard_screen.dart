@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/date_format.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
+import '../core/unit_prefs.dart';
 import '../models/consultation_record.dart';
 import '../models/health_profile.dart';
 import '../models/vital_reading.dart';
@@ -329,13 +330,13 @@ class _VitalTile extends StatelessWidget {
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Flexible(
-                    child: Text(r.formatted,
+                    child: Text(formatReading(r),
                         style: Theme.of(context).textTheme.titleLarge,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis),
                   ),
                   const SizedBox(width: 3),
-                  Text(type.unit,
+                  Text(displayUnitFor(type),
                       style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),

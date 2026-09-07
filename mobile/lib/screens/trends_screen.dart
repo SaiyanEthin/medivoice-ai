@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
+import '../core/unit_prefs.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
 import 'vitals_screen.dart' show iconFor;
@@ -235,10 +236,10 @@ class _TrendsScreenState extends State<TrendsScreen> {
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                Text(latest.formatted,
+                Text(formatReading(latest),
                     style: Theme.of(context).textTheme.headlineMedium),
                 const SizedBox(width: 5),
-                Text(_type.unit,
+                Text(displayUnitFor(_type),
                     style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(width: 8),
                 Text("\u00B7  ${relativeDay(latest.timestamp)}",
@@ -322,9 +323,11 @@ class TrendChartPainter extends CustomPainter {
     if (width <= 0 || height <= 0) return;
 
     // --- value range ---------------------------------------------------
+    // Plot in the user's unit - a Celsius reader shouldn't see a
+    // Fahrenheit axis.
     final values = <double>[];
     for (final r in readings) {
-      values.add(r.value);
+      values.add(toDisplayValue(type, r.value));
       if (type.hasSecondary && r.secondaryValue != null) {
         values.add(r.secondaryValue!);
       }
@@ -388,7 +391,9 @@ class TrendChartPainter extends CustomPainter {
     // --- series -----------------------------------------------------------
     _drawSeries(
       canvas,
-      readings.map((r) => (r.timestamp, r.value)).toList(),
+      readings
+          .map((r) => (r.timestamp, toDisplayValue(type, r.value)))
+          .toList(),
       lineColor,
       xFor,
       yFor,

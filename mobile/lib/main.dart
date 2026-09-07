@@ -3,9 +3,15 @@ import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/routes/app_routes.dart';
 import 'core/config.dart';
+import 'core/unit_prefs.dart';
 import 'providers/consultation_provider.dart';
 
-void main() {
+void main() async {
+  // Unit preferences are read synchronously all over the vitals screens,
+  // so load them before the first frame rather than having every widget
+  // handle a not-yet-loaded state.
+  WidgetsFlutterBinding.ensureInitialized();
+  await UnitPrefs().load();
   runApp(const MediVoiceApp());
 }
 

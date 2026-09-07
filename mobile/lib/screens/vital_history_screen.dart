@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
+import '../core/unit_prefs.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
 
@@ -70,12 +71,12 @@ class _VitalHistoryScreenState extends State<VitalHistoryScreen> {
                                           CrossAxisAlignment.baseline,
                                       textBaseline: TextBaseline.alphabetic,
                                       children: [
-                                        Text(reading.formatted,
+                                        Text(formatReading(reading),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge),
                                         const SizedBox(width: 4),
-                                        Text(widget.type.unit,
+                                        Text(displayUnitFor(widget.type),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium),

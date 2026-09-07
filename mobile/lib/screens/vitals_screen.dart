@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
+import '../core/unit_prefs.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
 import 'trends_screen.dart';
@@ -60,6 +61,15 @@ class _VitalsScreenState extends State<VitalsScreen> {
     if (saved == true) _load();
   }
 
+  Future<void> _openUnits() async {
+    final changed = await showModalBottomSheet<bool>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const _UnitsSheet(),
+    );
+    if (changed == true) _load();
+  }
+
   Future<void> _openHistory(VitalType type) async {
     await Navigator.push(
       context,
@@ -82,6 +92,11 @@ class _VitalsScreenState extends State<VitalsScreen> {
             ),
             tooltip: "Trends",
             icon: const Icon(Icons.show_chart_rounded),
+          ),
+          IconButton(
+            onPressed: _openUnits,
+            tooltip: "Units",
+            icon: const Icon(Icons.straighten_rounded),
           ),
         ],
       ),
@@ -182,11 +197,11 @@ class _VitalCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Text(reading.formatted,
+                          Text(formatReading(reading),
                               style:
                                   Theme.of(context).textTheme.headlineMedium),
                           const SizedBox(width: 4),
-                          Text(type.unit,
+                          Text(displayUnitFor(type),
                               style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
@@ -269,12 +284,12 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
       return;
     }
 
-    final range = type.plausibleRange;
+    final range = displayPlausibleRange(type);
     if (primary < range.$1 || primary > range.$2) {
       setState(() => _error =
           "That doesn't look like a ${type.label.toLowerCase()} reading. "
           "Expected roughly ${range.$1.toStringAsFixed(0)} to "
-          "${range.$2.toStringAsFixed(0)} ${type.unit}.");
+          "${range.$2.toStringAsFixed(0)} ${displayUnitFor(type)}.");
       return;
     }
 
@@ -302,7 +317,7 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
       id: DateTime.now().microsecondsSinceEpoch.toString(),
       type: type,
       timestamp: _timestamp,
-      value: primary,
+      value: toCanonicalValue(type, primary),
       secondaryValue: secondary,
       note: _note.text.trim().isEmpty ? null : _note.text.trim(),
     ));
@@ -339,7 +354,7 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
             Text(type.label,
                 style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 4),
-            Text("Measured in ${type.unit}",
+            Text("Measured in ${displayUnitFor(type)}",
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 18),
             Row(
@@ -430,6 +445,102 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+
+/// Lets the user pick the units they think in.
+///
+/// Changing a unit converts what is DISPLAYED. Stored readings stay in
+/// their canonical form, so switching back and forth never degrades a
+/// value through repeated rounding.
+class _UnitsSheet extends StatefulWidget {
+  const _UnitsSheet();
+
+  @override
+  State<_UnitsSheet> createState() => _UnitsSheetState();
+}
+
+class _UnitsSheetState extends State<_UnitsSheet> {
+  bool _changed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final prefs = UnitPrefs();
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: AppTheme.border,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Text("Units", style: Theme.of(context).textTheme.headlineMedium),
+          const SizedBox(height: 4),
+          Text(
+            "Choose the units you prefer. Readings you have already saved "
+            "are converted, not changed.",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 20),
+          Text("Temperature", style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: TemperatureUnit.values
+                .map((unit) => ChoiceChip(
+                      label: Text(unit == TemperatureUnit.celsius
+                          ? "\u00B0C"
+                          : "\u00B0F"),
+                      selected: prefs.temperature == unit,
+                      onSelected: (_) async {
+                        await prefs.setTemperature(unit);
+                        if (mounted) setState(() => _changed = true);
+                      },
+                    ))
+                .toList(),
+          ),
+          const SizedBox(height: 18),
+          Text("Weight", style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: WeightUnit.values
+                .map((unit) => ChoiceChip(
+                      label: Text(unit == WeightUnit.lb ? "lb" : "kg"),
+                      selected: prefs.weight == unit,
+                      onSelected: (_) async {
+                        await prefs.setWeight(unit);
+                        if (mounted) setState(() => _changed = true);
+                      },
+                    ))
+                .toList(),
+          ),
+          const SizedBox(height: 22),
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context, _changed),
+              child: const Text("Done"),
+            ),
+          ),
+        ],
       ),
     );
   }
