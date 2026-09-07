@@ -1,17 +1,71 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../models/health_profile.dart';
+import '../services/health_profile_service.dart';
 import '../services/language_prefs_service.dart';
+import 'health_profile_screen.dart';
 import 'how_it_works_screen.dart';
 import 'language_select_screen.dart';
 import 'voice_input_screen.dart';
 
 /// Landing screen. Introduces the app and starts a new consultation.
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  /// First-ever "Start Consultation" tap routes through the one-time
-  /// language picker. Every tap after that goes straight to the voice
-  /// input screen, which already knows the saved preference.
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final _profileService = HealthProfileService();
+  HealthProfile? _profile;
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    try {
+      if (await _profileService.shouldOfferSetup()) {
+        if (!mounted) return;
+        // After the first frame so the home screen is behind it rather
+        // than the setup form appearing out of nowhere.
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          if (!mounted) return;
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const HealthProfileScreen(isSetup: true),
+            ),
+          );
+          _refreshProfile();
+        });
+        return;
+      }
+      _refreshProfile();
+    } catch (_) {
+      // Storage unavailable - the home screen still works without a
+      // profile, so fail quietly rather than blocking the app.
+    }
+  }
+
+  Future<void> _refreshProfile() async {
+    final profile = await _profileService.load();
+    if (mounted) setState(() => _profile = profile);
+  }
+
+  Future<void> _openProfile() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const HealthProfileScreen()),
+    );
+    _refreshProfile();
+  }
+
+  /// First-ever consultation routes through the one-time language picker.
+  /// [speakNow] carries through so the mic can be live on arrival.
   Future<void> _startConsultation(
     BuildContext context, {
     bool speakNow = false,
@@ -35,7 +89,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const _Header(),
+            _Header(profile: _profile, onProfileTap: _openProfile),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 22, 20, 28),
               child: Column(
@@ -47,24 +101,27 @@ class HomeScreen extends StatelessWidget {
                         _startConsultation(context, speakNow: true),
                   ),
                   const SizedBox(height: 14),
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: _FeatureTile(
-                          icon: Icons.wifi_off_rounded,
-                          title: "Works offline",
-                          body: "No internet needed",
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: const [
+                        Expanded(
+                          child: _FeatureTile(
+                            icon: Icons.wifi_off_rounded,
+                            title: "Works offline",
+                            body: "No internet needed",
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: _FeatureTile(
-                          icon: Icons.lock_outline_rounded,
-                          title: "Stays private",
-                          body: "Nothing leaves your phone",
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: _FeatureTile(
+                            icon: Icons.lock_outline_rounded,
+                            title: "Stays private",
+                            body: "Nothing leaves your phone",
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 14),
                   OutlinedButton.icon(
@@ -94,17 +151,21 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _Header extends StatelessWidget {
-  const _Header();
+  final HealthProfile? profile;
+  final VoidCallback onProfileTap;
+
+  const _Header({required this.profile, required this.onProfileTap});
 
   @override
   Widget build(BuildContext context) {
+    final name = profile?.greetingName ?? '';
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 34,
+        top: MediaQuery.of(context).padding.top + 24,
         bottom: 34,
         left: 24,
-        right: 24,
+        right: 16,
       ),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -112,34 +173,50 @@ class _Header extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius:
-            BorderRadius.vertical(bottom: Radius.circular(30)),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 58,
-            height: 58,
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.18),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.health_and_safety_rounded,
-                size: 32, color: Colors.white),
+          Row(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.18),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.health_and_safety_rounded,
+                    size: 28, color: Colors.white),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: onProfileTap,
+                tooltip: "Your profile",
+                icon: Icon(
+                  name.isEmpty
+                      ? Icons.person_add_alt_1_outlined
+                      : Icons.person_outline_rounded,
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 18),
-          const Text(
-            "MediVoice AI",
-            style: TextStyle(
-              fontSize: 30,
+          const SizedBox(height: 14),
+          Text(
+            name.isEmpty ? "MediVoice AI" : "Hello, $name",
+            style: const TextStyle(
+              fontSize: 29,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            "Your offline health companion",
+            name.isEmpty
+                ? "Your offline health companion"
+                : "How can I help you today?",
             style: TextStyle(
               fontSize: 15,
               color: Colors.white.withOpacity(0.85),
