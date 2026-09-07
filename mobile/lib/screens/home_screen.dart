@@ -6,6 +6,7 @@ import '../services/health_profile_service.dart';
 import '../services/language_prefs_service.dart';
 import 'health_profile_screen.dart';
 import 'history_screen.dart';
+import 'vitals_screen.dart';
 import 'how_it_works_screen.dart';
 import 'language_select_screen.dart';
 import 'voice_input_screen.dart';
@@ -148,6 +149,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 14),
+                  OutlinedButton.icon(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const VitalsScreen()),
+                    ),
+                    icon: const Icon(Icons.monitor_heart_outlined, size: 18),
+                    label: const Text("Vitals"),
+                  ),
+                  const SizedBox(height: 10),
                   OutlinedButton.icon(
                     onPressed: _openHistory,
                     icon: const Icon(Icons.history_rounded, size: 18),
