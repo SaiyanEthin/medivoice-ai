@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../core/app_locale.dart';
 import '../core/text_scale_prefs.dart';
 import '../core/theme/app_theme.dart';
 import '../core/unit_prefs.dart';
@@ -90,6 +91,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
           children: [
+            _Heading("Language"),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "The language MediVoice is shown and spoken in.",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: const [
+                        _LanguageChoice(code: 'en', label: 'English'),
+                        _LanguageChoice(
+                            code: 'kn',
+                            label: '\u0c95\u0ca8\u0ccd\u0ca8\u0ca1'),
+                        _LanguageChoice(
+                            code: 'hi',
+                            label: '\u0939\u093f\u0902\u0926\u0940'),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Kannada and Hindi are being translated. Anything not "
+                      "yet translated stays in English, and symptom and "
+                      "condition names are still shown in English.",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 22),
             _Heading("Display"),
             Card(
               child: ListTile(
@@ -192,9 +230,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     padding:
                         const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      "Voice guidance currently speaks English only. You "
-                      "can still speak to MediVoice in Kannada, Hindi or "
-                      "English.",
+                      "Voice guidance follows the language above. Your "
+                      "phone needs that language's voice data installed - "
+                      "if it isn't, the app stays silent rather than "
+                      "reading the wrong pronunciation.",
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
@@ -264,6 +303,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Changing this rebuilds the whole app with the new locale, so the
+/// screen underneath updates as soon as the chip is tapped.
+class _LanguageChoice extends StatefulWidget {
+  final String code;
+  final String label;
+  const _LanguageChoice({required this.code, required this.label});
+
+  @override
+  State<_LanguageChoice> createState() => _LanguageChoiceState();
+}
+
+class _LanguageChoiceState extends State<_LanguageChoice> {
+  @override
+  Widget build(BuildContext context) {
+    return ChoiceChip(
+      label: Text(widget.label),
+      selected: AppLocale().value.languageCode == widget.code,
+      onSelected: (_) async {
+        await AppLocale().set(widget.code);
+        if (mounted) setState(() {});
+      },
     );
   }
 }
