@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/routes/app_routes.dart';
 import 'core/config.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'core/app_locale.dart';
 import 'core/text_scale_prefs.dart';
+import 'l10n/app_localizations.dart';
 import 'core/unit_prefs.dart';
 import 'services/speech_output_service.dart';
 import 'providers/consultation_provider.dart';
@@ -16,6 +19,7 @@ void main() async {
   await UnitPrefs().load();
   await SpeechOutputService().load();
   await TextScalePrefs().load();
+  await AppLocale().load();
   runApp(const MediVoiceApp());
 }
 
@@ -28,14 +32,21 @@ class MediVoiceApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ConsultationProvider()),
       ],
-      child: ValueListenableBuilder<TextSizeOption>(
-        valueListenable: TextScalePrefs(),
-        builder: (context, textSize, child) => MediaQuery.withClampedTextScaling(
-          minScaleFactor: textSize.scale,
-          maxScaleFactor: textSize.scale,
-          child: child!,
-        ),
-        child: MaterialApp(
+      child: ValueListenableBuilder<Locale>(
+        valueListenable: AppLocale(),
+        builder: (context, locale, _) => MaterialApp(
+          locale: locale,
+          localizationsDelegates: AppText.localizationsDelegates,
+          supportedLocales: AppText.supportedLocales,
+          builder: (context, child) => ValueListenableBuilder<TextSizeOption>(
+            valueListenable: TextScalePrefs(),
+            builder: (context, textSize, _) =>
+                MediaQuery.withClampedTextScaling(
+              minScaleFactor: textSize.scale,
+              maxScaleFactor: textSize.scale,
+              child: child!,
+            ),
+          ),
         title: AppConfig.appName,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,

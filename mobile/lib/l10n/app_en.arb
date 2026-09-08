@@ -1,0 +1,115 @@
+{
+  "@@locale": "en",
+  "appTitle": "MediVoice",
+  "@appTitle": {
+    "description": "Product name - not translated"
+  },
+  "consultGreeting": "Hello! Tell me how you're feeling - you can speak or type.",
+  "@consultGreeting": {
+    "description": "First message in a consultation"
+  },
+  "consultGreetingExample": "For example: \"I have fever and a cough\".",
+  "@consultGreetingExample": {
+    "description": "Follows the greeting. The quoted example should be a natural phrase in the target language, not a literal translation."
+  },
+  "consultGreetingSpoken": "Hello. Tell me how you're feeling. You can speak or type.",
+  "@consultGreetingSpoken": {
+    "description": "Spoken form of the greeting. Differs from the written one because quotation marks and line breaks do not read aloud."
+  },
+  "consultRestart": "Let's start again. How are you feeling?",
+  "consultInputHint": "Type or speak",
+  "consultInputHintListening": "Listening...",
+  "consultInputHintTranscribing": "Transcribing...",
+  "voiceGuidanceTurnOff": "Turn off voice guidance",
+  "voiceGuidanceTurnOn": "Turn on voice guidance",
+  "consultNoSymptoms": "I couldn't pick out any symptoms there. Try describing them more simply - for example \"fever and cough\".",
+  "@consultNoSymptoms": {
+    "description": "REVIEW: shown when nothing matched. Should sound helpful, not like the user did something wrong."
+  },
+  "consultOnlyDenied": "You told me what you don't have, but not what you do. What symptoms are you experiencing?",
+  "@consultOnlyDenied": {
+    "description": "REVIEW: the user described only absent symptoms."
+  },
+  "consultDidntCatch": "I didn't catch that. Please try again, speaking clearly.",
+  "consultListeningError": "Something went wrong while listening. Please try again.",
+  "consultMicPermission": "I need microphone permission to listen. You can allow it in your phone's settings, or type instead.",
+  "consultPredictionError": "Something went wrong working that out. Please try again.",
+  "questionsTitle": "A few quick questions",
+  "questionsSubtitle": "This helps narrow things down.",
+  "answerYes": "Yes",
+  "answerNo": "No",
+  "severityPrompt": "How severe? (optional)",
+  "severityMild": "Mild",
+  "@severityMild": {
+    "description": "REVIEW: clinical wording"
+  },
+  "severityModerate": "Moderate",
+  "@severityModerate": {
+    "description": "REVIEW: clinical wording"
+  },
+  "severitySevere": "Severe",
+  "@severitySevere": {
+    "description": "REVIEW: clinical wording"
+  },
+  "questionsAnsweredCount": "{answered} of {total} answered",
+  "@questionsAnsweredCount": {
+    "placeholders": {
+      "answered": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "actionContinue": "Continue",
+  "actionSkipRest": "Skip the rest",
+  "questionsSpokenIntro": "{count, plural, =1{I have 1 quick question.} other{I have {count} quick questions.}}",
+  "@questionsSpokenIntro": {
+    "description": "Spoken before reading a round of questions aloud.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "resultMayBeConsistentWith": "This may be consistent with",
+  "@resultMayBeConsistentWith": {
+    "description": "REVIEW: deliberately tentative. Must not imply a diagnosis in any language."
+  },
+  "resultModelScore": "Model score: {percent}% - a pattern match, not a diagnosis.",
+  "@resultModelScore": {
+    "description": "REVIEW: 'pattern match, not a diagnosis' is a safety statement and must survive translation.",
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "resultSpoken": "Based on what you've described, this may be consistent with {disease}. The model score is {percent} percent. This is a pattern match, not a diagnosis.",
+  "@resultSpoken": {
+    "description": "Spoken form of the result. Says 'percent' as a word because a voice cannot read the % sign, and rounds the number because decimals mishear.",
+    "placeholders": {
+      "disease": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "resultUncertainTitle": "I'm not confident enough to suggest a specific condition from what you've told me.",
+  "@resultUncertainTitle": {
+    "description": "REVIEW: safety wording"
+  },
+  "resultUncertainBody": "That's common with mild or early illness. I can still suggest some things that may help.",
+  "@resultUncertainBody": {
+    "description": "REVIEW: safety wording"
+  },
+  "resultUncertainSpoken": "I'm not confident enough to suggest a specific condition from what you've told me. This is common with mild or early illness. Tap to see what you can do.",
+  "@resultUncertainSpoken": {
+    "description": "REVIEW: safety wording"
+  },
+  "actionSeeFullAssessment": "See full assessment",
+  "actionSeeWhatYouCanDo": "See what you can do"
+}
