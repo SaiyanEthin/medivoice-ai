@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/routes/app_routes.dart';
 import 'core/config.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/app_locale.dart';
 import 'core/text_scale_prefs.dart';
 import 'l10n/app_localizations.dart';

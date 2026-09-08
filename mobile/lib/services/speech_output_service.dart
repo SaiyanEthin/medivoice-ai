@@ -1,6 +1,7 @@
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/disease_display.dart';
+import '../l10n/app_localizations.dart';
 import '../models/prediction_result.dart';
 
 /// Speaks the app's responses aloud using the device's own TTS engine.
@@ -92,31 +93,28 @@ class SpeechOutputService {
   }
 }
 
-// --- phrasing for listening -------------------------------------------------
+// --- phrasing for listening -----------------------------------------------
 //
-// Spoken text is built separately from displayed text. "Model score: 79.8%"
-// reads badly aloud, and a screen reader voice saying "79.8%" as a bare
-// number is easy to mishear.
+// Spoken wording lives in the ARB files alongside the displayed wording,
+// so a correction to one language updates screen and speech together.
+// These helpers only choose WHICH string applies; they never contain any.
 
 /// A result, phrased for the ear.
-String spokenResult(PredictionResult result) {
-  if (result.isUncertain) {
-    return "I'm not confident enough to suggest a specific condition from "
-        "what you've told me. This is common with mild or early illness. "
-        "Tap to see what you can do.";
-  }
-  final name = diseaseDisplayName(result.topPrediction.disease);
-  final percent = (result.topPrediction.confidence * 100).round();
-  return "Based on what you've described, this may be consistent with "
-      "$name. The model score is $percent percent. "
-      "This is a pattern match, not a diagnosis.";
+///
+/// The percentage is rounded and spoken as a word: a voice cannot read the
+/// % sign, and a decimal is easy to mishear.
+String spokenResultText(AppText t, PredictionResult result) {
+  if (result.isUncertain) return t.resultUncertainSpoken;
+  return t.resultSpoken(
+    diseaseDisplayName(result.topPrediction.disease),
+    (result.topPrediction.confidence * 100).round(),
+  );
 }
 
 /// A round of follow-up questions, read as one utterance so the voice
 /// doesn't restart between them.
-String spokenQuestions(List<FollowUpQuestion> questions) {
+String spokenQuestionsText(AppText t, List<FollowUpQuestion> questions) {
   if (questions.isEmpty) return '';
   final asked = questions.map((q) => q.question).join(' ');
-  return "I have ${questions.length} quick question"
-      "${questions.length == 1 ? '' : 's'}. $asked";
+  return '${t.questionsSpokenIntro(questions.length)} $asked';
 }

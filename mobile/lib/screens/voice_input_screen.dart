@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../core/app_locale.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../models/chat_message.dart';
 import '../models/consultation_record.dart';
 import '../models/prediction_result.dart';
@@ -69,11 +71,6 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   @override
   void initState() {
     super.initState();
-    _messages.add(ChatMessage.app(
-        "Hello! Tell me how you're feeling - you can speak or type.\n\n"
-        "For example: \"I have fever and a cough\"."));
-    _voice.speak(
-        "Hello. Tell me how you're feeling. You can speak or type.");
     _matcher.initialize().then((_) {
       if (mounted) setState(() => _matcherReady = true);
     });
@@ -91,9 +88,22 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     }
   }
 
+  /// Greeting happens here rather than in initState: AppText.of(context)
+  /// needs the localisations to be in scope, which they are not that early.
+  bool _greeted = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
+    if (!_greeted) {
+      _greeted = true;
+      final t = AppText.of(context);
+      _messages.add(ChatMessage.app(
+          '${t.consultGreeting}\n\n${t.consultGreetingExample}'));
+      _voice.speak(t.consultGreetingSpoken, locale: AppLocale().ttsLocale);
+    }
+
     final p = context.read<ConsultationProvider>();
     if (!identical(p, _provider)) {
       _provider?.removeListener(_onConsultationChanged);
@@ -130,28 +140,29 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     if (p.status == _lastStatus && p.followUpRound == _lastRound) return;
 
     setState(() {
+      final t = AppText.of(context);
       switch (p.status) {
         case ConsultationStatus.idle:
           // reset() was called (Try Again) - start a fresh thread.
           _messages
             ..clear()
-            ..add(ChatMessage.app(
-                "Let's start again. How are you feeling?"));
+            ..add(ChatMessage.app(t.consultRestart));
           break;
         case ConsultationStatus.success:
           final r = p.result!;
           if (r.needsFollowup) {
             _messages.add(ChatMessage.questions(r.followUpQuestions));
-            _voice.speak(spokenQuestions(r.followUpQuestions));
+            _voice.speak(spokenQuestionsText(t, r.followUpQuestions),
+                locale: AppLocale().ttsLocale);
           } else {
             _messages.add(ChatMessage.result(r));
-            _voice.speak(spokenResult(r));
+            _voice.speak(spokenResultText(t, r),
+                locale: AppLocale().ttsLocale);
             _saveToHistory(p, r);
           }
           break;
         case ConsultationStatus.error:
-          _messages.add(ChatMessage.app(
-              "Something went wrong working that out. Please try again."));
+          _messages.add(ChatMessage.app(t.consultPredictionError));
           break;
         case ConsultationStatus.loading:
           break;
@@ -199,6 +210,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
 
   void _send() {
     if (!_matcherReady) return;
+    final t = AppText.of(context);
     final text = _controller.text.trim();
     if (text.isEmpty) return;
 
@@ -210,18 +222,15 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     });
 
     if (analysis.isEmpty) {
-      const nudge = "I couldn't pick out any symptoms there. Try "
-          "describing them more simply - for example, fever and cough.";
-      setState(() => _messages.add(ChatMessage.app(nudge)));
-      _voice.speak(nudge);
+      setState(() => _messages.add(ChatMessage.app(t.consultNoSymptoms)));
+      _voice.speak(t.consultNoSymptoms, locale: AppLocale().ttsLocale);
       _scrollToBottom();
       return;
     }
 
     if (analysis.present.isEmpty) {
-      setState(() => _messages.add(ChatMessage.app(
-          "You told me what you don't have, but not what you do. "
-          "What symptoms are you experiencing?")));
+      setState(
+          () => _messages.add(ChatMessage.app(t.consultOnlyDenied)));
       _scrollToBottom();
       return;
     }
@@ -246,6 +255,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
   }
 
   Future<void> _toggleRecording() async {
+    final t = AppText.of(context);
     if (_isRecording) {
       setState(() {
         _isRecording = false;
@@ -258,14 +268,14 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
         if (result != null && !result.isEmpty) {
           setState(() => _controller.text = result.text);
         } else {
-          setState(() => _messages.add(ChatMessage.app(
-              "I didn't catch that. Please try again, speaking clearly.")));
+          setState(
+              () => _messages.add(ChatMessage.app(t.consultDidntCatch)));
           _scrollToBottom();
         }
       } catch (_) {
         if (!mounted) return;
-        setState(() => _messages.add(ChatMessage.app(
-            "Something went wrong while listening. Please try again.")));
+        setState(
+            () => _messages.add(ChatMessage.app(t.consultListeningError)));
         _scrollToBottom();
       } finally {
         if (mounted) setState(() => _isTranscribing = false);
@@ -278,9 +288,8 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
       if (started) {
         setState(() => _isRecording = true);
       } else {
-        setState(() => _messages.add(ChatMessage.app(
-            "I need microphone permission to listen. You can allow it in "
-            "your phone's settings, or type instead.")));
+        setState(
+            () => _messages.add(ChatMessage.app(t.consultMicPermission)));
         _scrollToBottom();
       }
     }
@@ -294,7 +303,7 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
-        title: const Text("MediVoice"),
+        title: Text(AppText.of(context).appTitle),
         actions: [
           IconButton(
             onPressed: () async {
@@ -302,8 +311,8 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
               if (mounted) setState(() {});
             },
             tooltip: _voice.enabled
-                ? "Turn off voice guidance"
-                : "Turn on voice guidance",
+                ? AppText.of(context).voiceGuidanceTurnOff
+                : AppText.of(context).voiceGuidanceTurnOn,
             icon: Icon(_voice.enabled
                 ? Icons.volume_up_rounded
                 : Icons.volume_off_rounded),
@@ -385,16 +394,14 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (r.isUncertain) ...[
-                Text("I'm not confident enough to suggest a specific "
-                    "condition from what you've told me."),
+                Text(AppText.of(context).resultUncertainTitle),
                 const SizedBox(height: 6),
                 Text(
-                  "That's common with mild or early illness. I can still "
-                  "suggest some things that may help.",
+                  AppText.of(context).resultUncertainBody,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ] else ...[
-                Text("This may be consistent with",
+                Text(AppText.of(context).resultMayBeConsistentWith,
                     style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(height: 2),
                 Text(
@@ -403,9 +410,9 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Model score: "
-                  "${(r.topPrediction.confidence * 100).toStringAsFixed(1)}% "
-                  "- a pattern match, not a diagnosis.",
+                  AppText.of(context).resultModelScore(
+                      (r.topPrediction.confidence * 100)
+                          .toStringAsFixed(1)),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
@@ -420,8 +427,8 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
                   ),
                   icon: const Icon(Icons.article_outlined, size: 18),
                   label: Text(r.isUncertain
-                      ? "See what you can do"
-                      : "See full assessment"),
+                      ? AppText.of(context).actionSeeWhatYouCanDo
+                      : AppText.of(context).actionSeeFullAssessment),
                 ),
               ),
             ],
@@ -467,8 +474,10 @@ class _VoiceInputScreenState extends State<VoiceInputScreen> {
               onSubmitted: (_) => _send(),
               decoration: InputDecoration(
                 hintText: _isRecording
-                    ? "Listening..."
-                    : (_isTranscribing ? "Transcribing..." : "Type or speak"),
+                    ? AppText.of(context).consultInputHintListening
+                    : (_isTranscribing
+                        ? AppText.of(context).consultInputHintTranscribing
+                        : AppText.of(context).consultInputHint),
                 filled: true,
                 fillColor: AppTheme.background,
                 contentPadding:

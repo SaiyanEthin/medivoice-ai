@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../models/prediction_result.dart';
 import '../models/symptom_severity.dart';
 
@@ -13,6 +14,20 @@ import '../models/symptom_severity.dart';
 /// Reports through [onSubmit] rather than calling ConsultationProvider
 /// directly, so the hosting screen can also append a summary of what was
 /// answered to the thread.
+/// Severity labels come from the ARB rather than the enum, so they
+/// follow the app language. The enum's own label stays English for
+/// logging and storage.
+String severityLabel(AppText t, SymptomSeverity severity) {
+  switch (severity) {
+    case SymptomSeverity.mild:
+      return t.severityMild;
+    case SymptomSeverity.moderate:
+      return t.severityModerate;
+    case SymptomSeverity.severe:
+      return t.severitySevere;
+  }
+}
+
 class FollowUpQuestionCard extends StatefulWidget {
   final List<FollowUpQuestion> questions;
   final void Function(
@@ -59,12 +74,13 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppText.of(context);
     final submitted = widget.submittedAnswers;
     if (submitted != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("A few quick questions",
+          Text(t.questionsTitle,
               style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           ...widget.questions.map((q) {
@@ -88,8 +104,8 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                     child: Text(
                       widget.submittedSeverities[q.symptom] == null
                           ? q.question
-                          : "${q.question}  "
-                              "\u00B7  ${widget.submittedSeverities[q.symptom]!.label}",
+                          : "${q.question}  \u00B7  "
+                              "${severityLabel(t, widget.submittedSeverities[q.symptom]!)}",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
@@ -107,10 +123,10 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("A few quick questions",
+        Text(t.questionsTitle,
             style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 2),
-        Text("This helps narrow things down.",
+        Text(t.questionsSubtitle,
             style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 12),
         ...widget.questions.map((q) => Padding(
@@ -123,10 +139,12 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      _choice(context, "Yes", _answers[q.symptom] == true,
+                      _choice(context, t.answerYes,
+                          _answers[q.symptom] == true,
                           () => setState(() => _answers[q.symptom] = true)),
                       const SizedBox(width: 8),
-                      _choice(context, "No", _answers[q.symptom] == false,
+                      _choice(context, t.answerNo,
+                          _answers[q.symptom] == false,
                           () => setState(() {
                                 _answers[q.symptom] = false;
                                 // A denied symptom cannot have a severity.
@@ -136,14 +154,14 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                   ),
                   if (_answers[q.symptom] == true) ...[
                     const SizedBox(height: 8),
-                    Text("How severe? (optional)",
+                    Text(t.severityPrompt,
                         style: Theme.of(context).textTheme.bodySmall),
                     const SizedBox(height: 6),
                     Wrap(
                       spacing: 6,
                       children: SymptomSeverity.values
                           .map((severity) => ChoiceChip(
-                                label: Text(severity.label),
+                                label: Text(severityLabel(t, severity)),
                                 visualDensity: VisualDensity.compact,
                                 materialTapTargetSize:
                                     MaterialTapTargetSize.shrinkWrap,
@@ -162,7 +180,7 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                 ],
               ),
             )),
-        Text("$answered of $total answered",
+        Text(t.questionsAnsweredCount(answered, total),
             style: Theme.of(context).textTheme.bodySmall),
         const SizedBox(height: 8),
         SizedBox(
@@ -172,14 +190,14 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                 ? () => widget.onSubmit(
                     Map.of(_answers), Map.of(_severities))
                 : null,
-            child: const Text("Continue"),
+            child: Text(t.actionContinue),
           ),
         ),
         if (answered > 0 && !_allAnswered)
           TextButton(
             onPressed: () =>
                 widget.onSubmit(Map.of(_answers), Map.of(_severities)),
-            child: const Text("Skip the rest"),
+            child: Text(t.actionSkipRest),
           ),
       ],
     );
