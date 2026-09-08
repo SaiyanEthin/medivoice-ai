@@ -4,7 +4,7 @@ import '../models/health_profile.dart';
 import '../services/health_profile_service.dart';
 import '../services/language_prefs_service.dart';
 import 'dashboard_screen.dart';
-import 'display_settings_screen.dart';
+import 'settings_screen.dart';
 import 'health_profile_screen.dart';
 import 'how_it_works_screen.dart';
 import 'language_select_screen.dart';
@@ -137,13 +137,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const DisplaySettingsScreen()),
-                    ),
-                    icon: const Icon(Icons.format_size_rounded, size: 18),
-                    label: const Text("Text size"),
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const SettingsScreen()),
+                      );
+                      // Deleting health data from Settings clears the
+                      // profile, so the greeting has to be re-read.
+                      _refreshProfile();
+                    },
+                    icon: const Icon(Icons.settings_outlined, size: 18),
+                    label: const Text("Settings"),
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(
