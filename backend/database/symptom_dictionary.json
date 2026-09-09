@@ -19,7 +19,9 @@
     "kn": [
       "jwara",
       "ಜ್ವರ"
-    ]
+    ],
+    "label_kn": "ಜ್ವರ",
+    "label_hi": "तेज़ बुखार"
   },
   "cough": {
     "en": [
@@ -33,7 +35,9 @@
     "kn": [
       "kemmu",
       "ಕೆಮ್ಮು"
-    ]
+    ],
+    "label_kn": "ಕೆಮ್ಮು",
+    "label_hi": "खांसी"
   },
   "headache": {
     "en": [
@@ -50,7 +54,9 @@
     "kn": [
       "talenovu",
       "ತಲೆನೋವು"
-    ]
+    ],
+    "label_kn": "ತಲೆನೋವು",
+    "label_hi": "सिरदर्द"
   },
   "vomiting": {
     "en": [
@@ -122,7 +128,9 @@
     "kn": [
       "chali",
       "ನಡುಕ"
-    ]
+    ],
+    "label_kn": "ಚಳಿ",
+    "label_hi": "ठंड लगना"
   },
   "joint_pain": {
     "en": [
@@ -153,7 +161,9 @@
     "kn": [
       "mansakhanda novu",
       "ಮಾಂಸಖಂಡ ನೋವು"
-    ]
+    ],
+    "label_kn": "ಮೈ ಕೈ ನೋವು",
+    "label_hi": "बदन दर्द"
   },
   "back_pain": {
     "en": [
@@ -181,7 +191,9 @@
     "kn": [
       "eda novu",
       "ಎದೆ ನೋವು"
-    ]
+    ],
+    "label_kn": "ಎದೆ ನೋವು",
+    "label_hi": "छाती में दर्द"
   },
   "breathlessness": {
     "en": [
@@ -196,7 +208,9 @@
     "kn": [
       "usiraata takarare",
       "ಉಸಿರಾಟ ತೊಂದರೆ"
-    ]
+    ],
+    "label_kn": "ಉಸಿರಾಟದ ತೋಂದರೆ",
+    "label_hi": "सांस लेने में तकलीफ़"
   },
   "fatigue": {
     "en": [
@@ -218,7 +232,9 @@
     "kn": [
       "aayasa",
       "ಆಯಾಸ"
-    ]
+    ],
+    "label_kn": "ಆಯಾಸ",
+    "label_hi": "थकान"
   },
   "dizziness": {
     "en": [
@@ -277,7 +293,9 @@
     "kn": [
       "gantalu kirikiri",
       "ಗಂಟಲು ಕಿರಿಕಿರಿ"
-    ]
+    ],
+    "label_kn": "ಗಂಟಲು ಕೆರೆತ",
+    "label_hi": "गले में खराश"
   },
   "runny_nose": {
     "en": [
@@ -293,7 +311,9 @@
     "kn": [
       "muku sori",
       "ಮೂಗು ಸೋರುವಿಕೆ"
-    ]
+    ],
+    "label_kn": "ಮೂಗು ಸೋರುವುದು",
+    "label_hi": "नाक बहना"
   },
   "continuous_sneezing": {
     "en": [
@@ -308,7 +328,9 @@
     "kn": [
       "seemte",
       "ಸೀನುವಿಕೆ"
-    ]
+    ],
+    "label_kn": "ಸೀನುವುದು",
+    "label_hi": "लगातार छींक आना"
   },
   "loss_of_appetite": {
     "en": [
@@ -350,7 +372,9 @@
     "kn": [
       "benave",
       "ಬೆವರುವಿಕೆ"
-    ]
+    ],
+    "label_kn": "ಬೆವರುವುದು",
+    "label_hi": "पसीना आना"
   },
   "constipation": {
     "en": [
@@ -404,7 +428,9 @@
     "kn": [
       "kannu kempu",
       "ಕಣ್ಣು ಕೆಂಪು"
-    ]
+    ],
+    "label_kn": "ಕಣ್ಣು ಕೆಂಪಾಗುವುದು",
+    "label_hi": "आंखों का लाल होना"
   },
   "blurred_and_distorted_vision": {
     "en": [
@@ -471,7 +497,9 @@
     "kn": [
       "vaasane gotthaguttilla",
       "ವಾಸನೆ ಗೊತ್ತಾಗುವುದಿಲ್ಲ"
-    ]
+    ],
+    "label_kn": "ವಾಸನೆ ತಿಳಿಯದಿರುವುದು",
+    "label_hi": "सूंघने की शक्ति जाना"
   },
   "acidity": {
     "en": [
@@ -505,7 +533,9 @@
     "kn": [
       "muku katti",
       "ಮೂಗು ಕಟ್ಟಿದೆ"
-    ]
+    ],
+    "label_kn": "ಮೂಗು ಕಟ್ಟುವುದು",
+    "label_hi": "नाक बंद होना"
   },
   "phlegm": {
     "en": [
@@ -520,7 +550,9 @@
     "kn": [
       "kapha",
       "ಕಫ"
-    ]
+    ],
+    "label_kn": "ಕಫ",
+    "label_hi": "बलगम"
   },
   "belly_pain": {
     "label": "belly pain",
@@ -712,7 +744,9 @@
     ],
     "kn": [
       "ಆಲಸ್ಯ ಆಗುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಸುಸ್ತು",
+    "label_hi": "सुस्ती"
   },
   "loss_of_balance": {
     "label": "loss of balance",
@@ -748,7 +782,9 @@
     ],
     "kn": [
       "ಆರೋಗ್ಯ ಸರಿಯಿಲ್ಲ ಅನ್ನಿಸುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಮೈ ಸರಿಯಿಲ್ಲದೆ ಇರುವುದು",
+    "label_hi": "तबीयत ठीक न लगना"
   },
   "mucoid_sputum": {
     "label": "thick mucus when coughing",
@@ -764,7 +800,9 @@
     ],
     "kn": [
       "ಕೆಮ್ಮಿದಾಗ ಕಫ ಬರುತ್ತದೆ"
-    ]
+    ],
+    "label_kn": "ಕೆಮ್ಮಿದಾಗ ಕಫ",
+    "label_hi": "खांसी में बलगम"
   },
   "obesity": {
     "label": "significant weight gain",
@@ -831,7 +869,9 @@
     ],
     "kn": [
       "ಸೈನಸ್ ಒತ್ತಡ"
-    ]
+    ],
+    "label_kn": "ಮುಖದಲ್ಲಿ ಭಾರ",
+    "label_hi": "साइनस का दबाव"
   },
   "sunken_eyes": {
     "label": "sunken eyes",
@@ -909,7 +949,9 @@
     ],
     "kn": [
       "ಕೆಮ್ಮಿದಾಗ ರಕ್ತ ಬರುತ್ತದೆ"
-    ]
+    ],
+    "label_kn": "ಕೆಮ್ಮಿನಲ್ಲಿ ರಕ್ತ",
+    "label_hi": "खांसी में खून"
   },
   "continuous_feel_of_urine": {
     "label": "a constant urge to urinate",

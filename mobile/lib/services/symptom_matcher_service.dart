@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../core/app_locale.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 /// Result of analyzing a free-text symptom description.
@@ -143,6 +144,14 @@ class SymptomMatcherService {
     }
     final entry = _dictionary![symptomColumn] as Map<String, dynamic>?;
     if (entry != null) {
+      // A label in the app's language if one exists. Falls back to
+      // English rather than showing a raw column name, so a symptom that
+      // hasn't been translated yet still reads sensibly.
+      final code = AppLocale().value.languageCode;
+      if (code != 'en') {
+        final localised = entry['label_$code'];
+        if (localised is String && localised.isNotEmpty) return localised;
+      }
       // Prefer an explicit display label. Natural voice phrases read badly
       // in the follow-up template ("Do you have room is spinning?"), so
       // entries carry a separate grammatical label for display.
