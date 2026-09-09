@@ -3,6 +3,7 @@ import 'package:medivoice_ai/l10n/app_localizations.dart';
 import 'package:medivoice_ai/l10n/app_localizations_en.dart';
 import 'package:medivoice_ai/l10n/app_localizations_kn.dart';
 import 'package:medivoice_ai/models/prediction_result.dart';
+import 'package:medivoice_ai/services/symptom_matcher_service.dart';
 import 'package:medivoice_ai/services/speech_output_service.dart';
 
 PredictionResult _result({
@@ -23,6 +24,7 @@ PredictionResult _result({
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   final AppText en = AppTextEn();
   final AppText kn = AppTextKn();
 
@@ -75,23 +77,57 @@ void main() {
   });
 
   group('spokenQuestionsText', () {
+    // Question text is rendered from the localised template plus the
+    // symptom column. The `question` field on FollowUpQuestion is built
+    // by the orchestrator in English and is deliberately not used for
+    // display or speech.
+    setUpAll(() async {
+      await SymptomMatcherService().initialize();
+    });
+
     test('reads a round as one utterance', () {
       final spoken = spokenQuestionsText(en, [
         FollowUpQuestion(
-            symptom: 'fatigue', question: 'Do you have fatigue?'),
-        FollowUpQuestion(symptom: 'cough', question: 'Do you have a cough?'),
+            symptom: 'fatigue', question: 'ignored'),
+        FollowUpQuestion(symptom: 'cough', question: 'ignored'),
       ]);
       expect(spoken, contains('2 quick questions'));
-      expect(spoken, contains('Do you have fatigue?'));
-      expect(spoken, contains('Do you have a cough?'));
+      expect(spoken, contains('fatigue'));
+      expect(spoken, contains('cough'));
+    });
+
+    test('the pre-built question string is not used', () {
+      final spoken = spokenQuestionsText(en, [
+        FollowUpQuestion(
+            symptom: 'fatigue',
+            question: 'THIS SHOULD NOT BE SPOKEN'),
+      ]);
+      expect(spoken, isNot(contains('THIS SHOULD NOT BE SPOKEN')),
+          reason: 'the orchestrator builds that field in English; speech '
+              'must come from the localised template');
     });
 
     test('uses the singular for one question', () {
       final spoken = spokenQuestionsText(en, [
-        FollowUpQuestion(
-            symptom: 'fatigue', question: 'Do you have fatigue?'),
+        FollowUpQuestion(symptom: 'fatigue', question: 'ignored'),
       ]);
       expect(spoken, contains('1 quick question.'));
+    });
+
+    test('the template follows the app language', () {
+      final questions = [
+        FollowUpQuestion(symptom: 'fatigue', question: 'ignored'),
+      ];
+      final english = spokenQuestionsText(en, questions);
+      final kannada = spokenQuestionsText(kn, questions);
+
+      expect(english, contains('Do you have'));
+      expect(kannada, isNot(contains('Do you have')),
+          reason: 'the question template was hardcoded English until the '
+              'device test caught it');
+      // The symptom name stays English until symptom labels are
+      // translated, so both should still contain it.
+      expect(kannada, contains('fatigue'));
     });
 
     test('an empty round produces nothing to say', () {

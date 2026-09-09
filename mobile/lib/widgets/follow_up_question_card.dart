@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
+import '../services/symptom_matcher_service.dart';
 import '../models/prediction_result.dart';
 import '../models/symptom_severity.dart';
 
@@ -17,6 +18,17 @@ import '../models/symptom_severity.dart';
 /// Severity labels come from the ARB rather than the enum, so they
 /// follow the app language. The enum's own label stays English for
 /// logging and storage.
+/// The question as the user should read it.
+///
+/// Built here rather than in the orchestrator so the template follows the
+/// app language. The orchestrator is part of the verified prediction path
+/// and shouldn't be edited to solve a presentation problem; the symptom
+/// column it provides is all this needs.
+String questionText(AppText t, FollowUpQuestion question) {
+  final label = SymptomMatcherService().getReadableLabel(question.symptom);
+  return t.questionTemplate(label);
+}
+
 String severityLabel(AppText t, SymptomSeverity severity) {
   switch (severity) {
     case SymptomSeverity.mild:
@@ -103,8 +115,8 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
                   Expanded(
                     child: Text(
                       widget.submittedSeverities[q.symptom] == null
-                          ? q.question
-                          : "${q.question}  \u00B7  "
+                          ? questionText(t, q)
+                          : "${questionText(t, q)}  \u00B7  "
                               "${severityLabel(t, widget.submittedSeverities[q.symptom]!)}",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
@@ -134,7 +146,7 @@ class _FollowUpQuestionCardState extends State<FollowUpQuestionCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(q.question,
+                  Text(questionText(t, q),
                       style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 6),
                   Row(

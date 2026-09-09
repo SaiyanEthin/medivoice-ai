@@ -118,5 +118,14 @@
   "doctorsGeneralSubtitle": "A general physician is a good starting point when symptoms aren't clear.",
   "@unclearFindGpExplain": {
     "description": "REVIEW: shown when no condition was identified. Must not imply the app has ruled anything out."
+  },
+  "questionTemplate": "Do you have {symptom}?",
+  "@questionTemplate": {
+    "description": "The symptom name is inserted untranslated for now - symptom labels live in symptom_dictionary.json and are a later pass.",
+    "placeholders": {
+      "symptom": {
+        "type": "String"
+      }
+    }
   }
 }

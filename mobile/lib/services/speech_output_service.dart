@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/disease_display.dart';
 import '../l10n/app_localizations.dart';
 import '../models/prediction_result.dart';
+import '../widgets/follow_up_question_card.dart' show questionText;
 
 /// Speaks the app's responses aloud using the device's own TTS engine.
 ///
@@ -29,7 +30,12 @@ class SpeechOutputService {
   /// people it helps most are the least likely to go looking for a
   /// setting to turn it on.
   bool enabled = true;
-  bool _ready = false;
+
+  /// The locale the engine is currently configured for. Keyed on the
+  /// locale rather than a plain bool: a single "ready" flag meant the
+  /// first language of a session stuck, so switching language left the
+  /// voice on the old one.
+  String? _readyLocale;
 
   /// True when the engine reported that the requested voice isn't
   /// available, so callers can say so rather than leaving silence
@@ -57,7 +63,7 @@ class SpeechOutputService {
   }
 
   Future<void> _ensureReady(String locale) async {
-    if (_ready) return;
+    if (_readyLocale == locale) return;
     await _tts.setSpeechRate(0.45); // the default gabbles medical terms
     await _tts.setPitch(1.0);
     await _tts.setVolume(1.0);
@@ -69,7 +75,7 @@ class SpeechOutputService {
     } else {
       voiceUnavailable = true;
     }
-    _ready = true;
+    _readyLocale = locale;
   }
 
   /// Speaks [text], interrupting anything already being spoken - a stale
@@ -115,6 +121,8 @@ String spokenResultText(AppText t, PredictionResult result) {
 /// doesn't restart between them.
 String spokenQuestionsText(AppText t, List<FollowUpQuestion> questions) {
   if (questions.isEmpty) return '';
-  final asked = questions.map((q) => q.question).join(' ');
+  // The same resolved string the user is reading, so screen and
+  // speech cannot diverge.
+  final asked = questions.map((q) => questionText(t, q)).join(' ');
   return '${t.questionsSpokenIntro(questions.length)} $asked';
 }

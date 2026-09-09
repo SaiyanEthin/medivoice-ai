@@ -154,4 +154,9 @@ class AppTextHi extends AppText {
   @override
   String get doctorsGeneralSubtitle =>
       'जब लक्षण स्पष्ट न हों, तो सामान्य चिकित्सक से शुरुआत करना अच्छा है।';
+
+  @override
+  String questionTemplate(String symptom) {
+    return 'क्या आपको $symptom है?';
+  }
 }

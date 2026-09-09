@@ -106,14 +106,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
-                      children: const [
-                        _LanguageChoice(code: 'en', label: 'English'),
-                        _LanguageChoice(
-                            code: 'kn',
-                            label: '\u0c95\u0ca8\u0ccd\u0ca8\u0ca1'),
-                        _LanguageChoice(
-                            code: 'hi',
-                            label: '\u0939\u093f\u0902\u0926\u0940'),
+                      children: [
+                        for (final option in const [
+                          ('en', 'English'),
+                          ('kn', '\u0c95\u0ca8\u0ccd\u0ca8\u0ca1'),
+                          ('hi', '\u0939\u093f\u0902\u0926\u0940'),
+                        ])
+                          ChoiceChip(
+                            label: Text(option.$2),
+                            selected: AppLocale().value.languageCode ==
+                                option.$1,
+                            onSelected: (_) async {
+                              await AppLocale().set(option.$1);
+                              // Rebuild the whole row, not just the chip
+                              // that was tapped - otherwise the previously
+                              // selected one keeps its highlight.
+                              if (mounted) setState(() {});
+                            },
+                          ),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -303,31 +313,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// Changing this rebuilds the whole app with the new locale, so the
-/// screen underneath updates as soon as the chip is tapped.
-class _LanguageChoice extends StatefulWidget {
-  final String code;
-  final String label;
-  const _LanguageChoice({required this.code, required this.label});
-
-  @override
-  State<_LanguageChoice> createState() => _LanguageChoiceState();
-}
-
-class _LanguageChoiceState extends State<_LanguageChoice> {
-  @override
-  Widget build(BuildContext context) {
-    return ChoiceChip(
-      label: Text(widget.label),
-      selected: AppLocale().value.languageCode == widget.code,
-      onSelected: (_) async {
-        await AppLocale().set(widget.code);
-        if (mounted) setState(() {});
-      },
     );
   }
 }

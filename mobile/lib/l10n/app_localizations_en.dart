@@ -155,4 +155,9 @@ class AppTextEn extends AppText {
   @override
   String get doctorsGeneralSubtitle =>
       'A general physician is a good starting point when symptoms aren\'t clear.';
+
+  @override
+  String questionTemplate(String symptom) {
+    return 'Do you have $symptom?';
+  }
 }

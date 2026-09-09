@@ -154,4 +154,9 @@ class AppTextKn extends AppText {
   @override
   String get doctorsGeneralSubtitle =>
       'ರೋಗಲಕ್ಷಣಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲದಿದ್ದಾಗ ಸಾಮಾನ್ಯ ವೈದ್ಯರನ್ನು ಭೇಟಿಯಾಗುವುದು ಉತ್ತಮ.';
+
+  @override
+  String questionTemplate(String symptom) {
+    return 'ನಿಮಗೆ $symptom ಇದೆಯೇ?';
+  }
 }

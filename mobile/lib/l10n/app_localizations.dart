@@ -338,6 +338,12 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'A general physician is a good starting point when symptoms aren\'t clear.'**
   String get doctorsGeneralSubtitle;
+
+  /// The symptom name is inserted untranslated for now - symptom labels live in symptom_dictionary.json and are a later pass.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you have {symptom}?'**
+  String questionTemplate(String symptom);
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {
