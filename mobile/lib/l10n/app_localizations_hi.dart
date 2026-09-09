@@ -140,4 +140,18 @@ class AppTextHi extends AppText {
 
   @override
   String get actionSeeWhatYouCanDo => 'क्या करें देखें';
+
+  @override
+  String get unclearFindGp => 'सामान्य चिकित्सक खोजें';
+
+  @override
+  String get unclearFindGpExplain =>
+      'आपके लक्षण स्पष्ट नहीं हैं। एक सामान्य चिकित्सक आपकी जांच कर आगे की सलाह दे सकता है।';
+
+  @override
+  String get doctorsGeneralTitle => 'आपके पास के सामान्य चिकित्सक';
+
+  @override
+  String get doctorsGeneralSubtitle =>
+      'जब लक्षण स्पष्ट न हों, तो सामान्य चिकित्सक से शुरुआत करना अच्छा है।';
 }

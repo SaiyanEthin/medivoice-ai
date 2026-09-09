@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/consultation_provider.dart';
 import '../services/selfcare_guidance_service.dart';
 import '../services/symptom_matcher_service.dart';
@@ -206,6 +207,23 @@ class _UncertainCard extends StatelessWidget {
             ...redFlags.map((t) => _Bullet(text: t, color: AppTheme.danger)),
 
             const SizedBox(height: 16),
+            const SizedBox(height: 18),
+            Text(AppText.of(context).unclearFindGpExplain,
+                style: Theme.of(context).textTheme.bodyMedium),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const DoctorListScreen.general()),
+                ),
+                icon: const Icon(Icons.local_hospital_outlined, size: 18),
+                label: Text(AppText.of(context).unclearFindGp),
+              ),
+            ),
+            const SizedBox(height: 18),
             Text(
               guidance?.disclaimer ??
                   "This is general supportive guidance for comfort only. It does "

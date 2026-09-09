@@ -314,6 +314,30 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'See what you can do'**
   String get actionSeeWhatYouCanDo;
+
+  /// No description provided for @unclearFindGp.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a general physician'**
+  String get unclearFindGp;
+
+  /// REVIEW: shown when no condition was identified. Must not imply the app has ruled anything out.
+  ///
+  /// In en, this message translates to:
+  /// **'Your symptoms aren\'t clear enough to identify a condition. A general physician can assess you properly and advise on next steps.'**
+  String get unclearFindGpExplain;
+
+  /// No description provided for @doctorsGeneralTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'General physicians near you'**
+  String get doctorsGeneralTitle;
+
+  /// No description provided for @doctorsGeneralSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A general physician is a good starting point when symptoms aren\'t clear.'**
+  String get doctorsGeneralSubtitle;
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {

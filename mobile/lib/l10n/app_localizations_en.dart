@@ -141,4 +141,18 @@ class AppTextEn extends AppText {
 
   @override
   String get actionSeeWhatYouCanDo => 'See what you can do';
+
+  @override
+  String get unclearFindGp => 'Find a general physician';
+
+  @override
+  String get unclearFindGpExplain =>
+      'Your symptoms aren\'t clear enough to identify a condition. A general physician can assess you properly and advise on next steps.';
+
+  @override
+  String get doctorsGeneralTitle => 'General physicians near you';
+
+  @override
+  String get doctorsGeneralSubtitle =>
+      'A general physician is a good starting point when symptoms aren\'t clear.';
 }

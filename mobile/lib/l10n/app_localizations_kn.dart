@@ -140,4 +140,18 @@ class AppTextKn extends AppText {
 
   @override
   String get actionSeeWhatYouCanDo => 'ಏನು ಮಾಡಬಹುದು ಎಂದು ನೋಡಿ';
+
+  @override
+  String get unclearFindGp => 'ಸಾಮಾನ್ಯ ವೈದ್ಯರನ್ನು ಹುಡುಕಿ';
+
+  @override
+  String get unclearFindGpExplain =>
+      'ನಿಮ್ಮ ರೋಗಲಕ್ಷಣಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ. ಸಾಮಾನ್ಯ ವೈದ್ಯರು ನಿಮ್ಮನ್ನು ಪರಿಶೀಲಿಸಿ ಮುಂದಿನ ಹೆಾರತುಸಲಹೆ ನೀಡಬಲ್ಲರು.';
+
+  @override
+  String get doctorsGeneralTitle => 'ನಿಮ್ಮ ಹತ್ತಿರದ ಸಾಮಾನ್ಯ ವೈದ್ಯರು';
+
+  @override
+  String get doctorsGeneralSubtitle =>
+      'ರೋಗಲಕ್ಷಣಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲದಿದ್ದಾಗ ಸಾಮಾನ್ಯ ವೈದ್ಯರನ್ನು ಭೇಟಿಯಾಗುವುದು ಉತ್ತಮ.';
 }

@@ -111,5 +111,12 @@
     "description": "REVIEW: safety wording"
   },
   "actionSeeFullAssessment": "See full assessment",
-  "actionSeeWhatYouCanDo": "See what you can do"
+  "actionSeeWhatYouCanDo": "See what you can do",
+  "unclearFindGp": "Find a general physician",
+  "unclearFindGpExplain": "Your symptoms aren't clear enough to identify a condition. A general physician can assess you properly and advise on next steps.",
+  "doctorsGeneralTitle": "General physicians near you",
+  "doctorsGeneralSubtitle": "A general physician is a good starting point when symptoms aren't clear.",
+  "@unclearFindGpExplain": {
+    "description": "REVIEW: shown when no condition was identified. Must not imply the app has ruled anything out."
+  }
 }

@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/disease_display.dart';
+import '../l10n/app_localizations.dart';
 import '../core/theme/app_theme.dart';
 import '../models/doctor.dart';
 import '../repositories/consultation_repository.dart';
 
-/// Shows doctors relevant to the assessed condition, nearest first.
-/// Data comes from a local SQLite database on the backend - no external
-/// map/directory service, which keeps this workable offline later.
+/// Doctors relevant to the assessment, nearest first.
+///
+/// Reads from a bundled local asset - no map or directory service - so it
+/// works with the network off.
+///
+/// Two modes. Normally it shows specialists mapped to an identified
+/// condition. When the assessment was uncertain, [DoctorListScreen.general]
+/// shows general physicians with wording that doesn't pretend a condition
+/// was found. That is an explicit mode rather than a fake disease name
+/// relying on the lookup's fallback, which would work by accident and
+/// break quietly.
 class DoctorListScreen extends StatefulWidget {
-  final String disease;
+  /// The identified condition, or null in general-physician mode.
+  final String? disease;
 
-  const DoctorListScreen({super.key, required this.disease});
+  const DoctorListScreen({super.key, required String this.disease});
+
+  const DoctorListScreen.general({super.key}) : disease = null;
+
+  bool get isGeneral => disease == null;
 
   @override
   State<DoctorListScreen> createState() => _DoctorListScreenState();
@@ -35,7 +49,10 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
       _error = null;
     });
     try {
-      final doctors = await _repository.getDoctors(widget.disease);
+      // In general mode the lookup is asked for a specialisation
+      // directly rather than a condition.
+      final doctors = await _repository
+          .getDoctors(widget.disease ?? 'General Physician');
       if (mounted) setState(() { _doctors = doctors; _loading = false; });
     } catch (e) {
       if (mounted) setState(() { _error = e.toString(); _loading = false; });
@@ -52,7 +69,11 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Nearby Doctors")),
+      appBar: AppBar(
+        title: Text(widget.isGeneral
+            ? AppText.of(context).doctorsGeneralTitle
+            : "Nearby Doctors"),
+      ),
       body: SafeArea(child: _buildBody()),
     );
   }
@@ -89,7 +110,10 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Text(
-            "No doctors found for this condition in the local database.",
+            widget.isGeneral
+                ? "No general physicians found in the local directory."
+                : "No doctors found for this condition in the local "
+                    "directory.",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
@@ -106,10 +130,19 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Doctors for", style: Theme.of(context).textTheme.bodyMedium),
-                const SizedBox(height: 4),
-                Text(diseaseDisplayName(widget.disease),
-                    style: Theme.of(context).textTheme.headlineMedium),
+                if (widget.isGeneral) ...[
+                  Text(AppText.of(context).doctorsGeneralTitle,
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  const SizedBox(height: 6),
+                  Text(AppText.of(context).doctorsGeneralSubtitle,
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ] else ...[
+                  Text("Doctors for",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  const SizedBox(height: 4),
+                  Text(diseaseDisplayName(widget.disease!),
+                      style: Theme.of(context).textTheme.headlineMedium),
+                ],
                 const SizedBox(height: 8),
                 Text("${doctors.length} found, nearest first",
                     style: Theme.of(context).textTheme.bodyMedium),
