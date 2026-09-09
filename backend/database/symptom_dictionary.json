@@ -70,7 +70,9 @@
     "kn": [
       "vaanti",
       "ವಾಂತಿ"
-    ]
+    ],
+    "label_kn": "ವಾಂತಿ",
+    "label_hi": "उल्टी"
   },
   "nausea": {
     "en": [
@@ -84,7 +86,9 @@
     "kn": [
       "hottehulasu",
       "ಹೊಟ್ಟೆ ತೊಳಸುವಿಕೆ"
-    ]
+    ],
+    "label_kn": "ವಾಕರಿಕೆ",
+    "label_hi": "मतली"
   },
   "abdominal_pain": {
     "en": [
@@ -99,7 +103,9 @@
     "kn": [
       "hotte novu",
       "ಹೊಟ್ಟೆ ನೋವು"
-    ]
+    ],
+    "label_kn": "ಹೋಟ್ಟೆ ನೋವು",
+    "label_hi": "पेट दर्द"
   },
   "diarrhoea": {
     "en": [
@@ -113,7 +119,9 @@
     "kn": [
       "bhedi",
       "ಭೇದಿ"
-    ]
+    ],
+    "label_kn": "ಭೇದಿ",
+    "label_hi": "दस्त"
   },
   "chills": {
     "en": [
@@ -143,7 +151,9 @@
     "kn": [
       "kiluvu novu",
       "ಕೀಲು ನೋವು"
-    ]
+    ],
+    "label_kn": "ಕೀಲು ನೋವು",
+    "label_hi": "जोड़ों का दर्द"
   },
   "muscle_pain": {
     "en": [
@@ -176,7 +186,9 @@
     "kn": [
       "bennu novu",
       "ಬೆನ್ನು ನೋವು"
-    ]
+    ],
+    "label_kn": "ಬೆನ್ನು ನೋವು",
+    "label_hi": "कमर दर्द"
   },
   "chest_pain": {
     "en": [
@@ -344,7 +356,9 @@
     "kn": [
       "hasivu illa",
       "ಹಸಿವು ಇಲ್ಲ"
-    ]
+    ],
+    "label_kn": "ಹಸಿವು ಇಲ್ಲದಿರುವುದು",
+    "label_hi": "भूख न लगना"
   },
   "weight_loss": {
     "en": [
@@ -387,7 +401,9 @@
     "kn": [
       "malabaddhata",
       "ಮಲಬದ್ಧತೆ"
-    ]
+    ],
+    "label_kn": "ಮಲಬದ್ಧತೆ",
+    "label_hi": "कब्ज़"
   },
   "yellowish_skin": {
     "en": [
@@ -401,7 +417,9 @@
     "kn": [
       "chime haladi",
       "ಚರ್ಮ ಹಳದಿ"
-    ]
+    ],
+    "label_kn": "ಚರ್ಮ ಹಳದಿಯಾಗುವುದು",
+    "label_hi": "त्वचा का पीला होना"
   },
   "dark_urine": {
     "en": [
@@ -414,7 +432,9 @@
     "kn": [
       "mutra kappu",
       "ಮೂತ್ರ ಕಪ್ಪು"
-    ]
+    ],
+    "label_kn": "ಗಾಢ ಬಣ್ಣದ ಮೂತ್ರ",
+    "label_hi": "गहरे रंग का पेशाब"
   },
   "redness_of_eyes": {
     "en": [
@@ -456,7 +476,9 @@
     "kn": [
       "kazhutthu bigi",
       "ಕುತ್ತಿಗೆ ಬಿಗಿ"
-    ]
+    ],
+    "label_kn": "ಕುತ್ತಿಗೆ ಬಿಗಿತ",
+    "label_hi": "गर्दन में अकड़न"
   },
   "restlessness": {
     "en": [
@@ -514,7 +536,9 @@
     "kn": [
       "amla",
       "ಆಮ್ಲೀಯತೆ"
-    ]
+    ],
+    "label_kn": "ಅಸಿಡಿಟಿ",
+    "label_hi": "एसिडिटी"
   },
   "congestion": {
     "en": [
@@ -575,7 +599,9 @@
     "kn": [
       "ಹೊಟ್ಟೆ ನೋವು",
       "ಹೊಟ್ಟೆ ನೋಯುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಹೋಟ್ಟೆಯಲ್ಲಿ ನೋವು",
+    "label_hi": "पेट में दर्द"
   },
   "dehydration": {
     "label": "dehydration",
@@ -594,7 +620,9 @@
     "kn": [
       "ನೀರಿನ ಕೊರತೆ",
       "ತುಂಬಾ ಬಾಯಾರಿಕೆ"
-    ]
+    ],
+    "label_kn": "ನೀರಿನ ಕೋರತೆ",
+    "label_hi": "पानी की कमी"
   },
   "depression": {
     "label": "low mood",
@@ -681,7 +709,9 @@
     "kn": [
       "ಅಜೀರ್ಣ",
       "ಹೊಟ್ಟೆ ಭಾರವಾಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ಅಜೀರ್ಣ",
+    "label_hi": "बदहज़मी"
   },
   "irregular_sugar_level": {
     "label": "irregular sugar levels",
@@ -853,7 +883,9 @@
     "kn": [
       "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುತ್ತದೆ",
       "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುವ ಅನುಭವ"
-    ]
+    ],
+    "label_kn": "ಪದೇ ಪದೇ ಮೂತ್ರ",
+    "label_hi": "बार-बार पेशाब"
   },
   "sinus_pressure": {
     "label": "sinus pressure",
@@ -886,7 +918,9 @@
     ],
     "kn": [
       "ಕಣ್ಣುಗಳು ಒಳಗೆ ಹೋಗಿವೆ"
-    ]
+    ],
+    "label_kn": "ಕಣ್ಣು ಒಳಗೆ ಹೋಗಿರುವುದು",
+    "label_hi": "आंखें धंसना"
   },
   "swelled_lymph_nodes": {
     "label": "swollen glands in the neck",
@@ -970,7 +1004,9 @@
     "kn": [
       "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುತ್ತದೆ",
       "ಪದೇ ಪದೇ ಮೂತ್ರ ಬರುವ ಅನುಭವ"
-    ]
+    ],
+    "label_kn": "ಸತತ ಮೂತ್ರದ ಅನುಭವ",
+    "label_hi": "लगातार पेशाब का एहसास"
   },
   "foul_smell_of urine": {
     "label": "foul-smelling urine",
@@ -984,7 +1020,9 @@
     ],
     "kn": [
       "ಮೂತ್ರದಲ್ಲಿ ದುರ್ವಾಸನೆ"
-    ]
+    ],
+    "label_kn": "ಮೂತ್ರದಲ್ಲಿ ದುರ್ವಾಸನೆ",
+    "label_hi": "पेशाब में बदबू"
   },
   "burning_micturition": {
     "label": "burning when urinating",
@@ -1000,7 +1038,9 @@
     ],
     "kn": [
       "ಮೂತ್ರ ವಿಸರ್ಜನೆ ಸಮಯದಲ್ಲಿ ಉರಿ"
-    ]
+    ],
+    "label_kn": "ಮೂತ್ರ ಮಾಡುವಾಗ ಉರಿ",
+    "label_hi": "पेशाब में जलन"
   },
   "ulcers_on_tongue": {
     "label": "ulcers on the tongue",
@@ -1015,7 +1055,9 @@
     ],
     "kn": [
       "ನಾಲಿಗೆಯಲ್ಲಿ ಹುಣ್ಣುಗಳು"
-    ]
+    ],
+    "label_kn": "ಬಾಯಿ ಹುಣ್ಣು",
+    "label_hi": "मुंह के छाले"
   },
   "stomach_pain": {
     "label": "stomach pain",
@@ -1038,7 +1080,9 @@
     "kn": [
       "ಹೊಟ್ಟೆ ನೋವು",
       "ಹೊಟ್ಟೆ ನೋಯುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಹೋಟ್ಟೆ ಸಂಕಟ",
+    "label_hi": "पेट की तकलीफ़"
   },
   "passage_of_gases": {
     "label": "excessive gas",
@@ -1054,7 +1098,9 @@
     ],
     "kn": [
       "ಗ್ಯಾಸ್ ಜಾಸ್ತಿ ಆಗುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಗ್ಯಾಸ್ ಸಮಸ್ಯೆ",
+    "label_hi": "गैस की समस्या"
   },
   "internal_itching": {
     "label": "internal itching",
@@ -1082,7 +1128,9 @@
     ],
     "kn": [
       "ಕೀಲುಗಳಲ್ಲಿ ಊತ"
-    ]
+    ],
+    "label_kn": "ಕೀಲುಗಳಲ್ಲಿ ಊತ",
+    "label_hi": "जोड़ों में सूजन"
   },
   "movement_stiffness": {
     "label": "stiffness when moving",
@@ -1097,7 +1145,9 @@
     ],
     "kn": [
       "ಕೀಲುಗಳಲ್ಲಿ ಬಿಗಿತ"
-    ]
+    ],
+    "label_kn": "ಚಲಿಸಲು ಬಿಗಿತ",
+    "label_hi": "हिलने-डुलने में जकड़न"
   },
   "painful_walking": {
     "label": "pain when walking",
@@ -1111,7 +1161,9 @@
     ],
     "kn": [
       "ನಡೆಯುವಾಗ ನೋವು"
-    ]
+    ],
+    "label_kn": "ನಡೆಯುವಾಗ ನೋವು",
+    "label_hi": "चलने में दर्द"
   },
   "neck_pain": {
     "label": "neck pain",
@@ -1126,7 +1178,9 @@
     ],
     "kn": [
       "ಕುತ್ತಿಗೆ ನೋವು"
-    ]
+    ],
+    "label_kn": "ಕುತ್ತಿಗೆ ನೋವು",
+    "label_hi": "गर्दन का दर्द"
   },
   "weakness_in_limbs": {
     "label": "weakness in the arms or legs",
@@ -1146,7 +1200,9 @@
     "kn": [
       "ಕೈಕಾಲುಗಳು ದುರ್ಬಲವಾಗಿವೆ",
       "ಸ್ನಾಯುಗಳಲ್ಲಿ ದೌರ್ಬಲ್ಯ"
-    ]
+    ],
+    "label_kn": "ಕೈಕಾಲು ಶಕ್ತಿ ಇಲ್ಲದಿರುವುದು",
+    "label_hi": "हाथ-पैर में कमज़ोरी"
   },
   "spinning_movements": {
     "label": "a spinning sensation",
@@ -1263,7 +1319,9 @@
     "kn": [
       "ಕೈಕಾಲುಗಳು ದುರ್ಬಲವಾಗಿವೆ",
       "ಸ್ನಾಯುಗಳಲ್ಲಿ ದೌರ್ಬಲ್ಯ"
-    ]
+    ],
+    "label_kn": "ಮೈ ಶಕ್ತಿ ಇಲ್ಲದಿರುವುದು",
+    "label_hi": "मांसपेशियों में कमज़ोरी"
   },
   "fast_heart_rate": {
     "label": "a fast heartbeat",
@@ -1379,7 +1437,9 @@
     ],
     "kn": [
       "ಕಾಲುಗಳಲ್ಲಿ ಸೆಳೆತ"
-    ]
+    ],
+    "label_kn": "ಸೆಳೆತ",
+    "label_hi": "ऐंठन"
   },
   "skin_peeling": {
     "label": "peeling skin",
