@@ -260,7 +260,9 @@
     "kn": [
       "tale suttuvike",
       "ತಲೆ ಸುತ್ತುವಿಕೆ"
-    ]
+    ],
+    "label_kn": "ತಲೆ ಸುತ್ತುವುದು",
+    "label_hi": "चक्कर आना"
   },
   "skin_rash": {
     "en": [
@@ -274,7 +276,9 @@
     "kn": [
       "chaayi",
       "ಚರ್ಮದ ದದ್ದು"
-    ]
+    ],
+    "label_kn": "ಚರ್ಮದ ಮೇಲೆ ಗುಳ್ಳೆ",
+    "label_hi": "त्वचा पर रैश"
   },
   "itching": {
     "en": [
@@ -287,7 +291,9 @@
     "kn": [
       "tureeke",
       "ತುರಿಕೆ"
-    ]
+    ],
+    "label_kn": "ತುರಿಕೆ",
+    "label_hi": "खुजली"
   },
   "throat_irritation": {
     "en": [
@@ -372,7 +378,9 @@
     "kn": [
       "tooka kadime",
       "ತೂಕ ಕಡಿಮೆ"
-    ]
+    ],
+    "label_kn": "ತೂಕ ಕಳೆದುಕೊಳ್ಳುವುದು",
+    "label_hi": "वज़न घटना"
   },
   "sweating": {
     "en": [
@@ -463,7 +471,9 @@
     "kn": [
       "mabbaagi kaanuvudu",
       "ಮಬ್ಬಾಗಿ ಕಾಣುವುದು"
-    ]
+    ],
+    "label_kn": "ಮಸುಕಾಗಿ ಕಾಣುವುದು",
+    "label_hi": "धुंधला दिखना"
   },
   "stiff_neck": {
     "en": [
@@ -492,7 +502,9 @@
     "kn": [
       "chanchalate",
       "ಚಂಚಲತೆ"
-    ]
+    ],
+    "label_kn": "ಚಡಪಡಿಕೆ",
+    "label_hi": "बेचैनी"
   },
   "red_spots_over_body": {
     "en": [
@@ -505,7 +517,9 @@
     "kn": [
       "mai mele kempu chukke",
       "ಮೈ ಮೇಲೆ ಕೆಂಪು ಚುಕ್ಕೆ"
-    ]
+    ],
+    "label_kn": "मैमेले केंपु कलेगळु",
+    "label_hi": "शरीर पर लाल धब्बे"
   },
   "loss_of_smell": {
     "en": [
@@ -639,7 +653,9 @@
     "kn": [
       "ಮನಸ್ಸು ಬೇಸರವಾಗಿದೆ"
     ],
-    "_note": "Used as a physical migraine-associated feature from the dataset, not a mental health assessment."
+    "_note": "Used as a physical migraine-associated feature from the dataset, not a mental health assessment.",
+    "label_kn": "ಮನಸ್ಸು ಬೇಸರವಾಗಿರುವುದು",
+    "label_hi": "मन उदास रहना"
   },
   "excessive_hunger": {
     "label": "excessive hunger",
@@ -657,7 +673,9 @@
     "kn": [
       "ತುಂಬಾ ಹಸಿವು ಆಗುತ್ತಿದೆ",
       "ಹಸಿವು ಜಾಸ್ತಿ ಆಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ಅತಿಯಾಗಿ ಹಸಿವು",
+    "label_hi": "बहुत भूख लगना"
   },
   "family_history": {
     "label": "a family history of asthma",
@@ -674,7 +692,9 @@
       "ನಮ್ಮ ಕುಟುಂಬದಲ್ಲಿ ಯಾರಿಗಾದರೂ ಅಸ್ತಮಾ ಇದೆ"
     ],
     "match": false,
-    "_note": "Background/history, not a felt symptom - follow-up question only."
+    "_note": "Background/history, not a felt symptom - follow-up question only.",
+    "label_kn": "ಕುಟುಂಬದಲ್ಲಿ ಅಸ್ತಮಾ ಇದೆ",
+    "label_hi": "परिवार में अस्थमा होना"
   },
   "increased_appetite": {
     "label": "increased appetite",
@@ -692,7 +712,9 @@
     "kn": [
       "ತುಂಬಾ ಹಸಿವು ಆಗುತ್ತಿದೆ",
       "ಹಸಿವು ಜಾಸ್ತಿ ಆಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ಹಸಿವು ಜಾಸ್ತಿಯಾಗುವುದು",
+    "label_hi": "भूख बढ़ना"
   },
   "indigestion": {
     "label": "indigestion",
@@ -726,7 +748,9 @@
     ],
     "kn": [
       "ಸಕ್ಕರೆ ಮಟ್ಟ ಏರುಪೇರು ಆಗುತ್ತದೆ"
-    ]
+    ],
+    "label_kn": "ಶುಗರ್ ಏರುಪೇರು",
+    "label_hi": "शुगर का घटना-बढ़ना"
   },
   "irritability": {
     "label": "irritability",
@@ -742,7 +766,9 @@
     ],
     "kn": [
       "ಕಿರಿಕಿರಿ ಆಗುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಕಿರಿಕಿರಿ",
+    "label_hi": "चिड़चिड़ापन"
   },
   "lack_of_concentration": {
     "label": "difficulty concentrating",
@@ -758,7 +784,9 @@
     ],
     "kn": [
       "ಗಮನ ಕೊಡಲು ಆಗುತ್ತಿಲ್ಲ"
-    ]
+    ],
+    "label_kn": "ಗಮನ ಕೊಡಲು ಆಗದಿರುವುದು",
+    "label_hi": "ध्यान न लगना"
   },
   "lethargy": {
     "label": "lethargy",
@@ -796,7 +824,9 @@
     "kn": [
       "ಸಮತೋಲನ ತಪ್ಪುತ್ತಿದೆ",
       "ಅಸ್ಥಿರತೆ ಅನಿಸುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಸಮತೋಲನ ತಪ್ಪುವುದು",
+    "label_hi": "संतुलन बिगड़ना"
   },
   "malaise": {
     "label": "a general feeling of being unwell",
@@ -849,7 +879,9 @@
     "kn": [
       "ತೂಕ ಹೆಚ್ಚಾಗಿದೆ",
       "ತೂಕ ತುಂಬಾ ಜಾಸ್ತಿಯಾಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ತೂಕ ಹೆಚ್ಚಿರುವುದು",
+    "label_hi": "वज़न ज़्यादा होना"
   },
   "pain_behind_the_eyes": {
     "label": "pain behind the eyes",
@@ -864,7 +896,9 @@
     ],
     "kn": [
       "ಕಣ್ಣುಗಳ ಹಿಂದೆ ನೋವು"
-    ]
+    ],
+    "label_kn": "ಕಣ್ಣುಗಳ ಹಿಂದೆ ನೋವು",
+    "label_hi": "आंखों के पीछे दर्द"
   },
   "polyuria": {
     "label": "frequent urination",
@@ -935,7 +969,9 @@
     ],
     "kn": [
       "ಕುತ್ತಿಗೆಯಲ್ಲಿ ಗ್ರಂಥಿಗಳು ಊದಿಕೊಂಡಿವೆ"
-    ]
+    ],
+    "label_kn": "ಕುತ್ತಿಗೆಯಲ್ಲಿ ಗಂಟು",
+    "label_hi": "गले में गांठ"
   },
   "toxic_look_(typhos)": {
     "label": "a very unwell appearance",
@@ -950,7 +986,9 @@
       "ತುಂಬಾ ಅನಾರೋಗ್ಯದಂತೆ ಕಾಣುತ್ತಿದ್ದೇನೆ"
     ],
     "match": false,
-    "_note": "Third-person observation, not naturally self-reported - follow-up only."
+    "_note": "Third-person observation, not naturally self-reported - follow-up only.",
+    "label_kn": "ತುಂಬಾ ಅನಾರೋಗ್ಯದಂತೆ ಕಾಣುವುದು",
+    "label_hi": "बहुत बीमार दिखना"
   },
   "visual_disturbances": {
     "label": "visual disturbances",
@@ -967,7 +1005,9 @@
     ],
     "kn": [
       "ಮಸುಕಾಗಿ ಕಾಣುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ದೃಷ್ಟಿಯ ತೋಂದರೆ",
+    "label_hi": "देखने में दिक्कत"
   },
   "blood_in_sputum": {
     "label": "blood when coughing",
@@ -1114,7 +1154,9 @@
       "ಹೊಟ್ಟೆಯ ಒಳಗೆ ತುರಿಕೆಯಂತೆ ಅನಿಸುವುದು"
     ],
     "match": false,
-    "_note": "Not naturally speakable - follow-up only (decision #6)."
+    "_note": "Not naturally speakable - follow-up only (decision #6).",
+    "label_kn": "ಹೋಟ್ಟೆಯ ಒಳಗೆ ತುರಿಕೆ",
+    "label_hi": "पेट के अंदर खुजली"
   },
   "swelling_joints": {
     "label": "swollen joints",
@@ -1219,7 +1261,9 @@
     "kn": [
       "ಎಲ್ಲಾ ತಿರುಗುತ್ತಿದೆ",
       "ತಲೆ ಸುತ್ತುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಎಲ್ಲಾ ತಿರುಗುವಂತೆ ಅನಿಸುವುದು",
+    "label_hi": "सब घूमता हुआ लगना"
   },
   "unsteadiness": {
     "label": "unsteadiness",
@@ -1239,7 +1283,9 @@
     "kn": [
       "ಸಮತೋಲನ ತಪ್ಪುತ್ತಿದೆ",
       "ಅಸ್ಥಿರತೆ ಅನಿಸುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ನಿಲ್ಲಲು ಕಷ್ಟವಾಗುವುದು",
+    "label_hi": "लड़खड़ाहट"
   },
   "enlarged_thyroid": {
     "label": "swelling at the front of the neck",
@@ -1253,7 +1299,9 @@
     ],
     "kn": [
       "ಕುತ್ತಿಗೆ ಮುಂಭಾಗದಲ್ಲಿ ಊತ"
-    ]
+    ],
+    "label_kn": "ಕುತ್ತಿಗೆ ಮುಂದೆ ಊತ",
+    "label_hi": "गले के आगे सूजन"
   },
   "brittle_nails": {
     "label": "brittle nails",
@@ -1268,7 +1316,9 @@
     ],
     "kn": [
       "ಉಗುರುಗಳು ಸುಲಭವಾಗಿ ಮುರಿಯುತ್ತವೆ"
-    ]
+    ],
+    "label_kn": "ಉಗುರು ಮುರಿಯುವುದು",
+    "label_hi": "नाखूनों का टूटना"
   },
   "weight_gain": {
     "label": "weight gain",
@@ -1285,7 +1335,9 @@
     "kn": [
       "ತೂಕ ಹೆಚ್ಚಾಗಿದೆ",
       "ತೂಕ ತುಂಬಾ ಜಾಸ್ತಿಯಾಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ತೂಕ ಹೆಚ್ಚಾಗುವುದು",
+    "label_hi": "वज़न बढ़ना"
   },
   "cold_hands_and_feets": {
     "label": "cold hands and feet",
@@ -1299,7 +1351,9 @@
     ],
     "kn": [
       "ಕೈಕಾಲುಗಳು ತಣ್ಣಗಿರುತ್ತವೆ"
-    ]
+    ],
+    "label_kn": "ಕೈಕಾಲು ತಣ್ಣಗಿರುವುದು",
+    "label_hi": "हाथ-पैर ठंडे रहना"
   },
   "muscle_weakness": {
     "label": "muscle weakness",
@@ -1340,7 +1394,9 @@
     "kn": [
       "ಹೃದಯ ಬಡಿತ ವೇಗವಾಗಿದೆ",
       "ಹೃದಯ ಬಡಿತ ಜಾಸ್ತಿಯಾಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ಹೃದಯ ಬಡಿತ ವೇಗವಾಗುವುದು",
+    "label_hi": "धड़कन तेज़ होना"
   },
   "palpitations": {
     "label": "palpitations",
@@ -1359,7 +1415,9 @@
     "kn": [
       "ಹೃದಯ ಬಡಿತ ವೇಗವಾಗಿದೆ",
       "ಹೃದಯ ಬಡಿತ ಜಾಸ್ತಿಯಾಗಿದೆ"
-    ]
+    ],
+    "label_kn": "ಎದೆ ಡಡಡಗುವುದು",
+    "label_hi": "दिल की धड़कन महसूस होना"
   },
   "slurred_speech": {
     "label": "slurred speech",
@@ -1375,7 +1433,9 @@
     ],
     "kn": [
       "ಮಾತು ತೊದಲುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಮಾತು ತೊದಲುವುದು",
+    "label_hi": "बोलने में लड़खड़ाहट"
   },
   "anxiety": {
     "label": "anxiety",
@@ -1392,7 +1452,9 @@
     "kn": [
       "ಆತಂಕ",
       "ಚಡಪಡಿಕೆ"
-    ]
+    ],
+    "label_kn": "ಆತಂಕ",
+    "label_hi": "घबराहट"
   },
   "swollen_blood_vessels": {
     "label": "swollen veins",
@@ -1408,7 +1470,9 @@
     ],
     "kn": [
       "ರಕ್ತನಾಳಗಳು ಊದಿಕೊಂಡಿವೆ"
-    ]
+    ],
+    "label_kn": "ನರಗಳು ಉಬ್ಬಿರುವುದು",
+    "label_hi": "नसों का उभरना"
   },
   "swollen_legs": {
     "label": "swollen legs",
@@ -1422,7 +1486,9 @@
     ],
     "kn": [
       "ಕಾಲುಗಳಲ್ಲಿ ಊತ"
-    ]
+    ],
+    "label_kn": "ಕಾಲುಗಳಲ್ಲಿ ಊತ",
+    "label_hi": "पैरों में सूजन"
   },
   "cramps": {
     "label": "cramps",
@@ -1454,7 +1520,9 @@
     ],
     "kn": [
       "ಚರ್ಮ ಸುಲಿಯುತ್ತಿದೆ"
-    ]
+    ],
+    "label_kn": "ಚರ್ಮ ಸುಲಿಯುವುದು",
+    "label_hi": "त्वचा का छिलना"
   },
   "small_dents_in_nails": {
     "label": "small dents in the nails",
@@ -1468,7 +1536,9 @@
     ],
     "kn": [
       "ಉಗುರುಗಳಲ್ಲಿ ಸಣ್ಣ ಗುಳಿಗಳು"
-    ]
+    ],
+    "label_kn": "ಉಗುರಿನಲ್ಲಿ ಸಣ್ಣ ಗುಳಿಗಳು",
+    "label_hi": "नाखूनों में छोटे गड्ढे"
   },
   "blister": {
     "label": "blisters",
@@ -1483,7 +1553,9 @@
     ],
     "kn": [
       "ಗುಳ್ಳೆಗಳು"
-    ]
+    ],
+    "label_kn": "ಗುಳ್ಳೆಗಳು",
+    "label_hi": "फफोले"
   },
   "yellow_crust_ooze": {
     "label": "yellow crusting or oozing",
@@ -1497,7 +1569,9 @@
     ],
     "kn": [
       "ಚರ್ಮದಿಂದ ಹಳದಿ ಸ್ರಾವ"
-    ]
+    ],
+    "label_kn": "ಗಾಯದಿಂದ ಹಳದಿ ಸ್ರಾವ",
+    "label_hi": "घाव से पीला रिसाव"
   },
   "red_sore_around_nose": {
     "label": "a red sore around the nose",
@@ -1511,7 +1585,9 @@
     ],
     "kn": [
       "ಮೂಗಿನ ಸುತ್ತ ಕೆಂಪು ಹುಣ್ಣು"
-    ]
+    ],
+    "label_kn": "ಮೂಗಿನ ಸುತ್ತ ಕೆಂಪು ಗಾಯ",
+    "label_hi": "नाक के आसपास लाल घाव"
   },
   "_match_overrides": {
     "gale mein kharash": [
