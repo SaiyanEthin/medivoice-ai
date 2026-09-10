@@ -62,7 +62,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
   void _copyPhone(String phone, String name) {
     Clipboard.setData(ClipboardData(text: phone));
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Copied $name's number")),
+      SnackBar(content: Text(AppText.of(context).doctorCopiedNumber(name))),
     );
   }
 
@@ -72,7 +72,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
       appBar: AppBar(
         title: Text(widget.isGeneral
             ? AppText.of(context).doctorsGeneralTitle
-            : "Nearby Doctors"),
+            : AppText.of(context).doctorsAppBarTitle),
       ),
       body: SafeArea(child: _buildBody()),
     );
@@ -92,11 +92,12 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
             children: [
               const Icon(Icons.cloud_off_rounded, size: 40, color: AppTheme.danger),
               const SizedBox(height: 12),
-              Text("Couldn't load doctors.\n$_error",
+              Text("${AppText.of(context).doctorsLoadError}\n$_error",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: _load, child: const Text("Retry")),
+              ElevatedButton(
+                  onPressed: _load, child: Text(AppText.of(context).actionRetry)),
             ],
           ),
         ),
@@ -111,9 +112,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
           padding: const EdgeInsets.all(24),
           child: Text(
             widget.isGeneral
-                ? "No general physicians found in the local directory."
-                : "No doctors found for this condition in the local "
-                    "directory.",
+                ? AppText.of(context).doctorsNoneGeneral
+                : AppText.of(context).doctorsNoneForCondition,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
@@ -137,14 +137,14 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                   Text(AppText.of(context).doctorsGeneralSubtitle,
                       style: Theme.of(context).textTheme.bodyMedium),
                 ] else ...[
-                  Text("Doctors for",
+                  Text(AppText.of(context).doctorsFor,
                       style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 4),
                   Text(diseaseDisplayName(widget.disease!),
                       style: Theme.of(context).textTheme.headlineMedium),
                 ],
                 const SizedBox(height: 8),
-                Text("${doctors.length} found, nearest first",
+                Text(AppText.of(context).doctorsFoundCount(doctors.length),
                     style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(height: 10),
                 Container(
@@ -162,10 +162,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          "Demonstration data. These are sample records used "
-                          "to show how the directory works - they are not "
-                          "real doctors, and the numbers do not connect to "
-                          "anyone.",
+                          AppText.of(context).doctorsDemoNotice,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
@@ -196,8 +193,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "Distances are approximate and are not based on your "
-                    "live location.",
+                    AppText.of(context).doctorsDistanceNote,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),

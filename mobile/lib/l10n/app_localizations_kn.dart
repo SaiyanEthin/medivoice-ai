@@ -159,4 +159,133 @@ class AppTextKn extends AppText {
   String questionTemplate(String symptom) {
     return 'ನಿಮಗೆ $symptom ಇದೆಯೇ?';
   }
+
+  @override
+  String get resultAppBarTitle => 'ಪ್ರಾಥಮಿಕ ಆರೋಗ್ಯ ಮೌಲ್ಯಮಾಪನ';
+
+  @override
+  String get resultAppBarFallback => 'ಮೌಲ್ಯಮಾಪನ';
+
+  @override
+  String get resultNoResult => 'ಯಾವುದೇ ಫಲಿತಾಂಶ ಇಲ್ಲ.';
+
+  @override
+  String get resultPossibleCondition => 'ಸಂಭವನೀಯ ಸ್ಥಿತಿ';
+
+  @override
+  String resultScoreLine(String percent) {
+    return 'ಮಾದರಿ ಸ್ಕೋರ್: $percent%';
+  }
+
+  @override
+  String resultBodyFairlyConfident(String disease) {
+    return 'ನೀವು ಹೇಳಿದ ರೋಗಲಕ್ಷಣಗಳ ಆಧಾರದ ಮೇಲೆ, ಇದು $disease ಗೆ ಹೊಂದಿಕೆಯಾಗಬಹುದು ಎಂದು ಮಾದರಿ ಸಾಕಷ್ಟು ವಿಶ್ವಾಸ ಹೊಂದಿದೆ. ಇದು ತರಬೇತಿ ದತ್ತಾಂಶದೊಂದಿಗೆ ಹೋಲಿಕೆ, ವೈದ್ಯಕೀಯ ರೋಗನಿದಾನ ಅಲ್ಲ.';
+  }
+
+  @override
+  String resultBodyModeratelyConfident(String disease) {
+    return 'ನೀವು ಹೇಳಿದ ರೋಗಲಕ್ಷಣಗಳ ಆಧಾರದ ಮೇಲೆ, ಇದು $disease ಗೆ ಹೊಂದಿಕೆಯಾಗಬಹುದು ಎಂದು ಮಾದರಿ ಸ್ವಲ್ಪ ಮಟ್ಟಿಗೆ ವಿಶ್ವಾಸ ಹೊಂದಿದೆ. ಇದು ತರಬೇತಿ ದತ್ತಾಂಶದೊಂದಿಗೆ ಹೋಲಿಕೆ, ವೈದ್ಯಕೀಯ ರೋಗನಿದಾನ ಅಲ್ಲ.';
+  }
+
+  @override
+  String get resultRecognizedSymptoms => 'ಗುರುತಿಸಲಾದ ರೋಗಲಕ್ಷಣಗಳು';
+
+  @override
+  String get resultDisclaimer =>
+      'ಇದು AI ಮಾದರಿಯಿಂದ ರಚಿಸಲಾದ ಪ್ರಾಥಮಿಕ ಮೌಲ್ಯಮಾಪನ, ರೋಗನಿದಾನ ಅಲ್ಲ. ಇದು ವೃತ್ತಿಪರ ವೈದ್ಯಕೀಯ ಸಲಹೆಗೆ ಬದಲಿ ಅಲ್ಲ. ಸರಿಯಾದ ರೋಗನಿದಾನ ಮತ್ತು ಚಿಕಿತ್ಸೆಗಾಗಿ ಅರ್ಹ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ.';
+
+  @override
+  String get actionViewAdvice => 'ಆರೋಗ್ಯ ಸಲಹೆ ನೋಡಿ';
+
+  @override
+  String get actionFindDoctors => 'ವೈದ್ಯರನ್ನು ಹುಡುಕಿ';
+
+  @override
+  String get actionTryAgain => 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ';
+
+  @override
+  String get actionRetry => 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ';
+
+  @override
+  String get actionBackToAssessment => 'ಮೌಲ್ಯಮಾಪನಕ್ಕೆ ಹಿಂತಿರುಗಿ';
+
+  @override
+  String get uncertainCardTitle => 'ರೋಗಲಕ್ಷಣಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ';
+
+  @override
+  String get uncertainInsufficient =>
+      'ನೀವು ಕೆಲವೇ ರೋಗಲಕ್ಷಣಗಳನ್ನು ಹೇಳಿದ್ದೀರಿ, ಅದು ನಿರ್ದಿಷ್ಟ ಸ್ಥಿತಿಯನ್ನು ಸೂಚಿಸಲು ಸಾಕಾಗುವುದಿಲ್ಲ. ದಿನನಿತ್ಯದ ಹಲವು ಕಾರಣಗಳಿಂದಲೂ ಈ ಲಕ್ಷಣಗಳು ಬರಬಹುದು.';
+
+  @override
+  String get uncertainLowConfidence =>
+      'ನಿಮ್ಮ ರೋಗಲಕ್ಷಣಗಳು ಈ ಆ್ಯಪ್ ಪರಿಶೀಲಿಸಬಹುದಾದ ಯಾವುದೇ ಒಂದು ಸ್ಥಿತಿಗೆ ಸ್ಪಷ್ಟವಾಗಿ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ. ಸೌಮ್ಯ ಅಥವಾ ಆರಂಭದ ಅನಾರೋಗ್ಯದಲ್ಲಿ ಇದು ಸಾಮಾನ್ಯ.';
+
+  @override
+  String get uncertainWhatYouCanDo => 'ಈಗ ನೀವು ಏನು ಮಾಡಬಹುದು';
+
+  @override
+  String get uncertainSeekCare => 'ಇವು ಇದ್ದರೆ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ';
+
+  @override
+  String get adviceAppBarTitle => 'ಆರೋಗ್ಯ ಸಲಹೆ';
+
+  @override
+  String get adviceFor => 'ಇದಕ್ಕಾಗಿ ಸಲಹೆ';
+
+  @override
+  String get adviceRecommendedSteps => 'ಶಿಫಾರಸು ಮಾಡಿದ ಕ್ರಮಗಳು';
+
+  @override
+  String get adviceLoadError => 'ಸಲಹೆ ಲೋಡ್ ಮಾಡಲು ಆಗಲಿಲ್ಲ.';
+
+  @override
+  String get adviceDisclaimer =>
+      'ಇದು ಸಾಮಾನ್ಯ ಮಾರ್ಗದರ್ಶನ ಮಾತ್ರ, ಔಷಧಿ ಚೀಟಿ ಅಲ್ಲ. ಅರ್ಹ ವೈದ್ಯರನ್ನು ಕೇಳದೆ ಯಾವುದೇ ಔಷಧಿಯನ್ನು ಪ್ರಾರಂಭಿಸಬೇಡಿ ಅಥವಾ ನಿಲ್ಲಿಸಬೇಡಿ.';
+
+  @override
+  String get adviceLevelSerious => 'ಶೀಘ್ರವಾಗಿ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ';
+
+  @override
+  String get adviceLevelChronic => 'ದೀರ್ಘಕಾಲದ ಸ್ಥಿತಿ - ಗಮನದಲ್ಲಿಡಬೇಕು';
+
+  @override
+  String get adviceLevelModerate => 'ಮಧ್ಯಮ - ಎಚ್ಚರಿಕೆಯಿಂದ ಗಮನಿಸಿ';
+
+  @override
+  String get adviceLevelMild => 'ಸಾಮಾನ್ಯವಾಗಿ ಸೌಮ್ಯ, ತಾನಾಗಿಯೇ ಕಡಿಮೆಯಾಗುತ್ತದೆ';
+
+  @override
+  String get doctorsAppBarTitle => 'ಹತ್ತಿರದ ವೈದ್ಯರು';
+
+  @override
+  String get doctorsFor => 'ಇದಕ್ಕಾಗಿ ವೈದ್ಯರು';
+
+  @override
+  String doctorsFoundCount(int count) {
+    return '$count ಸಿಕ್ಕಿದ್ದಾರೆ, ಹತ್ತಿರದವರು ಮೊದಲು';
+  }
+
+  @override
+  String get doctorsLoadError => 'ವೈದ್ಯರ ಪಟ್ಟಿ ಲೋಡ್ ಮಾಡಲು ಆಗಲಿಲ್ಲ.';
+
+  @override
+  String get doctorsNoneForCondition =>
+      'ಈ ಸ್ಥಿತಿಗೆ ಸ್ಥಳೀಯ ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವುದೇ ವೈದ್ಯರು ಸಿಗಲಿಲ್ಲ.';
+
+  @override
+  String get doctorsNoneGeneral =>
+      'ಸ್ಥಳೀಯ ಪಟ್ಟಿಯಲ್ಲಿ ಯಾವುದೇ ಸಾಮಾನ್ಯ ವೈದ್ಯರು ಸಿಗಲಿಲ್ಲ.';
+
+  @override
+  String get doctorsDemoNotice =>
+      'ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ. ಇವು ಪಟ್ಟಿ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂದು ತೋರಿಸಲು ಬಳಸಿದ ಮಾದರಿ ದಾಖಲೆಗಳು - ಇವರು ನಿಜವಾದ ವೈದ್ಯರಲ್ಲ, ಮತ್ತು ಈ ಸಂಖ್ಯೆಗಳು ಯಾರಿಗೂ ಸಂಪರ್ಕವಾಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get doctorsDistanceNote =>
+      'ದೂರಗಳು ಅಂದಾಜು ಮಾತ್ರ, ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಸ್ಥಳದ ಆಧಾರದ ಮೇಲೆ ಅಲ್ಲ.';
+
+  @override
+  String doctorCopiedNumber(String name) {
+    return '$name ಅವರ ಸಂಖ್ಯೆ ನಕಲಿಸಲಾಗಿದೆ';
+  }
 }

@@ -24,8 +24,8 @@ class PredictionResultScreen extends StatelessWidget {
 
     if (result == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text("Assessment")),
-        body: const Center(child: Text("No result available.")),
+        appBar: AppBar(title: Text(AppText.of(context).resultAppBarFallback)),
+        body: Center(child: Text(AppText.of(context).resultNoResult)),
       );
     }
 
@@ -44,7 +44,7 @@ class PredictionResultScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Preliminary Health Assessment")),
+      appBar: AppBar(title: Text(AppText.of(context).resultAppBarTitle)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
@@ -80,7 +80,7 @@ class PredictionResultScreen extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.health_and_safety_outlined),
-                  label: const Text("View Health Advice"),
+                  label: Text(AppText.of(context).actionViewAdvice),
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton.icon(
@@ -93,7 +93,7 @@ class PredictionResultScreen extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.local_hospital_outlined),
-                  label: const Text("Find Doctors"),
+                  label: Text(AppText.of(context).actionFindDoctors),
                 ),
                 const SizedBox(height: 10),
               ],
@@ -104,7 +104,7 @@ class PredictionResultScreen extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.refresh_rounded),
-                label: const Text("Try Again"),
+                label: Text(AppText.of(context).actionTryAgain),
               ),
 
               if (kDebugMode) ...[
@@ -144,10 +144,8 @@ class _UncertainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final explanation = reason == "insufficient_symptoms"
-        ? "You described only a few symptoms, which isn't enough to suggest "
-          "a specific condition. Many everyday causes can produce these symptoms."
-        : "Your symptoms don't clearly match any single condition this app "
-          "can assess. This is common with mild or early-stage illness.";
+        ? AppText.of(context).uncertainInsufficient
+        : AppText.of(context).uncertainLowConfidence;
 
     // Rule-based, offline. Falls back to generic bullets if the asset
     // hasn't loaded, so this card can never render empty.
@@ -177,7 +175,7 @@ class _UncertainCard extends StatelessWidget {
                 const Icon(Icons.help_outline_rounded, color: AppTheme.primary),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text("Symptoms Unclear",
+                  child: Text(AppText.of(context).uncertainCardTitle,
                       style: Theme.of(context).textTheme.headlineMedium),
                 ),
               ],
@@ -186,7 +184,7 @@ class _UncertainCard extends StatelessWidget {
             Text(explanation, style: Theme.of(context).textTheme.bodyLarge),
 
             const SizedBox(height: 20),
-            Text("What You Can Do Now",
+            Text(AppText.of(context).uncertainWhatYouCanDo,
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             ...careBullets.map((t) => _Bullet(text: t)),
@@ -198,7 +196,7 @@ class _UncertainCard extends StatelessWidget {
                     size: 20, color: AppTheme.danger),
                 const SizedBox(width: 6),
                 Expanded(
-                  child: Text("Seek medical care if you have",
+                  child: Text(AppText.of(context).uncertainSeekCare,
                       style: Theme.of(context).textTheme.titleLarge),
                 ),
               ],
@@ -273,7 +271,6 @@ class _AssessmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pct = (confidence * 100).toStringAsFixed(1);
-    final confidenceWord = confidence >= 0.70 ? "fairly confident" : "moderately confident";
 
     return Card(
       child: Padding(
@@ -281,7 +278,8 @@ class _AssessmentCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Possible condition", style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppText.of(context).resultPossibleCondition,
+                style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 6),
             Text(diseaseDisplayName(disease),
                 style: Theme.of(context).textTheme.headlineMedium),
@@ -290,15 +288,20 @@ class _AssessmentCard extends StatelessWidget {
               children: [
                 const Icon(Icons.insights_rounded, size: 18, color: AppTheme.primary),
                 const SizedBox(width: 6),
-                Text("Model score: $pct%", style: Theme.of(context).textTheme.bodyLarge),
+                Text(AppText.of(context).resultScoreLine(pct),
+                    style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
             const SizedBox(height: 16),
             Text(
-              "Based on the symptoms you described, the model is $confidenceWord "
-              "these may be consistent with ${diseaseDisplayName(disease)}. "
-              "This is a pattern match "
-              "against training data, not a medical diagnosis.",
+              // Two complete sentences rather than a word slotted into
+              // one: inserting "fairly confident" mid-sentence does not
+              // survive translation, since word order differs.
+              confidence >= 0.70
+                  ? AppText.of(context)
+                      .resultBodyFairlyConfident(diseaseDisplayName(disease))
+                  : AppText.of(context).resultBodyModeratelyConfident(
+                      diseaseDisplayName(disease)),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -320,7 +323,8 @@ class _RecognizedSymptomsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Recognized Symptoms", style: Theme.of(context).textTheme.titleLarge),
+            Text(AppText.of(context).resultRecognizedSymptoms,
+                style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
@@ -355,9 +359,7 @@ class _DisclaimerCard extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                "This is a preliminary, non-diagnostic assessment generated by an "
-                "AI model. It is not a substitute for professional medical advice. "
-                "Please consult a qualified doctor for accurate diagnosis and treatment.",
+                AppText.of(context).resultDisclaimer,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),

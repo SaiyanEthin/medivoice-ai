@@ -159,4 +159,133 @@ class AppTextHi extends AppText {
   String questionTemplate(String symptom) {
     return 'क्या आपको $symptom है?';
   }
+
+  @override
+  String get resultAppBarTitle => 'प्रारंभिक स्वास्थ्य आकलन';
+
+  @override
+  String get resultAppBarFallback => 'आकलन';
+
+  @override
+  String get resultNoResult => 'कोई परिणाम उपलब्ध नहीं है।';
+
+  @override
+  String get resultPossibleCondition => 'संभावित स्थिति';
+
+  @override
+  String resultScoreLine(String percent) {
+    return 'मॉडल स्कोर: $percent%';
+  }
+
+  @override
+  String resultBodyFairlyConfident(String disease) {
+    return 'आपने जो लक्षण बताए, उनके आधार पर मॉडल को काफ़ी भरोसा है कि यह $disease से मेल खा सकता है। यह प्रशिक्षण डेटा से मिलान है, चिकित्सकीय निदान नहीं।';
+  }
+
+  @override
+  String resultBodyModeratelyConfident(String disease) {
+    return 'आपने जो लक्षण बताए, उनके आधार पर मॉडल को कुछ हद तक भरोसा है कि यह $disease से मेल खा सकता है। यह प्रशिक्षण डेटा से मिलान है, चिकित्सकीय निदान नहीं।';
+  }
+
+  @override
+  String get resultRecognizedSymptoms => 'पहचाने गए लक्षण';
+
+  @override
+  String get resultDisclaimer =>
+      'यह AI मॉडल द्वारा तैयार किया गया प्रारंभिक आकलन है, निदान नहीं। यह पेशेवर चिकित्सकीय सलाह का विकल्प नहीं है। सही निदान और इलाज के लिए योग्य डॉक्टर से मिलें।';
+
+  @override
+  String get actionViewAdvice => 'स्वास्थ्य सलाह देखें';
+
+  @override
+  String get actionFindDoctors => 'डॉक्टर खोजें';
+
+  @override
+  String get actionTryAgain => 'फिर से कोशिश करें';
+
+  @override
+  String get actionRetry => 'फिर कोशिश करें';
+
+  @override
+  String get actionBackToAssessment => 'आकलन पर वापस जाएं';
+
+  @override
+  String get uncertainCardTitle => 'लक्षण स्पष्ट नहीं';
+
+  @override
+  String get uncertainInsufficient =>
+      'आपने केवल कुछ लक्षण बताए, जो किसी विशेष स्थिति का सुझाव देने के लिए पर्याप्त नहीं हैं। रोज़मर्रा के कई कारणों से भी ये लक्षण हो सकते हैं।';
+
+  @override
+  String get uncertainLowConfidence =>
+      'आपके लक्षण इस ऐप द्वारा जांची जा सकने वाली किसी एक स्थिति से स्पष्ट रूप से मेल नहीं खाते। हल्की या शुरुआती बीमारी में यह आम है।';
+
+  @override
+  String get uncertainWhatYouCanDo => 'अभी आप क्या कर सकते हैं';
+
+  @override
+  String get uncertainSeekCare => 'इनमें से कुछ हो तो डॉक्टर से मिलें';
+
+  @override
+  String get adviceAppBarTitle => 'स्वास्थ्य सलाह';
+
+  @override
+  String get adviceFor => 'इसके लिए सलाह';
+
+  @override
+  String get adviceRecommendedSteps => 'सुझाए गए कदम';
+
+  @override
+  String get adviceLoadError => 'सलाह लोड नहीं हो सकी।';
+
+  @override
+  String get adviceDisclaimer =>
+      'यह केवल सामान्य मार्गदर्शन है, पर्चा नहीं। योग्य डॉक्टर से पूछे बिना कोई दवा शुरू या बंद न करें।';
+
+  @override
+  String get adviceLevelSerious => 'जल्द से जल्द डॉक्टर से मिलें';
+
+  @override
+  String get adviceLevelChronic => 'लंबे समय की स्थिति - निगरानी ज़रूरी';
+
+  @override
+  String get adviceLevelModerate => 'मध्यम - ध्यान से देखें';
+
+  @override
+  String get adviceLevelMild => 'आमतौर पर हल्का, अपने आप ठीक हो जाता है';
+
+  @override
+  String get doctorsAppBarTitle => 'नज़दीकी डॉक्टर';
+
+  @override
+  String get doctorsFor => 'इसके लिए डॉक्टर';
+
+  @override
+  String doctorsFoundCount(int count) {
+    return '$count मिले, नज़दीकी पहले';
+  }
+
+  @override
+  String get doctorsLoadError => 'डॉक्टरों की सूची लोड नहीं हो सकी।';
+
+  @override
+  String get doctorsNoneForCondition =>
+      'स्थानीय सूची में इस स्थिति के लिए कोई डॉक्टर नहीं मिला।';
+
+  @override
+  String get doctorsNoneGeneral =>
+      'स्थानीय सूची में कोई सामान्य चिकित्सक नहीं मिला।';
+
+  @override
+  String get doctorsDemoNotice =>
+      'प्रदर्शन के लिए डेटा। ये नमूना रिकॉर्ड हैं जो दिखाते हैं कि निर्देशिका कैसे काम करती है - ये असली डॉक्टर नहीं हैं, और ये नंबर किसी से नहीं जुड़ते।';
+
+  @override
+  String get doctorsDistanceNote =>
+      'दूरियां अनुमानित हैं और आपके वर्तमान स्थान पर आधारित नहीं हैं।';
+
+  @override
+  String doctorCopiedNumber(String name) {
+    return '$name का नंबर कॉपी हो गया';
+  }
 }

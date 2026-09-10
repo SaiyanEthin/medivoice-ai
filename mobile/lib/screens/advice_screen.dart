@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../models/advice.dart';
 import '../repositories/consultation_repository.dart';
 
@@ -44,7 +45,7 @@ class _AdviceScreenState extends State<AdviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Health Advice")),
+      appBar: AppBar(title: Text(AppText.of(context).adviceAppBarTitle)),
       body: SafeArea(child: _buildBody()),
     );
   }
@@ -63,11 +64,12 @@ class _AdviceScreenState extends State<AdviceScreen> {
             children: [
               const Icon(Icons.cloud_off_rounded, size: 40, color: AppTheme.danger),
               const SizedBox(height: 12),
-              Text("Couldn't load advice.\n$_error",
+              Text("${AppText.of(context).adviceLoadError}\n$_error",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: _load, child: const Text("Retry")),
+              ElevatedButton(
+                  onPressed: _load, child: Text(AppText.of(context).actionRetry)),
             ],
           ),
         ),
@@ -88,7 +90,7 @@ class _AdviceScreenState extends State<AdviceScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Recommended steps",
+                  Text(AppText.of(context).adviceRecommendedSteps,
                       style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 14),
                   ...advice.advice.asMap().entries.map((entry) => Padding(
@@ -134,9 +136,7 @@ class _AdviceScreenState extends State<AdviceScreen> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      "This is general guidance only, not a prescription. "
-                      "Do not start or stop any medication without consulting "
-                      "a qualified doctor.",
+                      AppText.of(context).adviceDisclaimer,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
@@ -148,7 +148,7 @@ class _AdviceScreenState extends State<AdviceScreen> {
           OutlinedButton.icon(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back_rounded),
-            label: const Text("Back to Assessment"),
+            label: Text(AppText.of(context).actionBackToAssessment),
           ),
         ],
       ),
@@ -166,26 +166,27 @@ class _SeverityBanner extends StatelessWidget {
     late final IconData icon;
     late final String label;
 
+    final t = AppText.of(context);
     switch (advice.level) {
       case SeverityLevel.serious:
         color = AppTheme.danger;
         icon = Icons.warning_amber_rounded;
-        label = "Seek medical attention promptly";
+        label = t.adviceLevelSerious;
         break;
       case SeverityLevel.chronic:
         color = AppTheme.accent;
         icon = Icons.monitor_heart_outlined;
-        label = "Ongoing condition - needs monitoring";
+        label = t.adviceLevelChronic;
         break;
       case SeverityLevel.moderate:
         color = AppTheme.accent;
         icon = Icons.info_outline_rounded;
-        label = "Moderate - monitor closely";
+        label = t.adviceLevelModerate;
         break;
       case SeverityLevel.mild:
         color = AppTheme.success;
         icon = Icons.check_circle_outline_rounded;
-        label = "Usually mild and self-limiting";
+        label = t.adviceLevelMild;
         break;
     }
 
@@ -196,7 +197,8 @@ class _SeverityBanner extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Advice for", style: Theme.of(context).textTheme.bodyMedium),
+            Text(AppText.of(context).adviceFor,
+                style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 4),
             Text(diseaseDisplayName(advice.disease),
                 style: Theme.of(context).textTheme.headlineMedium),
