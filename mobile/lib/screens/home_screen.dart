@@ -107,20 +107,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   IntrinsicHeight(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
+                      children: [
                         Expanded(
                           child: _FeatureTile(
                             icon: Icons.wifi_off_rounded,
-                            title: "Works offline",
-                            body: "No internet needed",
+                            title: AppText.of(context).homeWorksOffline,
+                            body: AppText.of(context).homeNoInternet,
                           ),
                         ),
-                        SizedBox(width: 12),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: _FeatureTile(
                             icon: Icons.lock_outline_rounded,
-                            title: "Stays private",
-                            body: "Nothing leaves your phone",
+                            title: AppText.of(context).homeStaysPrivate,
+                            body: AppText.of(context).homeNothingLeaves,
                           ),
                         ),
                       ],

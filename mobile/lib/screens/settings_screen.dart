@@ -129,9 +129,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Kannada and Hindi are being translated. Anything not "
-                      "yet translated stays in English, and symptom and "
-                      "condition names are still shown in English.",
+                      AppText.of(context).settingsLanguageNote,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -238,10 +236,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     padding:
                         const EdgeInsets.fromLTRB(16, 0, 16, 14),
                     child: Text(
-                      "Voice guidance follows the language above. Your "
-                      "phone needs that language's voice data installed - "
-                      "if it isn't, the app stays silent rather than "
-                      "reading the wrong pronunciation.",
+                      AppText.of(context).settingsVoiceNote,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),

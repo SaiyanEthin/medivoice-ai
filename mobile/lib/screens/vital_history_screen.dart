@@ -107,7 +107,7 @@ class _VitalHistoryScreenState extends State<VitalHistoryScreen> {
                               ),
                               IconButton(
                                 onPressed: () => _delete(reading),
-                                tooltip: "Delete",
+                                tooltip: AppText.of(context).actionDelete,
                                 icon: const Icon(
                                     Icons.delete_outline_rounded,
                                     size: 20,

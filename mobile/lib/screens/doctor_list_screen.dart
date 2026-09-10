@@ -205,7 +205,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
         OutlinedButton.icon(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_rounded),
-          label: const Text("Back to Assessment"),
+          label: Text(AppText.of(context).actionBackToAssessment),
         ),
       ],
     );
