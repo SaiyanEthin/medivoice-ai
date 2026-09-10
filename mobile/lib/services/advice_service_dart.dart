@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../core/app_locale.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 /// On-device port of backend/services/advice_service.py.
@@ -36,7 +37,21 @@ class AdviceService {
     return {
       'disease': trimmed,
       'severity': entry['severity'],
-      'advice': List<String>.from(entry['advice']),
+      'advice': List<String>.from(_localisedAdvice(entry)),
     };
   }
+}
+
+/// The advice list in the app's language, falling back to English.
+///
+/// Steps are stored per language rather than translated at runtime: this
+/// is medical guidance, and a wording correction should happen in one
+/// reviewed place rather than being derived on the fly.
+List<dynamic> _localisedAdvice(Map<String, dynamic> entry) {
+  final code = AppLocale().value.languageCode;
+  if (code != 'en') {
+    final localised = entry['advice_$code'];
+    if (localised is List && localised.isNotEmpty) return localised;
+  }
+  return entry['advice'] as List;
 }
