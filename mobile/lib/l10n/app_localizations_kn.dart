@@ -616,4 +616,77 @@ class AppTextKn extends AppText {
   String dateDaysAgo(int days) {
     return '$days ದಿನಗಳ ಹಿಂದೆ';
   }
+
+  @override
+  String get historyTitle => 'ಹಿಂದಿನ ಮೌಲ್ಯಮಾಪನಗಳು';
+
+  @override
+  String get historyDeleteAllTooltip => 'ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ';
+
+  @override
+  String get historyDeleteAllTitle => 'ಎಲ್ಲಾ ಮೌಲ್ಯಮಾಪನಗಳನ್ನು ಅಳಿಸಬೇಕೆ?';
+
+  @override
+  String get historyDeleteAllBody =>
+      'ಇದು ಈ ಫೋನ್‌ನಿಂದ ಉಳಿಸಿದ ಎಲ್ಲಾ ಮೌಲ್ಯಮಾಪನಗಳನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ. ಇದನ್ನು ಮತ್ತೆ ಪಡೆಯಲು ಆಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get actionDeleteAll => 'ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ';
+
+  @override
+  String get historyEmptyTitle => 'ಇನ್ನೂ ಮೌಲ್ಯಮಾಪನಗಳಿಲ್ಲ';
+
+  @override
+  String get historyEmptyBody =>
+      'ನೀವು ಸಮಾಲೋಚನೆ ಮುಗಿಸಿದ ನಂತರ ಅದು ಇಲ್ಲಿ ಉಳಿಯುತ್ತದೆ, ನಂತರ ನೋಡಬಹುದು.';
+
+  @override
+  String get historySymptomsUnclear => 'ರೋಗಲಕ್ಷಣಗಳು ಸ್ಪಷ್ಟವಿಲ್ಲ';
+
+  @override
+  String get historyNoMatch => 'ಯಾವುದೇ ಒಂದು ಸ್ಥಿತಿ ಸ್ಪಷ್ಟವಾಗಿ ಹೊಂದಿಕೆಯಾಗಲಿಲ್ಲ';
+
+  @override
+  String get historyReportedSeverity => 'ತಿಳಿಸಿದ ತೀವ್ರತೆ';
+
+  @override
+  String historyRuledOut(int count, int rounds) {
+    return '$rounds ಸುತ್ತಿನ ಪ್ರಶ್ನೆಗಳಲ್ಲಿ $count ರೋಗಲಕ್ಷಣ ತಳ್ಳಿಹಾಕಲಾಗಿದೆ';
+  }
+
+  @override
+  String get trendsTitle => 'ಆರೋಗ್ಯ ಪ್ರವೃತ್ತಿಗಳು';
+
+  @override
+  String get trendsRange7 => '7 ದಿನ';
+
+  @override
+  String get trendsRange30 => '30 ದಿನ';
+
+  @override
+  String get trendsRangeAll => 'ಎಲ್ಲಾ';
+
+  @override
+  String get trendsNotEnoughTitle => 'ಇನ್ನೂ ಸಾಕಷ್ಟು ಅಳತೆಗಳಿಲ್ಲ';
+
+  @override
+  String trendsNotEnoughBody(String vital) {
+    return 'ಪ್ರವೃತ್ತಿ ನೋಡಲು ಬೇರೆ ಬೇರೆ ದಿನಗಳಲ್ಲಿ ಕನಿಷ್ಠ ಎರಡು $vital ಅಳತೆಗಳನ್ನು ದಾಖಲಿಸಿ.';
+  }
+
+  @override
+  String get trendsNothingInPeriodTitle => 'ಈ ಅವಧಿಯಲ್ಲಿ ಏನೂ ಇಲ್ಲ';
+
+  @override
+  String trendsNothingInPeriodBody(int count, String vital) {
+    return '$count $vital ಅಳತೆಗಳು ದಾಖಲಾಗಿವೆ, ಆದರೆ ಈ ಅವಧಿಯಲ್ಲಿ ಎರಡಕ್ಕಿಂತ ಕಡಿಮೆ ಇವೆ. ದೊಡ್ಡ ಅವಧಿ ಆರಿಸಿ.';
+  }
+
+  @override
+  String get trendsLatestReading => 'ಕೊನೆಯ ಅಳತೆ';
+
+  @override
+  String trendsReadingsShown(int count) {
+    return '$count ಅಳತೆಗಳನ್ನು ತೋರಿಸಲಾಗಿದೆ';
+  }
 }

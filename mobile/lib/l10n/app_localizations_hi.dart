@@ -613,4 +613,77 @@ class AppTextHi extends AppText {
   String dateDaysAgo(int days) {
     return '$days दिन पहले';
   }
+
+  @override
+  String get historyTitle => 'पिछले आकलन';
+
+  @override
+  String get historyDeleteAllTooltip => 'सभी हटाएं';
+
+  @override
+  String get historyDeleteAllTitle => 'सभी आकलन हटाएं?';
+
+  @override
+  String get historyDeleteAllBody =>
+      'यह इस फ़ोन से सहेजे गए सभी आकलन हटा देगा। इसे वापस नहीं लाया जा सकता।';
+
+  @override
+  String get actionDeleteAll => 'सभी हटाएं';
+
+  @override
+  String get historyEmptyTitle => 'अभी कोई आकलन नहीं';
+
+  @override
+  String get historyEmptyBody =>
+      'परामर्श पूरा करने के बाद वह यहां सहेजा जाएगा, ताकि आप बाद में देख सकें।';
+
+  @override
+  String get historySymptomsUnclear => 'लक्षण स्पष्ट नहीं';
+
+  @override
+  String get historyNoMatch => 'कोई एक स्थिति स्पष्ट रूप से मेल नहीं खाई';
+
+  @override
+  String get historyReportedSeverity => 'बताई गई गंभीरता';
+
+  @override
+  String historyRuledOut(int count, int rounds) {
+    return '$rounds दौर के सवालों में $count लक्षण हटाए गए';
+  }
+
+  @override
+  String get trendsTitle => 'स्वास्थ्य रुझान';
+
+  @override
+  String get trendsRange7 => '7 दिन';
+
+  @override
+  String get trendsRange30 => '30 दिन';
+
+  @override
+  String get trendsRangeAll => 'सभी';
+
+  @override
+  String get trendsNotEnoughTitle => 'अभी पर्याप्त रीडिंग नहीं';
+
+  @override
+  String trendsNotEnoughBody(String vital) {
+    return 'रुझान देखने के लिए अलग-अलग दिनों की कम से कम दो $vital रीडिंग दर्ज करें।';
+  }
+
+  @override
+  String get trendsNothingInPeriodTitle => 'इस अवधि में कुछ नहीं';
+
+  @override
+  String trendsNothingInPeriodBody(int count, String vital) {
+    return '$count $vital रीडिंग दर्ज हैं, लेकिन इस अवधि में दो से कम हैं। बड़ी अवधि चुनें।';
+  }
+
+  @override
+  String get trendsLatestReading => 'नवीनतम रीडिंग';
+
+  @override
+  String trendsReadingsShown(int count) {
+    return '$count रीडिंग दिखाई गई';
+  }
 }

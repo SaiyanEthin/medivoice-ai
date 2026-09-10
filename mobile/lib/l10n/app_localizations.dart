@@ -1159,6 +1159,132 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'{days} days ago'**
   String dateDaysAgo(int days);
+
+  /// No description provided for @historyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Past assessments'**
+  String get historyTitle;
+
+  /// No description provided for @historyDeleteAllTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all'**
+  String get historyDeleteAllTooltip;
+
+  /// No description provided for @historyDeleteAllTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all assessments?'**
+  String get historyDeleteAllTitle;
+
+  /// No description provided for @historyDeleteAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes every saved assessment from this phone. It cannot be undone.'**
+  String get historyDeleteAllBody;
+
+  /// No description provided for @actionDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all'**
+  String get actionDeleteAll;
+
+  /// No description provided for @historyEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessments yet'**
+  String get historyEmptyTitle;
+
+  /// No description provided for @historyEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Once you complete a consultation it will be saved here so you can look back at it later.'**
+  String get historyEmptyBody;
+
+  /// No description provided for @historySymptomsUnclear.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms unclear'**
+  String get historySymptomsUnclear;
+
+  /// No description provided for @historyNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No single condition matched clearly'**
+  String get historyNoMatch;
+
+  /// No description provided for @historyReportedSeverity.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported severity'**
+  String get historyReportedSeverity;
+
+  /// No description provided for @historyRuledOut.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} symptom(s) ruled out over {rounds} follow-up round(s)'**
+  String historyRuledOut(int count, int rounds);
+
+  /// No description provided for @trendsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Health trends'**
+  String get trendsTitle;
+
+  /// No description provided for @trendsRange7.
+  ///
+  /// In en, this message translates to:
+  /// **'7 days'**
+  String get trendsRange7;
+
+  /// No description provided for @trendsRange30.
+  ///
+  /// In en, this message translates to:
+  /// **'30 days'**
+  String get trendsRange30;
+
+  /// No description provided for @trendsRangeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get trendsRangeAll;
+
+  /// No description provided for @trendsNotEnoughTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough readings yet'**
+  String get trendsNotEnoughTitle;
+
+  /// No description provided for @trendsNotEnoughBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Record at least two {vital} readings on different days to see a trend.'**
+  String trendsNotEnoughBody(String vital);
+
+  /// No description provided for @trendsNothingInPeriodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in this period'**
+  String get trendsNothingInPeriodTitle;
+
+  /// No description provided for @trendsNothingInPeriodBody.
+  ///
+  /// In en, this message translates to:
+  /// **'There are {count} {vital} readings recorded, but fewer than two fall in this range. Try a longer period.'**
+  String trendsNothingInPeriodBody(int count, String vital);
+
+  /// No description provided for @trendsLatestReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest reading'**
+  String get trendsLatestReading;
+
+  /// No description provided for @trendsReadingsShown.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} readings shown'**
+  String trendsReadingsShown(int count);
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {

@@ -369,5 +369,60 @@
         "type": "int"
       }
     }
+  },
+  "historyTitle": "Past assessments",
+  "historyDeleteAllTooltip": "Delete all",
+  "historyDeleteAllTitle": "Delete all assessments?",
+  "historyDeleteAllBody": "This removes every saved assessment from this phone. It cannot be undone.",
+  "actionDeleteAll": "Delete all",
+  "historyEmptyTitle": "No assessments yet",
+  "historyEmptyBody": "Once you complete a consultation it will be saved here so you can look back at it later.",
+  "historySymptomsUnclear": "Symptoms unclear",
+  "historyNoMatch": "No single condition matched clearly",
+  "historyReportedSeverity": "Reported severity",
+  "historyRuledOut": "{count} symptom(s) ruled out over {rounds} follow-up round(s)",
+  "trendsTitle": "Health trends",
+  "trendsRange7": "7 days",
+  "trendsRange30": "30 days",
+  "trendsRangeAll": "All",
+  "trendsNotEnoughTitle": "Not enough readings yet",
+  "trendsNotEnoughBody": "Record at least two {vital} readings on different days to see a trend.",
+  "trendsNothingInPeriodTitle": "Nothing in this period",
+  "trendsNothingInPeriodBody": "There are {count} {vital} readings recorded, but fewer than two fall in this range. Try a longer period.",
+  "trendsLatestReading": "Latest reading",
+  "trendsReadingsShown": "{count} readings shown",
+  "@historyRuledOut": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "rounds": {
+        "type": "int"
+      }
+    }
+  },
+  "@trendsNotEnoughBody": {
+    "placeholders": {
+      "vital": {
+        "type": "String"
+      }
+    }
+  },
+  "@trendsNothingInPeriodBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "vital": {
+        "type": "String"
+      }
+    }
+  },
+  "@trendsReadingsShown": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

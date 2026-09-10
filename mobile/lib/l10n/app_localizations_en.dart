@@ -616,4 +616,77 @@ class AppTextEn extends AppText {
   String dateDaysAgo(int days) {
     return '$days days ago';
   }
+
+  @override
+  String get historyTitle => 'Past assessments';
+
+  @override
+  String get historyDeleteAllTooltip => 'Delete all';
+
+  @override
+  String get historyDeleteAllTitle => 'Delete all assessments?';
+
+  @override
+  String get historyDeleteAllBody =>
+      'This removes every saved assessment from this phone. It cannot be undone.';
+
+  @override
+  String get actionDeleteAll => 'Delete all';
+
+  @override
+  String get historyEmptyTitle => 'No assessments yet';
+
+  @override
+  String get historyEmptyBody =>
+      'Once you complete a consultation it will be saved here so you can look back at it later.';
+
+  @override
+  String get historySymptomsUnclear => 'Symptoms unclear';
+
+  @override
+  String get historyNoMatch => 'No single condition matched clearly';
+
+  @override
+  String get historyReportedSeverity => 'Reported severity';
+
+  @override
+  String historyRuledOut(int count, int rounds) {
+    return '$count symptom(s) ruled out over $rounds follow-up round(s)';
+  }
+
+  @override
+  String get trendsTitle => 'Health trends';
+
+  @override
+  String get trendsRange7 => '7 days';
+
+  @override
+  String get trendsRange30 => '30 days';
+
+  @override
+  String get trendsRangeAll => 'All';
+
+  @override
+  String get trendsNotEnoughTitle => 'Not enough readings yet';
+
+  @override
+  String trendsNotEnoughBody(String vital) {
+    return 'Record at least two $vital readings on different days to see a trend.';
+  }
+
+  @override
+  String get trendsNothingInPeriodTitle => 'Nothing in this period';
+
+  @override
+  String trendsNothingInPeriodBody(int count, String vital) {
+    return 'There are $count $vital readings recorded, but fewer than two fall in this range. Try a longer period.';
+  }
+
+  @override
+  String get trendsLatestReading => 'Latest reading';
+
+  @override
+  String trendsReadingsShown(int count) {
+    return '$count readings shown';
+  }
 }

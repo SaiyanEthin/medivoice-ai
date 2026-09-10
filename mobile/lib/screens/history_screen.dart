@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import '../core/date_format.dart';
 import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../models/consultation_record.dart';
+import '../l10n/app_localizations.dart';
 import '../models/symptom_severity.dart';
+import '../widgets/follow_up_question_card.dart' show severityLabel;
 import '../services/consultation_history_service.dart';
 import '../services/symptom_matcher_service.dart';
 
@@ -42,19 +45,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Delete all assessments?"),
-        content: const Text(
-            "This removes every saved assessment from this phone. It "
-            "cannot be undone."),
+        title: Text(AppText.of(context).historyDeleteAllTitle),
+        content: Text(AppText.of(context).historyDeleteAllBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+            child: Text(AppText.of(context).actionCancel),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: AppTheme.danger),
-            child: const Text("Delete all"),
+            child: Text(AppText.of(context).actionDeleteAll),
           ),
         ],
       ),
@@ -70,12 +71,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
     final records = _records;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Past assessments"),
+        title: Text(AppText.of(context).historyTitle),
         actions: [
           if (records != null && records.isNotEmpty)
             IconButton(
               onPressed: _confirmClearAll,
-              tooltip: "Delete all",
+              tooltip: AppText.of(context).historyDeleteAllTooltip,
               icon: const Icon(Icons.delete_outline_rounded),
             ),
         ],
@@ -109,12 +110,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
             Icon(Icons.history_rounded,
                 size: 48, color: AppTheme.primary.withOpacity(0.4)),
             const SizedBox(height: 16),
-            Text("No assessments yet",
+            Text(AppText.of(context).historyEmptyTitle,
                 style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 8),
             Text(
-              "Once you complete a consultation it will be saved here so "
-              "you can look back at it later.",
+              AppText.of(context).historyEmptyBody,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
@@ -136,18 +136,10 @@ class _RecordCard extends StatelessWidget {
     required this.onDelete,
   });
 
-  static const _months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
-
-  String get _formattedDate {
-    final t = record.timestamp;
-    final hour = t.hour % 12 == 0 ? 12 : t.hour % 12;
-    final minute = t.minute.toString().padLeft(2, '0');
-    final period = t.hour < 12 ? 'am' : 'pm';
-    return "${t.day} ${_months[t.month - 1]} ${t.year}, $hour:$minute$period";
-  }
+  /// Uses the shared date helpers rather than a third private copy of
+  /// month names, so it follows the app language too.
+  String get _formattedDate =>
+      '${shortDate(record.timestamp)}, ${clockTime(record.timestamp)}';
 
   /// De-duplicated by label: several columns deliberately share phrases,
   /// so one complaint can otherwise appear as two or three chips.
@@ -183,9 +175,9 @@ class _RecordCard extends StatelessWidget {
                     iconSize: 18,
                     onSelected: (_) => onDelete(),
                     itemBuilder: (_) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'delete',
-                        child: Text("Delete"),
+                        child: Text(AppText.of(context).actionDelete),
                       ),
                     ],
                   ),
@@ -194,18 +186,18 @@ class _RecordCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             if (record.isUncertain) ...[
-              Text("Symptoms unclear",
+              Text(AppText.of(context).historySymptomsUnclear,
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 2),
-              Text("No single condition matched clearly",
+              Text(AppText.of(context).historyNoMatch,
                   style: Theme.of(context).textTheme.bodyMedium),
             ] else ...[
               Text(diseaseDisplayName(record.disease ?? ''),
                   style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 2),
               Text(
-                "Model score: "
-                "${((record.confidence ?? 0) * 100).toStringAsFixed(1)}%",
+                AppText.of(context).resultScoreLine(
+                    ((record.confidence ?? 0) * 100).toStringAsFixed(1)),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
@@ -224,20 +216,20 @@ class _RecordCard extends StatelessWidget {
             ),
             if (record.severities.isNotEmpty) ...[
               const SizedBox(height: 10),
-              Text("Reported severity",
+              Text(AppText.of(context).historyReportedSeverity,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 4),
               ...record.severities.entries.map((entry) => Text(
-                    "${matcher.getReadableLabel(entry.key)} "
-                    "\u2014 ${entry.value.label}",
+                    '${matcher.getReadableLabel(entry.key)} '
+                    '\u2014 ${severityLabel(AppText.of(context), entry.value)}',
                     style: Theme.of(context).textTheme.bodyMedium,
                   )),
             ],
             if (record.deniedSymptoms.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(
-                "${record.deniedSymptoms.length} symptom(s) ruled out over "
-                "${record.followupRounds} follow-up round(s)",
+                AppText.of(context).historyRuledOut(
+                    record.deniedSymptoms.length, record.followupRounds),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],

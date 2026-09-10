@@ -2,10 +2,11 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../core/unit_prefs.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
-import 'vitals_screen.dart' show iconFor;
+import 'vitals_screen.dart' show iconFor, vitalLabel;
 
 /// Readings within the last [days], or all of them when [days] is null.
 ///
@@ -40,11 +41,12 @@ class _TrendsScreenState extends State<TrendsScreen> {
   List<VitalReading> _all = [];
   bool _loading = true;
 
-  static const _ranges = <String, int?>{
-    '7 days': 7,
-    '30 days': 30,
-    'All': null,
-  };
+  /// Labels resolved at build time so they follow the app language.
+  Map<String, int?> _ranges(AppText t) => {
+        t.trendsRange7: 7,
+        t.trendsRange30: 30,
+        t.trendsRangeAll: null,
+      };
 
   @override
   void initState() {
@@ -76,7 +78,7 @@ class _TrendsScreenState extends State<TrendsScreen> {
     final readings = _loading ? <VitalReading>[] : _plotted;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Health trends")),
+      appBar: AppBar(title: Text(AppText.of(context).trendsTitle)),
       body: SafeArea(
         child: _loading
             ? const Center(child: CircularProgressIndicator())
@@ -115,14 +117,14 @@ class _TrendsScreenState extends State<TrendsScreen> {
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   _LegendDot(
                                       color: AppTheme.primary,
-                                      label: "Systolic"),
-                                  SizedBox(width: 18),
+                                      label: AppText.of(context).vitalBpUpper),
+                                  const SizedBox(width: 18),
                                   _LegendDot(
                                       color: AppTheme.accent,
-                                      label: "Diastolic"),
+                                      label: AppText.of(context).vitalBpLower),
                                 ],
                               ),
                             ],
@@ -160,7 +162,7 @@ class _TrendsScreenState extends State<TrendsScreen> {
                         Icon(iconFor(type),
                             size: 18, color: AppTheme.primaryDark),
                         const SizedBox(width: 10),
-                        Text(type.label),
+                        Text(vitalLabel(AppText.of(context), type)),
                       ],
                     ),
                   ))
@@ -176,7 +178,7 @@ class _TrendsScreenState extends State<TrendsScreen> {
   Widget _buildRangeSelector() {
     return Wrap(
       spacing: 8,
-      children: _ranges.entries
+      children: _ranges(AppText.of(context)).entries
           .map((entry) => ChoiceChip(
                 label: Text(entry.key),
                 selected: _rangeDays == entry.value,
@@ -201,18 +203,17 @@ class _TrendsScreenState extends State<TrendsScreen> {
             const SizedBox(height: 10),
             Text(
               rangeLimited
-                  ? "Nothing in this period"
-                  : "Not enough readings yet",
+                  ? AppText.of(context).trendsNothingInPeriodTitle
+                  : AppText.of(context).trendsNotEnoughTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
             Text(
               rangeLimited
-                  ? "There are $total ${_type.label.toLowerCase()} readings "
-                      "recorded, but fewer than two fall in this range. Try "
-                      "a longer period."
-                  : "Record at least two ${_type.label.toLowerCase()} "
-                      "readings on different days to see a trend.",
+                  ? AppText.of(context).trendsNothingInPeriodBody(total,
+                      vitalLabel(AppText.of(context), _type).toLowerCase())
+                  : AppText.of(context).trendsNotEnoughBody(vitalLabel(
+                      AppText.of(context), _type).toLowerCase()),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -229,7 +230,7 @@ class _TrendsScreenState extends State<TrendsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Latest reading",
+            Text(AppText.of(context).trendsLatestReading,
                 style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 6),
             Row(
@@ -242,14 +243,14 @@ class _TrendsScreenState extends State<TrendsScreen> {
                 Text(displayUnitFor(_type),
                     style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(width: 8),
-                Text("\u00B7  ${relativeDay(latest.timestamp)}",
+                Text('\u00B7  ' +
+                        relativeDay(latest.timestamp, AppText.of(context)),
                     style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
             const SizedBox(height: 8),
             Text(
-              "${readings.length} reading${readings.length == 1 ? '' : 's'} "
-              "shown",
+              AppText.of(context).trendsReadingsShown(readings.length),
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
