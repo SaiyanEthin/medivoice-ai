@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/text_scale_prefs.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 
 /// Text size, with a live preview.
 ///
@@ -25,11 +26,11 @@ class _DisplaySettingsScreenState extends State<DisplaySettingsScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
           children: [
-            Text("Make text easier to read",
+            Text(AppText.of(context).displayHeading,
                 style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 6),
             Text(
-              "This changes the size of text everywhere in MediVoice.",
+              AppText.of(context).displaySubtitle,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 22),
@@ -51,15 +52,14 @@ class _DisplaySettingsScreenState extends State<DisplaySettingsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Preview",
+                    Text(AppText.of(context).displayPreviewLabel,
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 10),
-                    Text("Do you have fever?",
+                    Text(AppText.of(context).displayPreviewQuestion,
                         style: Theme.of(context).textTheme.bodyLarge),
                     const SizedBox(height: 6),
                     Text(
-                      "This may be consistent with Common Cold. "
-                      "It is a pattern match, not a diagnosis.",
+                      AppText.of(context).displayPreviewResult,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

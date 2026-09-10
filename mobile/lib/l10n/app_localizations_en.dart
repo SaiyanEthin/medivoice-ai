@@ -859,4 +859,82 @@ class AppTextEn extends AppText {
   @override
   String get howToNotDiagnosisBody =>
       'MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.';
+
+  @override
+  String get howStep1Title => 'You speak';
+
+  @override
+  String get howStep1Body =>
+      'Describe how you\'re feeling in Kannada, Hindi or English. You can type instead if you\'d rather.';
+
+  @override
+  String get howStep2Title => 'Your phone listens';
+
+  @override
+  String get howStep2Body =>
+      'Speech becomes text using a compact recognition model running on the device itself. Your voice is never uploaded.';
+
+  @override
+  String get howStep3Title => 'Symptoms are identified';
+
+  @override
+  String get howStep3Body =>
+      'What you said is matched against a multilingual symptom vocabulary. Saying you DON\'T have something counts too.';
+
+  @override
+  String get howStep4Title => 'A few questions';
+
+  @override
+  String get howStep4Body =>
+      'If there isn\'t enough to go on, you\'ll be asked a short set of yes/no questions chosen to narrow the possibilities.';
+
+  @override
+  String get howStep5Title => 'A preliminary assessment';
+
+  @override
+  String get howStep5Body =>
+      'A lightweight model suggests what the pattern may be consistent with. If it isn\'t confident, it says so instead of guessing.';
+
+  @override
+  String get howStep6Title => 'Guidance and next steps';
+
+  @override
+  String get howStep6Body =>
+      'Practical self-care suggestions, warning signs to watch for, and the kind of specialist worth seeing.';
+
+  @override
+  String get howPrivacyTitle => 'Your consultation stays with you';
+
+  @override
+  String get howPrivacyBody =>
+      'Symptoms, recordings and results are never sent anywhere. The app works with the network switched off - apart from a one-time download of the speech model when you first use it.';
+
+  @override
+  String get howNotDiagnosisTitle => 'This is not a diagnosis';
+
+  @override
+  String get howNotDiagnosisBody =>
+      'MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.';
+
+  @override
+  String howStepNumbered(int index, String title) {
+    return '$index. $title';
+  }
+
+  @override
+  String get displayHeading => 'Make text easier to read';
+
+  @override
+  String get displaySubtitle =>
+      'This changes the size of text everywhere in MediVoice.';
+
+  @override
+  String get displayPreviewLabel => 'Preview';
+
+  @override
+  String get displayPreviewQuestion => 'Do you have fever?';
+
+  @override
+  String get displayPreviewResult =>
+      'This may be consistent with Common Cold. It is a pattern match, not a diagnosis.';
 }

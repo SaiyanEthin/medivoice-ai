@@ -4,7 +4,6 @@ import '../core/disease_display.dart';
 import '../core/theme/app_theme.dart';
 import '../models/consultation_record.dart';
 import '../l10n/app_localizations.dart';
-import '../models/symptom_severity.dart';
 import '../widgets/follow_up_question_card.dart' show severityLabel;
 import '../services/consultation_history_service.dart';
 import '../services/symptom_matcher_service.dart';

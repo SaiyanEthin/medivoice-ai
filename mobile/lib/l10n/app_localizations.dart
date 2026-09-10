@@ -1561,6 +1561,138 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.'**
   String get howToNotDiagnosisBody;
+
+  /// No description provided for @howStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'You speak'**
+  String get howStep1Title;
+
+  /// No description provided for @howStep1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe how you\'re feeling in Kannada, Hindi or English. You can type instead if you\'d rather.'**
+  String get howStep1Body;
+
+  /// No description provided for @howStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone listens'**
+  String get howStep2Title;
+
+  /// No description provided for @howStep2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech becomes text using a compact recognition model running on the device itself. Your voice is never uploaded.'**
+  String get howStep2Body;
+
+  /// No description provided for @howStep3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms are identified'**
+  String get howStep3Title;
+
+  /// No description provided for @howStep3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'What you said is matched against a multilingual symptom vocabulary. Saying you DON\'T have something counts too.'**
+  String get howStep3Body;
+
+  /// No description provided for @howStep4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'A few questions'**
+  String get howStep4Title;
+
+  /// No description provided for @howStep4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'If there isn\'t enough to go on, you\'ll be asked a short set of yes/no questions chosen to narrow the possibilities.'**
+  String get howStep4Body;
+
+  /// No description provided for @howStep5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'A preliminary assessment'**
+  String get howStep5Title;
+
+  /// No description provided for @howStep5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'A lightweight model suggests what the pattern may be consistent with. If it isn\'t confident, it says so instead of guessing.'**
+  String get howStep5Body;
+
+  /// No description provided for @howStep6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Guidance and next steps'**
+  String get howStep6Title;
+
+  /// No description provided for @howStep6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Practical self-care suggestions, warning signs to watch for, and the kind of specialist worth seeing.'**
+  String get howStep6Body;
+
+  /// No description provided for @howPrivacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your consultation stays with you'**
+  String get howPrivacyTitle;
+
+  /// No description provided for @howPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms, recordings and results are never sent anywhere. The app works with the network switched off - apart from a one-time download of the speech model when you first use it.'**
+  String get howPrivacyBody;
+
+  /// No description provided for @howNotDiagnosisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a diagnosis'**
+  String get howNotDiagnosisTitle;
+
+  /// No description provided for @howNotDiagnosisBody.
+  ///
+  /// In en, this message translates to:
+  /// **'MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.'**
+  String get howNotDiagnosisBody;
+
+  /// No description provided for @howStepNumbered.
+  ///
+  /// In en, this message translates to:
+  /// **'{index}. {title}'**
+  String howStepNumbered(int index, String title);
+
+  /// No description provided for @displayHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Make text easier to read'**
+  String get displayHeading;
+
+  /// No description provided for @displaySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This changes the size of text everywhere in MediVoice.'**
+  String get displaySubtitle;
+
+  /// No description provided for @displayPreviewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get displayPreviewLabel;
+
+  /// No description provided for @displayPreviewQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you have fever?'**
+  String get displayPreviewQuestion;
+
+  /// No description provided for @displayPreviewResult.
+  ///
+  /// In en, this message translates to:
+  /// **'This may be consistent with Common Cold. It is a pattern match, not a diagnosis.'**
+  String get displayPreviewResult;
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {

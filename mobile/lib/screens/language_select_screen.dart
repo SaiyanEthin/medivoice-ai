@@ -51,7 +51,7 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
               const Icon(Icons.translate_rounded, size: 56, color: AppTheme.primary),
               const SizedBox(height: 16),
               Text(
-                "Which language would you like to speak in?",
+                'Which language would you like to speak in?\n\u0ca8\u0cbf\u0cae\u0ccd\u0cae \u0cad\u0cbe\u0cb7\u0cc6 \u0caf\u0cbe\u0cb5\u0cc1\u0ca6\u0cc1?\n\u0906\u092a \u0915\u094c\u0928 \u0938\u0940 \u092d\u093e\u0937\u093e \u092c\u094b\u0932\u0928\u093e \u091a\u093e\u0939\u0947\u0902\u0917\u0947?',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleLarge,
               ),

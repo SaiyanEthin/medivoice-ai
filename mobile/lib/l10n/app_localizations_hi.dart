@@ -854,4 +854,82 @@ class AppTextHi extends AppText {
   @override
   String get howToNotDiagnosisBody =>
       'MediVoice जागरूकता के लिए प्रशिक्षण डेटा से मिलान करता है। यह आपकी जांच नहीं कर सकता, सीमित स्थितियों को ही कवर करता है, और योग्य डॉक्टर का विकल्प नहीं है।';
+
+  @override
+  String get howStep1Title => 'आप बोलते हैं';
+
+  @override
+  String get howStep1Body =>
+      'कन्नड़, हिंदी या अंग्रेज़ी में बताइए आप कैसा महसूस कर रहे हैं। चाहें तो लिख भी सकते हैं।';
+
+  @override
+  String get howStep2Title => 'आपका फ़ोन सुनता है';
+
+  @override
+  String get howStep2Body =>
+      'फ़ोन पर ही चलने वाला एक छोटा मॉडल आवाज़ को टेक्स्ट में बदलता है। आपकी आवाज़ कहीं नहीं भेजी जाती।';
+
+  @override
+  String get howStep3Title => 'लक्षण पहचाने जाते हैं';
+
+  @override
+  String get howStep3Body =>
+      'आपने जो कहा उसे बहुभाषी लक्षण सूची से मिलाया जाता है। आपको क्या नहीं है, यह भी गिना जाता है।';
+
+  @override
+  String get howStep4Title => 'कुछ सवाल';
+
+  @override
+  String get howStep4Body =>
+      'अगर जानकारी कम हो, तो संभावनाएं कम करने के लिए कुछ हां/नहीं वाले सवाल पूछे जाते हैं।';
+
+  @override
+  String get howStep5Title => 'प्रारंभिक आकलन';
+
+  @override
+  String get howStep5Body =>
+      'एक हल्का मॉडल बताता है कि यह किससे मेल खा सकता है। भरोसा न हो तो अंदाज़ा लगाने के बजाय वही कह देता है।';
+
+  @override
+  String get howStep6Title => 'मार्गदर्शन और अगले कदम';
+
+  @override
+  String get howStep6Body =>
+      'व्यावहारिक देखभाल सुझाव, ध्यान देने योग्य चेतावनी संकेत, और किस विशेषज्ञ से मिलना चाहिए।';
+
+  @override
+  String get howPrivacyTitle => 'आपका परामर्श आपके पास ही रहता है';
+
+  @override
+  String get howPrivacyBody =>
+      'लक्षण, रिकॉर्डिंग और नतीजे कहीं नहीं भेजे जाते। पहली बार वॉइस मॉडल डाउनलोड होने के अलावा, ऐप इंटरनेट बंद होने पर भी काम करता है।';
+
+  @override
+  String get howNotDiagnosisTitle => 'यह निदान नहीं है';
+
+  @override
+  String get howNotDiagnosisBody =>
+      'MediVoice जागरूकता के लिए प्रशिक्षण डेटा से मिलान करता है। यह आपकी जांच नहीं कर सकता, सीमित स्थितियां ही शामिल हैं, और यह योग्य डॉक्टर का विकल्प नहीं है।';
+
+  @override
+  String howStepNumbered(int index, String title) {
+    return '$index. $title';
+  }
+
+  @override
+  String get displayHeading => 'टेक्स्ट पढ़ना आसान बनाएं';
+
+  @override
+  String get displaySubtitle =>
+      'यह MediVoice में हर जगह टेक्स्ट का आकार बदलता है।';
+
+  @override
+  String get displayPreviewLabel => 'पूर्वदर्शन';
+
+  @override
+  String get displayPreviewQuestion => 'क्या आपको बुखार है?';
+
+  @override
+  String get displayPreviewResult =>
+      'यह साधारण सर्दी (कॉक सान जुकाम) से मेल खा सकता है। यह मॉडल से किया गया ऐसा अनुमान है, निदान नहीं।';
 }

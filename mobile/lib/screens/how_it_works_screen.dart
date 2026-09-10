@@ -9,50 +9,48 @@ import '../l10n/app_localizations.dart';
 class HowItWorksScreen extends StatelessWidget {
   const HowItWorksScreen({super.key});
 
-  static const _steps = <_StepData>[
-    _StepData(
-      icon: Icons.mic_rounded,
-      title: "You speak",
-      body: "Describe how you're feeling in Kannada, Hindi or English. "
-          "You can type instead if you'd rather.",
-    ),
-    _StepData(
-      icon: Icons.graphic_eq_rounded,
-      title: "Your phone listens",
-      body: "Speech becomes text using a compact recognition model running "
-          "on the device itself. Your voice is never uploaded.",
-    ),
-    _StepData(
-      icon: Icons.search_rounded,
-      title: "Symptoms are identified",
-      body: "What you said is matched against a multilingual symptom "
-          "vocabulary. Saying you DON'T have something counts too.",
-    ),
-    _StepData(
-      icon: Icons.help_outline_rounded,
-      title: "A few questions",
-      body: "If there isn't enough to go on, you'll be asked a short set of "
-          "yes/no questions chosen to narrow the possibilities.",
-    ),
-    _StepData(
-      icon: Icons.insights_rounded,
-      title: "A preliminary assessment",
-      body: "A lightweight model suggests what the pattern may be "
-          "consistent with. If it isn't confident, it says so instead of "
-          "guessing.",
-    ),
-    _StepData(
-      icon: Icons.local_hospital_outlined,
-      title: "Guidance and next steps",
-      body: "Practical self-care suggestions, warning signs to watch for, "
-          "and the kind of specialist worth seeing.",
-    ),
-  ];
+  /// Built at runtime rather than held as a const: AppText values are
+  /// not compile-time constants, so the list has to be created once the
+  /// localisations are in scope.
+  static List<_StepData> _steps(AppText t) => [
+        _StepData(
+          icon: Icons.mic_rounded,
+          title: t.howStep1Title,
+          body: t.howStep1Body,
+        ),
+        _StepData(
+          icon: Icons.graphic_eq_rounded,
+          title: t.howStep2Title,
+          body: t.howStep2Body,
+        ),
+        _StepData(
+          icon: Icons.search_rounded,
+          title: t.howStep3Title,
+          body: t.howStep3Body,
+        ),
+        _StepData(
+          icon: Icons.help_outline_rounded,
+          title: t.howStep4Title,
+          body: t.howStep4Body,
+        ),
+        _StepData(
+          icon: Icons.insights_rounded,
+          title: t.howStep5Title,
+          body: t.howStep5Body,
+        ),
+        _StepData(
+          icon: Icons.local_hospital_outlined,
+          title: t.howStep6Title,
+          body: t.howStep6Body,
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
+    final t = AppText.of(context);
+    final steps = _steps(t);
     return Scaffold(
-      appBar: AppBar(title: Text(AppText.of(context).howToTitle)),
+      appBar: AppBar(title: Text(t.howToTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
@@ -67,31 +65,25 @@ class HowItWorksScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),
-            for (var i = 0; i < _steps.length; i++)
+            for (var i = 0; i < steps.length; i++)
               _StepTile(
                 index: i + 1,
-                data: _steps[i],
-                isLast: i == _steps.length - 1,
+                data: steps[i],
+                isLast: i == steps.length - 1,
               ),
             const SizedBox(height: 8),
             _NoteCard(
               icon: Icons.lock_outline_rounded,
               color: AppTheme.primary,
-              title: "Your consultation stays with you",
-              body: "Symptoms, recordings and results are never sent "
-                  "anywhere. The app works with the network switched off - "
-                  "apart from a one-time download of the speech model when "
-                  "you first use it.",
+              title: t.howPrivacyTitle,
+              body: t.howPrivacyBody,
             ),
             const SizedBox(height: 12),
             _NoteCard(
               icon: Icons.info_outline_rounded,
               color: AppTheme.danger,
-              title: "This is not a diagnosis",
-              body: "MediVoice matches patterns against training data to "
-                  "raise awareness. It cannot examine you, it covers a "
-                  "limited set of conditions, and it is not a substitute "
-                  "for a qualified doctor.",
+              title: t.howNotDiagnosisTitle,
+              body: t.howNotDiagnosisBody,
             ),
           ],
         ),
@@ -157,7 +149,8 @@ class _StepTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$index. ${data.title}",
+                    AppText.of(context)
+                        .howStepNumbered(index, data.title),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 6),

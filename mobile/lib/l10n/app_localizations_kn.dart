@@ -858,4 +858,82 @@ class AppTextKn extends AppText {
   @override
   String get howToNotDiagnosisBody =>
       'MediVoice ಅರಿವು ಮೂಡಿಸಲು ತರಬೇತಿ ದತ್ತಾಂಶದೊಂದಿಗೆ ಹೋಲಿಕೆ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮನ್ನು ಪರೀಕ್ಷಿಸಲಾರದು, ಸೀಮಿತ ಸ್ಥಿತಿಗಳನ್ನು ಮಾತ್ರ ಒಳಗೊಂಡಿದೆ, ಮತ್ತು ಅರ್ಹ ವೈದ್ಯರಿಗೆ ಬದಲಿ ಅಲ್ಲ.';
+
+  @override
+  String get howStep1Title => 'ನೀವು ಮಾತನಾಡುತ್ತೀರಿ';
+
+  @override
+  String get howStep1Body =>
+      'ಕನ್ನಡ, ಹಿಂದಿ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ನಿಮಗೆ ಹೇಗಿದೆ ಎಂದು ಹೇಳಿ. ಬೇಕಿದ್ದರೆ ಟೈಪ್ ಕೂಡ ಮಾಡಬಹುದು.';
+
+  @override
+  String get howStep2Title => 'ನಿಮ್ಮ ಫೋನ್ ಕೇಳುತ್ತದೆ';
+
+  @override
+  String get howStep2Body =>
+      'ಫೋನ್‌ನಲ್ಲೇ ಚಲಿಸುವ ಸಣ್ಣ ಮಾದರಿ ಮಾತನ್ನು ಪಠ್ಯವಾಗಿ ಪರಿವರ್ತಿಸುತ್ತದೆ. ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ.';
+
+  @override
+  String get howStep3Title => 'ರೋಗಲಕ್ಷಣಗಳನ್ನು ಗುರುತಿಸಲಾಗುತ್ತದೆ';
+
+  @override
+  String get howStep3Body =>
+      'ನೀವು ಹೇಳಿದ್ದನ್ನು ಬಹುಭಾಷಾ ರೋಗಲಕ್ಷಣ ಪಟ್ಟಿಯೊಂದಿಗೆ ಹೋಲಿಸಲಾಗುತ್ತದೆ. ನಿಮಗೆ ಏನು ಇಲ್ಲ ಎಂದು ಹೇಳಿದರೂ ಅದೂ ಲೆಕ್ಕಕ್ಕೆ ಬರುತ್ತದೆ.';
+
+  @override
+  String get howStep4Title => 'ಕೆಲವು ಪ್ರಶ್ನೆಗಳು';
+
+  @override
+  String get howStep4Body =>
+      'ಸಾಕಷ್ಟು ಮಾಹಿತಿ ಇಲ್ಲದಿದ್ದರೆ, ಸಾಧ್ಯತೆಗಳನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಕೆಲವು ಹೌದು/ಇಲ್ಲ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಲಾಗುತ್ತದೆ.';
+
+  @override
+  String get howStep5Title => 'ಪ್ರಾಥಮಿಕ ಮೌಲ್ಯಮಾಪನ';
+
+  @override
+  String get howStep5Body =>
+      'ಸಣ್ಣ ಮಾದರಿ ಇದು ಯಾವುದಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗಬಹುದು ಎಂದು ಸೂಚಿಸುತ್ತದೆ. ವಿಶ್ವಾಸವಿಲ್ಲದಿದ್ದರೆ ಊಹಿಸುವ ಬದಲು ಹಾಗೆಂದೇ ಹೇಳುತ್ತದೆ.';
+
+  @override
+  String get howStep6Title => 'ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಮುಂದಿನ ಹೆಜ್ಜೆ';
+
+  @override
+  String get howStep6Body =>
+      'ಪ್ರಾಯೋಗಿಕ ಆರೈಕೆ ಸಲಹೆಗಳು, ಗಮನಿಸಬೇಕಾದ ಅಪಾಯದ ಸೂಚನೆಗಳು, ಮತ್ತು ಯಾವ ತಜ್ಞರನ್ನು ಭೇಟಿ ಮಾಡಬೇಕು ಎಂಬುದು.';
+
+  @override
+  String get howPrivacyTitle => 'ನಿಮ್ಮ ಸಮಾಲೋಚನೆ ನಿಮ್ಮ ಬಳಿಯೇ ಇರುತ್ತದೆ';
+
+  @override
+  String get howPrivacyBody =>
+      'ರೋಗಲಕ್ಷಣಗಳು, ಧ್ವನಿಮುದ್ರಣ ಮತ್ತು ಫಲಿತಾಂಶಗಳನ್ನು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. ಮೊದಲ ಬಾರಿ ಧ್ವನಿ ಮಾದರಿ ಡೌನ್‌ಲೋಡ್ ಆಗುವುದನ್ನು ಬಿಟ್ಟರೆ, ಆ್ಯಪ್ ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ.';
+
+  @override
+  String get howNotDiagnosisTitle => 'ಇದು ರೋಗನಿದಾನ ಅಲ್ಲ';
+
+  @override
+  String get howNotDiagnosisBody =>
+      'MediVoice ಅರಿವು ಮೂಡಿಸಲು ತರಬೇತಿ ದತ್ತಾಂಶದೊಂದಿಗೆ ಹೋಲಿಕೆ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮನ್ನು ಪರೀಕ್ಷಿಸಲಾರದು, ಸೀಮಿತ ಸ್ಥಿತಿಗಳನ್ನು ಮಾತ್ರ ಒಳಗೊಂಡಿದೆ, ಮತ್ತು ಅರ್ಹ ವೈದ್ಯರಿಗೆ ಬದಲಿ ಅಲ್ಲ.';
+
+  @override
+  String howStepNumbered(int index, String title) {
+    return '$index. $title';
+  }
+
+  @override
+  String get displayHeading => 'ಓದುವುದನ್ನು ಸರಳವಾಗಿಸಿ';
+
+  @override
+  String get displaySubtitle =>
+      'ಇದು MediVoiceನ ಎಲ್ಲೆಡೆ ಪಠ್ಯದ ಗಾತ್ರವನ್ನು ತೊಲಿಸುತ್ತದೆ.';
+
+  @override
+  String get displayPreviewLabel => 'पूर्वदर्शन';
+
+  @override
+  String get displayPreviewQuestion => 'ನಿಮಗೆ ಜ್ವರ ಇದೇಯೇ?';
+
+  @override
+  String get displayPreviewResult =>
+      'ಇದು ಶೀತ ಜ್ವರಕ್ಕೆ ಹೌಂದಿಕೆಯಾಗಬಹುದು. ಇದು ಮಾದರಿ ಹೋಲಿಕೆ, ರೋಗನಿದಾನ ಅಲ್ಲ.';
 }
