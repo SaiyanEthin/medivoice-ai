@@ -286,5 +286,88 @@
         "type": "String"
       }
     }
+  },
+  "vitalsTitle": "Vitals",
+  "vitalsTrendsTooltip": "Trends",
+  "vitalsUnitsTooltip": "Units",
+  "vitalsPrivacyNote": "Readings are stored on this phone only. MediVoice records what you enter - it does not interpret the numbers or tell you whether a reading is normal.",
+  "vitalsNotRecorded": "Not recorded yet",
+  "vitalsLastRecorded": "Last recorded: {when}",
+  "vitalsAddReading": "Add reading",
+  "vitalsMeasuredIn": "Measured in {unit}",
+  "vitalsRecordedOn": "Recorded {when}",
+  "vitalsChangeDate": "Change",
+  "vitalsNoteLabel": "Note (optional)",
+  "vitalsNoteHint": "e.g. before food, after a walk",
+  "vitalsSaveReading": "Save reading",
+  "vitalsErrEnterNumber": "Enter a number for {field}.",
+  "vitalsErrOutOfRange": "That doesn't look like a {vital} reading. Expected roughly {low} to {high} {unit}.",
+  "vitalsErrNeedLower": "Enter the lower number too.",
+  "vitalsErrLowerRange": "That lower number looks out of range.",
+  "vitalsErrLowerHigher": "The lower number is usually smaller than the upper one - please check.",
+  "unitsTitle": "Units",
+  "unitsDescription": "Choose the units you prefer. Readings you have already saved are converted, not changed.",
+  "actionDone": "Done",
+  "vitalBloodPressure": "Blood pressure",
+  "vitalBloodGlucose": "Blood glucose",
+  "vitalPulse": "Pulse rate",
+  "vitalOxygen": "Oxygen saturation",
+  "vitalTemperature": "Temperature",
+  "vitalWeight": "Weight",
+  "vitalBpUpper": "Upper number",
+  "vitalBpLower": "Lower number",
+  "dateToday": "Today",
+  "dateYesterday": "Yesterday",
+  "dateDaysAgo": "{days} days ago",
+  "@vitalsLastRecorded": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "@vitalsMeasuredIn": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "@vitalsRecordedOn": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "@vitalsErrEnterNumber": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "@vitalsErrOutOfRange": {
+    "placeholders": {
+      "vital": {
+        "type": "String"
+      },
+      "low": {
+        "type": "String"
+      },
+      "high": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "@dateDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   }
 }

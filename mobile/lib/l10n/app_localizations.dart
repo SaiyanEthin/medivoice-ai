@@ -962,6 +962,203 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'Health data deleted.'**
   String get settingsDataDeleted;
+
+  /// No description provided for @vitalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitals'**
+  String get vitalsTitle;
+
+  /// No description provided for @vitalsTrendsTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Trends'**
+  String get vitalsTrendsTooltip;
+
+  /// No description provided for @vitalsUnitsTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Units'**
+  String get vitalsUnitsTooltip;
+
+  /// No description provided for @vitalsPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Readings are stored on this phone only. MediVoice records what you enter - it does not interpret the numbers or tell you whether a reading is normal.'**
+  String get vitalsPrivacyNote;
+
+  /// No description provided for @vitalsNotRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not recorded yet'**
+  String get vitalsNotRecorded;
+
+  /// No description provided for @vitalsLastRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Last recorded: {when}'**
+  String vitalsLastRecorded(String when);
+
+  /// No description provided for @vitalsAddReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Add reading'**
+  String get vitalsAddReading;
+
+  /// No description provided for @vitalsMeasuredIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured in {unit}'**
+  String vitalsMeasuredIn(String unit);
+
+  /// No description provided for @vitalsRecordedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded {when}'**
+  String vitalsRecordedOn(String when);
+
+  /// No description provided for @vitalsChangeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get vitalsChangeDate;
+
+  /// No description provided for @vitalsNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get vitalsNoteLabel;
+
+  /// No description provided for @vitalsNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. before food, after a walk'**
+  String get vitalsNoteHint;
+
+  /// No description provided for @vitalsSaveReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Save reading'**
+  String get vitalsSaveReading;
+
+  /// No description provided for @vitalsErrEnterNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a number for {field}.'**
+  String vitalsErrEnterNumber(String field);
+
+  /// No description provided for @vitalsErrOutOfRange.
+  ///
+  /// In en, this message translates to:
+  /// **'That doesn\'t look like a {vital} reading. Expected roughly {low} to {high} {unit}.'**
+  String vitalsErrOutOfRange(
+    String vital,
+    String low,
+    String high,
+    String unit,
+  );
+
+  /// No description provided for @vitalsErrNeedLower.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the lower number too.'**
+  String get vitalsErrNeedLower;
+
+  /// No description provided for @vitalsErrLowerRange.
+  ///
+  /// In en, this message translates to:
+  /// **'That lower number looks out of range.'**
+  String get vitalsErrLowerRange;
+
+  /// No description provided for @vitalsErrLowerHigher.
+  ///
+  /// In en, this message translates to:
+  /// **'The lower number is usually smaller than the upper one - please check.'**
+  String get vitalsErrLowerHigher;
+
+  /// No description provided for @unitsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Units'**
+  String get unitsTitle;
+
+  /// No description provided for @unitsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the units you prefer. Readings you have already saved are converted, not changed.'**
+  String get unitsDescription;
+
+  /// No description provided for @actionDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get actionDone;
+
+  /// No description provided for @vitalBloodPressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood pressure'**
+  String get vitalBloodPressure;
+
+  /// No description provided for @vitalBloodGlucose.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood glucose'**
+  String get vitalBloodGlucose;
+
+  /// No description provided for @vitalPulse.
+  ///
+  /// In en, this message translates to:
+  /// **'Pulse rate'**
+  String get vitalPulse;
+
+  /// No description provided for @vitalOxygen.
+  ///
+  /// In en, this message translates to:
+  /// **'Oxygen saturation'**
+  String get vitalOxygen;
+
+  /// No description provided for @vitalTemperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature'**
+  String get vitalTemperature;
+
+  /// No description provided for @vitalWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get vitalWeight;
+
+  /// No description provided for @vitalBpUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper number'**
+  String get vitalBpUpper;
+
+  /// No description provided for @vitalBpLower.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower number'**
+  String get vitalBpLower;
+
+  /// No description provided for @dateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get dateToday;
+
+  /// No description provided for @dateYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get dateYesterday;
+
+  /// No description provided for @dateDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days ago'**
+  String dateDaysAgo(int days);
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {

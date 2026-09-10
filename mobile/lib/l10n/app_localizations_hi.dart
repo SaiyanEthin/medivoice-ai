@@ -497,4 +497,120 @@ class AppTextHi extends AppText {
 
   @override
   String get settingsDataDeleted => 'स्वास्थ्य डेटा हटा दिया गया।';
+
+  @override
+  String get vitalsTitle => 'स्वास्थ्य माप';
+
+  @override
+  String get vitalsTrendsTooltip => 'रुझान';
+
+  @override
+  String get vitalsUnitsTooltip => 'यूनिट';
+
+  @override
+  String get vitalsPrivacyNote =>
+      'रीडिंग केवल इसी फ़ोन पर रहती हैं। MediVoice सिर्फ़ वही दर्ज करता है जो आप भरते हैं - यह संख्याओं का विश्लेषण नहीं करता और न ही बताता है कि रीडिंग सामान्य है या नहीं।';
+
+  @override
+  String get vitalsNotRecorded => 'अभी दर्ज नहीं';
+
+  @override
+  String vitalsLastRecorded(String when) {
+    return 'पिछली बार: $when';
+  }
+
+  @override
+  String get vitalsAddReading => 'रीडिंग जोड़ें';
+
+  @override
+  String vitalsMeasuredIn(String unit) {
+    return '$unit में मापा जाता है';
+  }
+
+  @override
+  String vitalsRecordedOn(String when) {
+    return '$when दर्ज किया गया';
+  }
+
+  @override
+  String get vitalsChangeDate => 'बदलें';
+
+  @override
+  String get vitalsNoteLabel => 'नोट (वैकल्पिक)';
+
+  @override
+  String get vitalsNoteHint => 'जैसे खाने से पहले, टहलने के बाद';
+
+  @override
+  String get vitalsSaveReading => 'रीडिंग सहेजें';
+
+  @override
+  String vitalsErrEnterNumber(String field) {
+    return '$field के लिए संख्या भरें।';
+  }
+
+  @override
+  String vitalsErrOutOfRange(
+    String vital,
+    String low,
+    String high,
+    String unit,
+  ) {
+    return 'यह $vital की रीडिंग नहीं लगती। लगभग $low से $high $unit की उम्मीद है।';
+  }
+
+  @override
+  String get vitalsErrNeedLower => 'नीचे वाला नंबर भी भरें।';
+
+  @override
+  String get vitalsErrLowerRange => 'वह नीचे वाला नंबर सही नहीं लगता।';
+
+  @override
+  String get vitalsErrLowerHigher =>
+      'नीचे वाला नंबर आमतौर पर ऊपर वाले से कम होता है - जांच लें।';
+
+  @override
+  String get unitsTitle => 'यूनिट';
+
+  @override
+  String get unitsDescription =>
+      'अपनी पसंद की यूनिट चुनें। पहले से सहेजी गई रीडिंग बदली नहीं जातीं, सिर्फ़ बदलकर दिखाई जाती हैं।';
+
+  @override
+  String get actionDone => 'हो गया';
+
+  @override
+  String get vitalBloodPressure => 'ब्लड प्रेशर';
+
+  @override
+  String get vitalBloodGlucose => 'ब्लड शुगर';
+
+  @override
+  String get vitalPulse => 'नाड़ी की गति';
+
+  @override
+  String get vitalOxygen => 'ऑक्सीजन स्तर';
+
+  @override
+  String get vitalTemperature => 'शरीर का तापमान';
+
+  @override
+  String get vitalWeight => 'वज़न';
+
+  @override
+  String get vitalBpUpper => 'ऊपर वाला नंबर';
+
+  @override
+  String get vitalBpLower => 'नीचे वाला नंबर';
+
+  @override
+  String get dateToday => 'आज';
+
+  @override
+  String get dateYesterday => 'कल';
+
+  @override
+  String dateDaysAgo(int days) {
+    return '$days दिन पहले';
+  }
 }

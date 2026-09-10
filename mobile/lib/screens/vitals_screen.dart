@@ -2,12 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../core/unit_prefs.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
 import 'trends_screen.dart';
 import 'vital_history_screen.dart';
 
+
+/// Display name for a vital. VitalType.label stays English - the enum
+/// is storage vocabulary, and only what the user reads is translated.
+String vitalLabel(AppText t, VitalType type) {
+  switch (type) {
+    case VitalType.bloodPressure:
+      return t.vitalBloodPressure;
+    case VitalType.bloodGlucose:
+      return t.vitalBloodGlucose;
+    case VitalType.pulse:
+      return t.vitalPulse;
+    case VitalType.oxygenSaturation:
+      return t.vitalOxygen;
+    case VitalType.temperature:
+      return t.vitalTemperature;
+    case VitalType.weight:
+      return t.vitalWeight;
+  }
+}
+
+/// The label for the value field. Blood pressure has two numbers, and on
+/// a home monitor they are simply the upper and lower ones.
+String vitalFieldLabel(AppText t, VitalType type) =>
+    type == VitalType.bloodPressure ? t.vitalBpUpper : vitalLabel(t, type);
 
 IconData iconFor(VitalType type) {
   switch (type) {
@@ -83,19 +108,19 @@ class _VitalsScreenState extends State<VitalsScreen> {
     final latest = _latest;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Vitals"),
+        title: Text(AppText.of(context).vitalsTitle),
         actions: [
           IconButton(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const TrendsScreen()),
             ),
-            tooltip: "Trends",
+            tooltip: AppText.of(context).vitalsTrendsTooltip,
             icon: const Icon(Icons.show_chart_rounded),
           ),
           IconButton(
             onPressed: _openUnits,
-            tooltip: "Units",
+            tooltip: AppText.of(context).vitalsUnitsTooltip,
             icon: const Icon(Icons.straighten_rounded),
           ),
         ],
@@ -120,10 +145,7 @@ class _VitalsScreenState extends State<VitalsScreen> {
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
-                            "Readings are stored on this phone only. "
-                            "MediVoice records what you enter - it does not "
-                            "interpret the numbers or tell you whether a "
-                            "reading is normal.",
+                            AppText.of(context).vitalsPrivacyNote,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
@@ -186,11 +208,11 @@ class _VitalCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(type.label,
+                    Text(vitalLabel(AppText.of(context), type),
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 4),
                     if (reading == null)
-                      Text("Not recorded yet",
+                      Text(AppText.of(context).vitalsNotRecorded,
                           style: Theme.of(context).textTheme.bodySmall)
                     else ...[
                       Row(
@@ -205,7 +227,8 @@ class _VitalCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyMedium),
                         ],
                       ),
-                      Text("Last recorded: ${relativeDay(reading.timestamp)}",
+                      Text(AppText.of(context).vitalsLastRecorded(
+                              relativeDay(reading.timestamp, AppText.of(context))),
                           style: Theme.of(context).textTheme.bodySmall),
                     ],
                   ],
@@ -213,7 +236,7 @@ class _VitalCard extends StatelessWidget {
               ),
               IconButton.filledTonal(
                 onPressed: onAdd,
-                tooltip: "Add reading",
+                tooltip: AppText.of(context).vitalsAddReading,
                 icon: const Icon(Icons.add_rounded),
               ),
             ],
@@ -280,16 +303,18 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
     final primary = double.tryParse(_primary.text.trim());
     if (primary == null) {
       setState(() =>
-          _error = "Enter a number for ${type.primaryFieldLabel.toLowerCase()}.");
+          _error = AppText.of(context).vitalsErrEnterNumber(
+              vitalFieldLabel(AppText.of(context), type).toLowerCase()));
       return;
     }
 
     final range = displayPlausibleRange(type);
     if (primary < range.$1 || primary > range.$2) {
-      setState(() => _error =
-          "That doesn't look like a ${type.label.toLowerCase()} reading. "
-          "Expected roughly ${range.$1.toStringAsFixed(0)} to "
-          "${range.$2.toStringAsFixed(0)} ${displayUnitFor(type)}.");
+      setState(() => _error = AppText.of(context).vitalsErrOutOfRange(
+          vitalLabel(AppText.of(context), type).toLowerCase(),
+          range.$1.toStringAsFixed(0),
+          range.$2.toStringAsFixed(0),
+          displayUnitFor(type)));
       return;
     }
 
@@ -297,17 +322,16 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
     if (type.hasSecondary) {
       secondary = double.tryParse(_secondary.text.trim());
       if (secondary == null) {
-        setState(() => _error = "Enter a diastolic value too.");
+        setState(() => _error = AppText.of(context).vitalsErrNeedLower);
         return;
       }
       final sRange = type.secondaryPlausibleRange;
       if (secondary < sRange.$1 || secondary > sRange.$2) {
-        setState(() => _error = "That diastolic value looks out of range.");
+        setState(() => _error = AppText.of(context).vitalsErrLowerRange);
         return;
       }
       if (secondary >= primary) {
-        setState(() => _error =
-            "Diastolic is usually lower than systolic - please check.");
+        setState(() => _error = AppText.of(context).vitalsErrLowerHigher);
         return;
       }
     }
@@ -351,10 +375,10 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
               ),
             ),
             const SizedBox(height: 18),
-            Text(type.label,
+            Text(vitalLabel(AppText.of(context), type),
                 style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 4),
-            Text("Measured in ${displayUnitFor(type)}",
+            Text(AppText.of(context).vitalsMeasuredIn(displayUnitFor(type)),
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 18),
             Row(
@@ -368,8 +392,8 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                     ],
-                    decoration:
-                        InputDecoration(labelText: type.primaryFieldLabel),
+                    decoration: InputDecoration(
+                        labelText: vitalFieldLabel(AppText.of(context), type)),
                   ),
                 ),
                 if (type.hasSecondary) ...[
@@ -382,7 +406,7 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
                         FilteringTextInputFormatter.digitsOnly,
                       ],
                       decoration: InputDecoration(
-                          labelText: type.secondaryFieldLabel),
+                          labelText: AppText.of(context).vitalBpLower),
                     ),
                   ),
                 ],
@@ -407,11 +431,12 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        "Recorded ${relativeDay(_when).toLowerCase()}",
+                        AppText.of(context).vitalsRecordedOn(
+                            relativeDay(_when, AppText.of(context)).toLowerCase()),
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
-                    Text("Change",
+                    Text(AppText.of(context).vitalsChangeDate,
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
@@ -424,9 +449,9 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
             TextField(
               controller: _note,
               textCapitalization: TextCapitalization.sentences,
-              decoration: const InputDecoration(
-                labelText: "Note (optional)",
-                hintText: "e.g. before food, after a walk",
+              decoration: InputDecoration(
+                labelText: AppText.of(context).vitalsNoteLabel,
+                hintText: AppText.of(context).vitalsNoteHint,
               ),
             ),
             if (_error != null) ...[
@@ -440,7 +465,7 @@ class _AddReadingSheetState extends State<_AddReadingSheet> {
               height: 50,
               child: ElevatedButton(
                 onPressed: _saving ? null : _save,
-                child: const Text("Save reading"),
+                child: Text(AppText.of(context).vitalsSaveReading),
               ),
             ),
           ],
@@ -490,15 +515,16 @@ class _UnitsSheetState extends State<_UnitsSheet> {
             ),
           ),
           const SizedBox(height: 18),
-          Text("Units", style: Theme.of(context).textTheme.headlineMedium),
+          Text(AppText.of(context).unitsTitle,
+              style: Theme.of(context).textTheme.headlineMedium),
           const SizedBox(height: 4),
           Text(
-            "Choose the units you prefer. Readings you have already saved "
-            "are converted, not changed.",
+            AppText.of(context).unitsDescription,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 20),
-          Text("Temperature", style: Theme.of(context).textTheme.titleMedium),
+          Text(AppText.of(context).settingsTemperature,
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -516,7 +542,8 @@ class _UnitsSheetState extends State<_UnitsSheet> {
                 .toList(),
           ),
           const SizedBox(height: 18),
-          Text("Weight", style: Theme.of(context).textTheme.titleMedium),
+          Text(AppText.of(context).settingsWeight,
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -537,7 +564,7 @@ class _UnitsSheetState extends State<_UnitsSheet> {
             height: 48,
             child: ElevatedButton(
               onPressed: () => Navigator.pop(context, _changed),
-              child: const Text("Done"),
+              child: Text(AppText.of(context).actionDone),
             ),
           ),
         ],

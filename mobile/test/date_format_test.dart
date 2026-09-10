@@ -1,7 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:medivoice_ai/core/date_format.dart';
 
 void main() {
+  // shortDate uses intl for month names, which needs its data loaded.
+  setUpAll(() async {
+    await initializeDateFormatting('en');
+  });
+
   group('greetingForHour', () {
     test('morning before noon', () {
       expect(greetingForHour(0), 'Good morning');

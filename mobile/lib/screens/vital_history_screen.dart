@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../core/date_format.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
+import 'vitals_screen.dart' show vitalLabel;
 import '../core/unit_prefs.dart';
 import '../models/vital_reading.dart';
 import '../services/vitals_service.dart';
@@ -38,7 +40,8 @@ class _VitalHistoryScreenState extends State<VitalHistoryScreen> {
   Widget build(BuildContext context) {
     final readings = _readings;
     return Scaffold(
-      appBar: AppBar(title: Text(widget.type.label)),
+      appBar: AppBar(
+          title: Text(vitalLabel(AppText.of(context), widget.type))),
       body: SafeArea(
         child: readings == null
             ? const Center(child: CircularProgressIndicator())
@@ -46,7 +49,7 @@ class _VitalHistoryScreenState extends State<VitalHistoryScreen> {
                 ? Center(
                     child: Padding(
                       padding: const EdgeInsets.all(32),
-                      child: Text("No readings recorded yet.",
+                      child: Text(AppText.of(context).vitalsNotRecorded,
                           style: Theme.of(context).textTheme.bodyLarge),
                     ),
                   )
@@ -84,8 +87,10 @@ class _VitalHistoryScreenState extends State<VitalHistoryScreen> {
                                     ),
                                     const SizedBox(height: 2),
                                     Text(
-                                      "${relativeDay(reading.timestamp)}, "
-                                      "${clockTime(reading.timestamp)}",
+                                      relativeDay(reading.timestamp,
+                                              AppText.of(context)) +
+                                          ', ' +
+                                          clockTime(reading.timestamp),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall,

@@ -500,4 +500,120 @@ class AppTextEn extends AppText {
 
   @override
   String get settingsDataDeleted => 'Health data deleted.';
+
+  @override
+  String get vitalsTitle => 'Vitals';
+
+  @override
+  String get vitalsTrendsTooltip => 'Trends';
+
+  @override
+  String get vitalsUnitsTooltip => 'Units';
+
+  @override
+  String get vitalsPrivacyNote =>
+      'Readings are stored on this phone only. MediVoice records what you enter - it does not interpret the numbers or tell you whether a reading is normal.';
+
+  @override
+  String get vitalsNotRecorded => 'Not recorded yet';
+
+  @override
+  String vitalsLastRecorded(String when) {
+    return 'Last recorded: $when';
+  }
+
+  @override
+  String get vitalsAddReading => 'Add reading';
+
+  @override
+  String vitalsMeasuredIn(String unit) {
+    return 'Measured in $unit';
+  }
+
+  @override
+  String vitalsRecordedOn(String when) {
+    return 'Recorded $when';
+  }
+
+  @override
+  String get vitalsChangeDate => 'Change';
+
+  @override
+  String get vitalsNoteLabel => 'Note (optional)';
+
+  @override
+  String get vitalsNoteHint => 'e.g. before food, after a walk';
+
+  @override
+  String get vitalsSaveReading => 'Save reading';
+
+  @override
+  String vitalsErrEnterNumber(String field) {
+    return 'Enter a number for $field.';
+  }
+
+  @override
+  String vitalsErrOutOfRange(
+    String vital,
+    String low,
+    String high,
+    String unit,
+  ) {
+    return 'That doesn\'t look like a $vital reading. Expected roughly $low to $high $unit.';
+  }
+
+  @override
+  String get vitalsErrNeedLower => 'Enter the lower number too.';
+
+  @override
+  String get vitalsErrLowerRange => 'That lower number looks out of range.';
+
+  @override
+  String get vitalsErrLowerHigher =>
+      'The lower number is usually smaller than the upper one - please check.';
+
+  @override
+  String get unitsTitle => 'Units';
+
+  @override
+  String get unitsDescription =>
+      'Choose the units you prefer. Readings you have already saved are converted, not changed.';
+
+  @override
+  String get actionDone => 'Done';
+
+  @override
+  String get vitalBloodPressure => 'Blood pressure';
+
+  @override
+  String get vitalBloodGlucose => 'Blood glucose';
+
+  @override
+  String get vitalPulse => 'Pulse rate';
+
+  @override
+  String get vitalOxygen => 'Oxygen saturation';
+
+  @override
+  String get vitalTemperature => 'Temperature';
+
+  @override
+  String get vitalWeight => 'Weight';
+
+  @override
+  String get vitalBpUpper => 'Upper number';
+
+  @override
+  String get vitalBpLower => 'Lower number';
+
+  @override
+  String get dateToday => 'Today';
+
+  @override
+  String get dateYesterday => 'Yesterday';
+
+  @override
+  String dateDaysAgo(int days) {
+    return '$days days ago';
+  }
 }

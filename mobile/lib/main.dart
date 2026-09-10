@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/routes/app_routes.dart';
 import 'core/config.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'core/app_locale.dart';
 import 'core/text_scale_prefs.dart';
 import 'l10n/app_localizations.dart';
@@ -19,6 +20,12 @@ void main() async {
   await SpeechOutputService().load();
   await TextScalePrefs().load();
   await AppLocale().load();
+  // Month names come from intl, which needs its data loaded per locale.
+  // flutter_localizations does this as a side effect of its delegates;
+  // doing it explicitly means date formatting doesn't depend on that.
+  for (final code in AppLocale.supportedCodes) {
+    await initializeDateFormatting(code);
+  }
   runApp(const MediVoiceApp());
 }
 

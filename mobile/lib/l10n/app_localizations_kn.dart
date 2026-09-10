@@ -500,4 +500,120 @@ class AppTextKn extends AppText {
 
   @override
   String get settingsDataDeleted => 'ಆರೋಗ್ಯ ಡೇಟಾ ಅಳಿಸಲಾಗಿದೆ.';
+
+  @override
+  String get vitalsTitle => 'ಆರೋಗ್ಯ ಅಳತೆಗಳು';
+
+  @override
+  String get vitalsTrendsTooltip => 'ಪ್ರವೃತ್ತಿಗಳು';
+
+  @override
+  String get vitalsUnitsTooltip => 'ಘಟಕಗಳು';
+
+  @override
+  String get vitalsPrivacyNote =>
+      'ಅಳತೆಗಳು ಈ ಫೋನ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. MediVoice ನೀವು ನಮೂದಿಸಿದ್ದನ್ನು ದಾಖಲಿಸುತ್ತದೆ ಅಷ್ಟೇ - ಸಂಖ್ಯೆಗಳನ್ನು ವಿಶ್ಲೇಷಿಸುವುದಿಲ್ಲ ಅಥವಾ ಅಳತೆ ಸಾಮಾನ್ಯವೇ ಎಂದು ಹೇಳುವುದಿಲ್ಲ.';
+
+  @override
+  String get vitalsNotRecorded => 'ಇನ್ನೂ ದಾಖಲಿಸಿಲ್ಲ';
+
+  @override
+  String vitalsLastRecorded(String when) {
+    return 'ಕೊನೆಯ ಬಾರಿ: $when';
+  }
+
+  @override
+  String get vitalsAddReading => 'ಅಳತೆ ಸೇರಿಸಿ';
+
+  @override
+  String vitalsMeasuredIn(String unit) {
+    return '$unit ನಲ್ಲಿ ಅಳತೆ';
+  }
+
+  @override
+  String vitalsRecordedOn(String when) {
+    return '$when ದಾಖಲಿಸಲಾಗಿದೆ';
+  }
+
+  @override
+  String get vitalsChangeDate => 'ಬದಲಾಯಿಸಿ';
+
+  @override
+  String get vitalsNoteLabel => 'ಟಿಪ್ಪಣಿ (ಐಚ್ಛಿಕ)';
+
+  @override
+  String get vitalsNoteHint => 'ಉದಾ. ಊಟಕ್ಕೆ ಮೊದಲು, ನಡೆದ ನಂತರ';
+
+  @override
+  String get vitalsSaveReading => 'ಅಳತೆ ಉಳಿಸಿ';
+
+  @override
+  String vitalsErrEnterNumber(String field) {
+    return '$field ಗೆ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.';
+  }
+
+  @override
+  String vitalsErrOutOfRange(
+    String vital,
+    String low,
+    String high,
+    String unit,
+  ) {
+    return 'ಅದು $vital ಅಳತೆಯಂತೆ ಕಾಣುತ್ತಿಲ್ಲ. ಸುಮಾರು $low ರಿಂದ $high $unit ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ.';
+  }
+
+  @override
+  String get vitalsErrNeedLower => 'ಕೆಳಗಿನ ಸಂಖ್ಯೆಯನ್ನೂ ನಮೂದಿಸಿ.';
+
+  @override
+  String get vitalsErrLowerRange => 'ಆ ಕೆಳಗಿನ ಸಂಖ್ಯೆ ಸರಿಯಿಲ್ಲ ಎನಿಸುತ್ತದೆ.';
+
+  @override
+  String get vitalsErrLowerHigher =>
+      'ಕೆಳಗಿನ ಸಂಖ್ಯೆ ಸಾಮಾನ್ಯವಾಗಿ ಮೇಲಿನದಕ್ಕಿಂತ ಕಡಿಮೆ ಇರುತ್ತದೆ - ಪರಿಶೀಲಿಸಿ.';
+
+  @override
+  String get unitsTitle => 'ಘಟಕಗಳು';
+
+  @override
+  String get unitsDescription =>
+      'ನಿಮಗೆ ಇಷ್ಟವಾದ ಘಟಕಗಳನ್ನು ಆರಿಸಿ. ಈಗಾಗಲೇ ಉಳಿಸಿದ ಅಳತೆಗಳು ಪರಿವರ್ತನೆಯಾಗುತ್ತವೆ, ಬದಲಾಗುವುದಿಲ್ಲ.';
+
+  @override
+  String get actionDone => 'ಮುಗಿಯಿತು';
+
+  @override
+  String get vitalBloodPressure => 'ಬ್ಲಡ್ ಪ್ರೆಶರ್';
+
+  @override
+  String get vitalBloodGlucose => 'ಬ್ಲಡ್ ಶುಗರ್';
+
+  @override
+  String get vitalPulse => 'ನಾಡಿ ಬಡಿತ';
+
+  @override
+  String get vitalOxygen => 'ಆಕ್ಸಿಜನ್ ಮಟ್ಟ';
+
+  @override
+  String get vitalTemperature => 'ದೇಹದ ತಾಪಮಾನ';
+
+  @override
+  String get vitalWeight => 'ತೂಕ';
+
+  @override
+  String get vitalBpUpper => 'ಮೇಲಿನ ಸಂಖ್ಯೆ';
+
+  @override
+  String get vitalBpLower => 'ಕೆಳಗಿನ ಸಂಖ್ಯೆ';
+
+  @override
+  String get dateToday => 'ಇಂದು';
+
+  @override
+  String get dateYesterday => 'ನಿನ್ನೆ';
+
+  @override
+  String dateDaysAgo(int days) {
+    return '$days ದಿನಗಳ ಹಿಂದೆ';
+  }
 }
