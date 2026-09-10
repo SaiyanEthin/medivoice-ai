@@ -424,5 +424,82 @@
         "type": "int"
       }
     }
+  },
+  "greetMorning": "Good morning",
+  "greetAfternoon": "Good afternoon",
+  "greetEvening": "Good evening",
+  "greetWithName": "{greeting}, {name}",
+  "dashTitle": "Health dashboard",
+  "dashOverview": "Here's your health overview.",
+  "dashAge": "{age} years old",
+  "dashConditionCount": "{count, plural, =1{1 condition} other{{count} conditions}}",
+  "dashAllergyCount": "{count, plural, =1{1 allergy} other{{count} allergies}}",
+  "dashLatestVitals": "Latest vitals",
+  "dashViewAll": "View all",
+  "dashAddFirstReading": "Add your first reading to start building a record.",
+  "dashTapToAdd": "Tap to add",
+  "dashRecentAssessments": "Recent assessments",
+  "dashNoAssessmentsBody": "Start a consultation and the result will appear here.",
+  "dashYourProfile": "Your profile",
+  "actionEdit": "Edit",
+  "dashNoneRecorded": "None recorded",
+  "dashNoProfileTitle": "No profile yet",
+  "dashNoProfileBody": "Add your details so MediVoice can keep your health information in one place.",
+  "dashSetUpProfile": "Set up profile",
+  "dashQuickActions": "Quick actions",
+  "dashAddVital": "Add a vital reading",
+  "dashViewTrends": "View health trends",
+  "dashViewHistory": "View past assessments",
+  "dashEditProfile": "Edit your profile",
+  "dashStoredHere": "Everything shown here is stored on this phone only.",
+  "howToTitle": "How MediVoice Works",
+  "howToHeading": "A consultation, step by step",
+  "howToSubheading": "Everything below happens on your phone.",
+  "howToStep1Title": "You speak",
+  "howToStep1Body": "Describe how you're feeling in Kannada, Hindi or English. You can type instead if you'd rather.",
+  "howToStep2Title": "Your phone listens",
+  "howToStep2Body": "Speech becomes text using a compact recognition model running on the device itself. Your voice is never uploaded.",
+  "howToStep3Title": "Symptoms are identified",
+  "howToStep3Body": "What you said is matched against a multilingual symptom vocabulary. Saying you DON'T have something counts too.",
+  "howToStep4Title": "A few questions",
+  "howToStep4Body": "If there isn't enough to go on, you'll be asked a short set of yes/no questions chosen to narrow the possibilities.",
+  "howToStep5Title": "A preliminary assessment",
+  "howToStep5Body": "A lightweight model suggests what the pattern may be consistent with. If it isn't confident, it says so instead of guessing.",
+  "howToStep6Title": "Guidance and next steps",
+  "howToStep6Body": "Practical self-care suggestions, warning signs to watch for, and the kind of specialist worth seeing.",
+  "howToPrivacyTitle": "Your consultation stays with you",
+  "howToPrivacyBody": "Symptoms, recordings and results are never sent anywhere. The app works with the network switched off - apart from a one-time download of the speech model when you first use it.",
+  "howToNotDiagnosisTitle": "This is not a diagnosis",
+  "howToNotDiagnosisBody": "MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.",
+  "@greetWithName": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@dashAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "@dashConditionCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@dashAllergyCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

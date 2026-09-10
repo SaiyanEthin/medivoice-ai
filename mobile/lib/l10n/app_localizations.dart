@@ -1285,6 +1285,282 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'{count} readings shown'**
   String trendsReadingsShown(int count);
+
+  /// No description provided for @greetMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get greetMorning;
+
+  /// No description provided for @greetAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get greetAfternoon;
+
+  /// No description provided for @greetEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get greetEvening;
+
+  /// No description provided for @greetWithName.
+  ///
+  /// In en, this message translates to:
+  /// **'{greeting}, {name}'**
+  String greetWithName(String greeting, String name);
+
+  /// No description provided for @dashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Health dashboard'**
+  String get dashTitle;
+
+  /// No description provided for @dashOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s your health overview.'**
+  String get dashOverview;
+
+  /// No description provided for @dashAge.
+  ///
+  /// In en, this message translates to:
+  /// **'{age} years old'**
+  String dashAge(int age);
+
+  /// No description provided for @dashConditionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 condition} other{{count} conditions}}'**
+  String dashConditionCount(int count);
+
+  /// No description provided for @dashAllergyCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 allergy} other{{count} allergies}}'**
+  String dashAllergyCount(int count);
+
+  /// No description provided for @dashLatestVitals.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest vitals'**
+  String get dashLatestVitals;
+
+  /// No description provided for @dashViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get dashViewAll;
+
+  /// No description provided for @dashAddFirstReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first reading to start building a record.'**
+  String get dashAddFirstReading;
+
+  /// No description provided for @dashTapToAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to add'**
+  String get dashTapToAdd;
+
+  /// No description provided for @dashRecentAssessments.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent assessments'**
+  String get dashRecentAssessments;
+
+  /// No description provided for @dashNoAssessmentsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a consultation and the result will appear here.'**
+  String get dashNoAssessmentsBody;
+
+  /// No description provided for @dashYourProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get dashYourProfile;
+
+  /// No description provided for @actionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get actionEdit;
+
+  /// No description provided for @dashNoneRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'None recorded'**
+  String get dashNoneRecorded;
+
+  /// No description provided for @dashNoProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No profile yet'**
+  String get dashNoProfileTitle;
+
+  /// No description provided for @dashNoProfileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your details so MediVoice can keep your health information in one place.'**
+  String get dashNoProfileBody;
+
+  /// No description provided for @dashSetUpProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up profile'**
+  String get dashSetUpProfile;
+
+  /// No description provided for @dashQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get dashQuickActions;
+
+  /// No description provided for @dashAddVital.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a vital reading'**
+  String get dashAddVital;
+
+  /// No description provided for @dashViewTrends.
+  ///
+  /// In en, this message translates to:
+  /// **'View health trends'**
+  String get dashViewTrends;
+
+  /// No description provided for @dashViewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View past assessments'**
+  String get dashViewHistory;
+
+  /// No description provided for @dashEditProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit your profile'**
+  String get dashEditProfile;
+
+  /// No description provided for @dashStoredHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything shown here is stored on this phone only.'**
+  String get dashStoredHere;
+
+  /// No description provided for @howToTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How MediVoice Works'**
+  String get howToTitle;
+
+  /// No description provided for @howToHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'A consultation, step by step'**
+  String get howToHeading;
+
+  /// No description provided for @howToSubheading.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything below happens on your phone.'**
+  String get howToSubheading;
+
+  /// No description provided for @howToStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'You speak'**
+  String get howToStep1Title;
+
+  /// No description provided for @howToStep1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe how you\'re feeling in Kannada, Hindi or English. You can type instead if you\'d rather.'**
+  String get howToStep1Body;
+
+  /// No description provided for @howToStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone listens'**
+  String get howToStep2Title;
+
+  /// No description provided for @howToStep2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech becomes text using a compact recognition model running on the device itself. Your voice is never uploaded.'**
+  String get howToStep2Body;
+
+  /// No description provided for @howToStep3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms are identified'**
+  String get howToStep3Title;
+
+  /// No description provided for @howToStep3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'What you said is matched against a multilingual symptom vocabulary. Saying you DON\'T have something counts too.'**
+  String get howToStep3Body;
+
+  /// No description provided for @howToStep4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'A few questions'**
+  String get howToStep4Title;
+
+  /// No description provided for @howToStep4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'If there isn\'t enough to go on, you\'ll be asked a short set of yes/no questions chosen to narrow the possibilities.'**
+  String get howToStep4Body;
+
+  /// No description provided for @howToStep5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'A preliminary assessment'**
+  String get howToStep5Title;
+
+  /// No description provided for @howToStep5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'A lightweight model suggests what the pattern may be consistent with. If it isn\'t confident, it says so instead of guessing.'**
+  String get howToStep5Body;
+
+  /// No description provided for @howToStep6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Guidance and next steps'**
+  String get howToStep6Title;
+
+  /// No description provided for @howToStep6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Practical self-care suggestions, warning signs to watch for, and the kind of specialist worth seeing.'**
+  String get howToStep6Body;
+
+  /// No description provided for @howToPrivacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your consultation stays with you'**
+  String get howToPrivacyTitle;
+
+  /// No description provided for @howToPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms, recordings and results are never sent anywhere. The app works with the network switched off - apart from a one-time download of the speech model when you first use it.'**
+  String get howToPrivacyBody;
+
+  /// No description provided for @howToNotDiagnosisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a diagnosis'**
+  String get howToNotDiagnosisTitle;
+
+  /// No description provided for @howToNotDiagnosisBody.
+  ///
+  /// In en, this message translates to:
+  /// **'MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.'**
+  String get howToNotDiagnosisBody;
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {

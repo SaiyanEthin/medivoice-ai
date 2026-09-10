@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/date_format.dart';
 import '../core/disease_display.dart';
+import '../l10n/app_localizations.dart';
 import '../core/theme/app_theme.dart';
 import '../core/unit_prefs.dart';
 import '../models/consultation_record.dart';
@@ -13,6 +14,7 @@ import 'health_profile_screen.dart';
 import 'history_screen.dart';
 import 'trends_screen.dart';
 import 'vitals_screen.dart';
+
 
 /// An overview of everything the app knows about the user.
 ///
@@ -64,7 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Health dashboard")),
+      appBar: AppBar(title: Text(AppText.of(context).dashTitle)),
       body: SafeArea(
         child: _loading
             ? const Center(child: CircularProgressIndicator())
@@ -76,8 +78,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     _GreetingCard(profile: _profile),
                     const SizedBox(height: 22),
                     _SectionHeader(
-                      title: "Latest vitals",
-                      actionLabel: "View all",
+                      title: AppText.of(context).dashLatestVitals,
+                      actionLabel: AppText.of(context).dashViewAll,
                       onAction: () => _go(const VitalsScreen()),
                     ),
                     const SizedBox(height: 10),
@@ -87,17 +89,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     const SizedBox(height: 22),
                     _SectionHeader(
-                      title: "Recent assessments",
-                      actionLabel: _recent.isEmpty ? null : "View all",
+                      title:
+                          AppText.of(context).dashRecentAssessments,
+                      actionLabel: _recent.isEmpty
+                          ? null
+                          : AppText.of(context).dashViewAll,
                       onAction: () => _go(const HistoryScreen()),
                     ),
                     const SizedBox(height: 10),
                     if (_recent.isEmpty)
-                      const _EmptyCard(
+                      _EmptyCard(
                         icon: Icons.history_rounded,
-                        title: "No assessments yet",
-                        body: "Start a consultation and the result will "
-                            "appear here.",
+                        title:
+                            AppText.of(context).historyEmptyTitle,
+                        body:
+                            AppText.of(context).dashNoAssessmentsBody,
                       )
                     else
                       ..._recent.map((record) => Padding(
@@ -109,8 +115,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           )),
                     const SizedBox(height: 22),
                     _SectionHeader(
-                      title: "Your profile",
-                      actionLabel: _profile == null ? null : "Edit",
+                      title: AppText.of(context).dashYourProfile,
+                      actionLabel: _profile == null
+                          ? null
+                          : AppText.of(context).actionEdit,
                       onAction: () => _go(const HealthProfileScreen()),
                     ),
                     const SizedBox(height: 10),
@@ -119,34 +127,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onSetUp: () => _go(const HealthProfileScreen()),
                     ),
                     const SizedBox(height: 26),
-                    Text("Quick actions",
+                    Text(AppText.of(context).dashQuickActions,
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 10),
                     OutlinedButton.icon(
                       onPressed: () => _go(const VitalsScreen()),
                       icon: const Icon(Icons.add_rounded, size: 18),
-                      label: const Text("Add a vital reading"),
+                      label: Text(AppText.of(context).dashAddVital),
                     ),
                     const SizedBox(height: 10),
                     OutlinedButton.icon(
                       onPressed: () => _go(const TrendsScreen()),
                       icon: const Icon(Icons.show_chart_rounded, size: 18),
-                      label: const Text("View health trends"),
+                      label: Text(AppText.of(context).dashViewTrends),
                     ),                    const SizedBox(height: 10),
                     OutlinedButton.icon(
                       onPressed: () => _go(const HistoryScreen()),
                       icon: const Icon(Icons.history_rounded, size: 18),
-                      label: const Text("View past assessments"),
+                      label: Text(AppText.of(context).dashViewHistory),
                     ),
                     const SizedBox(height: 10),
                     OutlinedButton.icon(
                       onPressed: () => _go(const HealthProfileScreen()),
                       icon: const Icon(Icons.person_outline_rounded, size: 18),
-                      label: const Text("Edit your profile"),
+                      label: Text(AppText.of(context).dashEditProfile),
                     ),
                     const SizedBox(height: 22),
                     Text(
-                      "Everything shown here is stored on this phone only.",
+                      AppText.of(context).dashStoredHere,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
@@ -164,18 +172,15 @@ class _GreetingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppText.of(context);
     final name = profile?.greetingName ?? '';
-    final greeting = greetingForHour(DateTime.now().hour);
+    final greeting = greetingForHour(DateTime.now().hour, t);
     final details = <String>[];
-    if (profile?.age != null) details.add('${profile!.age} years old');
+    if (profile?.age != null) details.add(t.dashAge(profile!.age!));
     final conditions = profile?.conditions.length ?? 0;
     final allergies = profile?.allergies.length ?? 0;
-    if (conditions > 0) {
-      details.add('$conditions condition${conditions == 1 ? '' : 's'}');
-    }
-    if (allergies > 0) {
-      details.add('$allergies allerg${allergies == 1 ? 'y' : 'ies'}');
-    }
+    if (conditions > 0) details.add(t.dashConditionCount(conditions));
+    if (allergies > 0) details.add(t.dashAllergyCount(allergies));
 
     return Container(
       width: double.infinity,
@@ -192,7 +197,7 @@ class _GreetingCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            name.isEmpty ? greeting : '$greeting, $name',
+            name.isEmpty ? greeting : t.greetWithName(greeting, name),
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -202,7 +207,7 @@ class _GreetingCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             details.isEmpty
-                ? "Here's your health overview."
+                ? t.dashOverview
                 : details.join('  \u00B7  '),
             style: TextStyle(
                 fontSize: 14, color: Colors.white.withOpacity(0.85)),
@@ -277,7 +282,7 @@ class _VitalsGrid extends StatelessWidget {
       children: [
         if (!anyRecorded) ...[
           Text(
-            "Add your first reading to start building a record.",
+            AppText.of(context).dashAddFirstReading,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 10),
@@ -313,13 +318,13 @@ class _VitalTile extends StatelessWidget {
           children: [
             Icon(iconFor(type), size: 20, color: AppTheme.primaryDark),
             const SizedBox(height: 8),
-            Text(type.label,
+            Text(vitalLabel(AppText.of(context), type),
                 style: Theme.of(context).textTheme.bodySmall,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
             const SizedBox(height: 4),
             if (r == null)
-              Text("Tap to add",
+              Text(AppText.of(context).dashTapToAdd,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium
@@ -340,7 +345,7 @@ class _VitalTile extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
-              Text(relativeDay(r.timestamp),
+              Text(relativeDay(r.timestamp, AppText.of(context)),
                   style: Theme.of(context).textTheme.bodySmall),
             ],
           ],
@@ -372,16 +377,18 @@ class _AssessmentRow extends StatelessWidget {
                   children: [
                     Text(
                       record.isUncertain
-                          ? "Symptoms unclear"
+                          ? AppText.of(context).historySymptomsUnclear
                           : diseaseDisplayName(record.disease ?? ''),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 2),
                     Text(
                       record.isUncertain
-                          ? relativeDay(record.timestamp)
-                          : "${((record.confidence ?? 0) * 100).toStringAsFixed(1)}%"
-                              "  \u00B7  ${relativeDay(record.timestamp)}",
+                          ? relativeDay(
+                              record.timestamp, AppText.of(context))
+                          : '${((record.confidence ?? 0) * 100).toStringAsFixed(1)}%'
+                              '  \u00B7  '
+                              '${relativeDay(record.timestamp, AppText.of(context))}',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -409,10 +416,9 @@ class _ProfileCard extends StatelessWidget {
     if (p == null) {
       return _EmptyCard(
         icon: Icons.person_add_alt_1_outlined,
-        title: "No profile yet",
-        body: "Add your details so MediVoice can keep your health "
-            "information in one place.",
-        actionLabel: "Set up profile",
+        title: AppText.of(context).dashNoProfileTitle,
+        body: AppText.of(context).dashNoProfileBody,
+        actionLabel: AppText.of(context).dashSetUpProfile,
         onAction: onSetUp,
       );
     }
@@ -423,9 +429,11 @@ class _ProfileCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _labelled(context, "Existing conditions", p.conditions),
+            _labelled(context, AppText.of(context).fieldConditions,
+                p.conditions),
             const SizedBox(height: 14),
-            _labelled(context, "Allergies", p.allergies),
+            _labelled(
+                context, AppText.of(context).fieldAllergies, p.allergies),
           ],
         ),
       ),
@@ -439,7 +447,7 @@ class _ProfileCard extends StatelessWidget {
         Text(label, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 6),
         if (items.isEmpty)
-          Text("None recorded",
+          Text(AppText.of(context).dashNoneRecorded,
               style: Theme.of(context).textTheme.bodyMedium)
         else
           Wrap(

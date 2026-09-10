@@ -686,4 +686,172 @@ class AppTextHi extends AppText {
   String trendsReadingsShown(int count) {
     return '$count रीडिंग दिखाई गई';
   }
+
+  @override
+  String get greetMorning => 'सुप्रभात';
+
+  @override
+  String get greetAfternoon => 'नमस्कार';
+
+  @override
+  String get greetEvening => 'शुभ संध्या';
+
+  @override
+  String greetWithName(String greeting, String name) {
+    return '$greeting, $name';
+  }
+
+  @override
+  String get dashTitle => 'स्वास्थ्य डैशबोर्ड';
+
+  @override
+  String get dashOverview => 'यह आपके स्वास्थ्य का सारांश है।';
+
+  @override
+  String dashAge(int age) {
+    return '$age वर्ष';
+  }
+
+  @override
+  String dashConditionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count बीमारियां',
+      one: '1 बीमारी',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dashAllergyCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count एलर्जी',
+      one: '1 एलर्जी',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dashLatestVitals => 'नवीनतम माप';
+
+  @override
+  String get dashViewAll => 'सभी देखें';
+
+  @override
+  String get dashAddFirstReading =>
+      'रिकॉर्ड शुरू करने के लिए अपनी पहली रीडिंग जोड़ें।';
+
+  @override
+  String get dashTapToAdd => 'जोड़ने के लिए दबाएं';
+
+  @override
+  String get dashRecentAssessments => 'हाल के आकलन';
+
+  @override
+  String get dashNoAssessmentsBody => 'परामर्श शुरू करें, नतीजा यहां दिखेगा।';
+
+  @override
+  String get dashYourProfile => 'आपकी प्रोफ़ाइल';
+
+  @override
+  String get actionEdit => 'बदलें';
+
+  @override
+  String get dashNoneRecorded => 'कुछ दर्ज नहीं';
+
+  @override
+  String get dashNoProfileTitle => 'अभी प्रोफ़ाइल नहीं';
+
+  @override
+  String get dashNoProfileBody =>
+      'अपनी जानकारी भरें ताकि MediVoice आपकी स्वास्थ्य जानकारी एक जगह रख सके।';
+
+  @override
+  String get dashSetUpProfile => 'प्रोफ़ाइल बनाएं';
+
+  @override
+  String get dashQuickActions => 'त्वरित कार्य';
+
+  @override
+  String get dashAddVital => 'रीडिंग जोड़ें';
+
+  @override
+  String get dashViewTrends => 'स्वास्थ्य रुझान देखें';
+
+  @override
+  String get dashViewHistory => 'पिछले आकलन देखें';
+
+  @override
+  String get dashEditProfile => 'प्रोफ़ाइल बदलें';
+
+  @override
+  String get dashStoredHere => 'यहां दिखाई गई हर चीज़ केवल इसी फ़ोन पर है।';
+
+  @override
+  String get howToTitle => 'MediVoice कैसे काम करता है';
+
+  @override
+  String get howToHeading => 'परामर्श, कदम दर कदम';
+
+  @override
+  String get howToSubheading => 'नीचे सब कुछ आपके फ़ोन पर ही होता है।';
+
+  @override
+  String get howToStep1Title => 'आप बोलते हैं';
+
+  @override
+  String get howToStep1Body =>
+      'कन्नड़, हिंदी या अंग्रेज़ी में बताइए कि आप कैसा महसूस कर रहे हैं। चाहें तो लिख भी सकते हैं।';
+
+  @override
+  String get howToStep2Title => 'आपका फ़ोन सुनता है';
+
+  @override
+  String get howToStep2Body =>
+      'फ़ोन पर ही चलने वाले छोटे मॉडल से आवाज़ टेक्स्ट बनती है। आपकी आवाज़ कहीं नहीं भेजी जाती।';
+
+  @override
+  String get howToStep3Title => 'लक्षण पहचाने जाते हैं';
+
+  @override
+  String get howToStep3Body =>
+      'आपने जो कहा उसे बहुभाषी लक्षण सूची से मिलाया जाता है। आपको क्या नहीं है, वह भी गिना जाता है।';
+
+  @override
+  String get howToStep4Title => 'कुछ सवाल';
+
+  @override
+  String get howToStep4Body =>
+      'अगर पर्याप्त जानकारी न हो, तो संभावनाएं कम करने के लिए कुछ हां/नहीं वाले सवाल पूछे जाते हैं।';
+
+  @override
+  String get howToStep5Title => 'प्रारंभिक आकलन';
+
+  @override
+  String get howToStep5Body =>
+      'एक हल्का मॉडल बताता है कि यह किससे मेल खा सकता है। भरोसा न हो तो अंदाज़ा लगाने के बजाय वही कहता है।';
+
+  @override
+  String get howToStep6Title => 'मार्गदर्शन और अगले कदम';
+
+  @override
+  String get howToStep6Body =>
+      'व्यावहारिक देखभाल सुझाव, ध्यान देने योग्य चेतावनी संकेत, और किस विशेषज्ञ से मिलना चाहिए।';
+
+  @override
+  String get howToPrivacyTitle => 'आपका परामर्श आपके पास ही रहता है';
+
+  @override
+  String get howToPrivacyBody =>
+      'लक्षण, रिकॉर्डिंग और नतीजे कहीं नहीं भेजे जाते। पहली बार वॉइस मॉडल डाउनलोड होने के अलावा, ऐप बिना नेटवर्क के काम करता है।';
+
+  @override
+  String get howToNotDiagnosisTitle => 'यह निदान नहीं है';
+
+  @override
+  String get howToNotDiagnosisBody =>
+      'MediVoice जागरूकता के लिए प्रशिक्षण डेटा से मिलान करता है। यह आपकी जांच नहीं कर सकता, सीमित स्थितियों को ही कवर करता है, और योग्य डॉक्टर का विकल्प नहीं है।';
 }

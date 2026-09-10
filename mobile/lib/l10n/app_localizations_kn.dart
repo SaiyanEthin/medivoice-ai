@@ -689,4 +689,173 @@ class AppTextKn extends AppText {
   String trendsReadingsShown(int count) {
     return '$count ಅಳತೆಗಳನ್ನು ತೋರಿಸಲಾಗಿದೆ';
   }
+
+  @override
+  String get greetMorning => 'ಶುಭೋದಯ';
+
+  @override
+  String get greetAfternoon => 'ಶುಭ ಮಧ್ಯಾಹ್ನ';
+
+  @override
+  String get greetEvening => 'ಶುಭ ಸಂಜೆ';
+
+  @override
+  String greetWithName(String greeting, String name) {
+    return '$greeting, $name';
+  }
+
+  @override
+  String get dashTitle => 'ಆರೋಗ್ಯ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್';
+
+  @override
+  String get dashOverview => 'ಇದು ನಿಮ್ಮ ಆರೋಗ್ಯದ ಸಾರಾಂಶ.';
+
+  @override
+  String dashAge(int age) {
+    return '$age ವರ್ಷ';
+  }
+
+  @override
+  String dashConditionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ಆರೋಗ್ಯ ಸಮಸ್ಯೆಗಳು',
+      one: '1 ಆರೋಗ್ಯ ಸಮಸ್ಯೆ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dashAllergyCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ಅಲರ್ಜಿಗಳು',
+      one: '1 ಅಲರ್ಜಿ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dashLatestVitals => 'ಇತ್ತೀಚಿನ ಅಳತೆಗಳು';
+
+  @override
+  String get dashViewAll => 'ಎಲ್ಲಾ ನೋಡಿ';
+
+  @override
+  String get dashAddFirstReading => 'ದಾಖಲೆ ಪ್ರಾರಂಭಿಸಲು ನಿಮ್ಮ ಮೊದಲ ಅಳತೆ ಸೇರಿಸಿ.';
+
+  @override
+  String get dashTapToAdd => 'ಸೇರಿಸಲು ಒತ್ತಿ';
+
+  @override
+  String get dashRecentAssessments => 'ಇತ್ತೀಚಿನ ಮೌಲ್ಯಮಾಪನಗಳು';
+
+  @override
+  String get dashNoAssessmentsBody =>
+      'ಸಮಾಲೋಚನೆ ಪ್ರಾರಂಭಿಸಿ, ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.';
+
+  @override
+  String get dashYourProfile => 'ನಿಮ್ಮ ಪ್ರೊಫೈಲ್';
+
+  @override
+  String get actionEdit => 'ಸಂಪಾದಿಸಿ';
+
+  @override
+  String get dashNoneRecorded => 'ಏನೂ ದಾಖಲಿಸಿಲ್ಲ';
+
+  @override
+  String get dashNoProfileTitle => 'ಇನ್ನೂ ಪ್ರೊಫೈಲ್ ಇಲ್ಲ';
+
+  @override
+  String get dashNoProfileBody =>
+      'ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಸೇರಿಸಿ, MediVoice ನಿಮ್ಮ ಆರೋಗ್ಯ ಮಾಹಿತಿಯನ್ನು ಒಂದೇ ಕಡೆ ಇಡುತ್ತದೆ.';
+
+  @override
+  String get dashSetUpProfile => 'ಪ್ರೊಫೈಲ್ ಸಿದ್ಧಪಡಿಸಿ';
+
+  @override
+  String get dashQuickActions => 'ತ್ವರಿತ ಕ್ರಿಯೆಗಳು';
+
+  @override
+  String get dashAddVital => 'ಅಳತೆ ಸೇರಿಸಿ';
+
+  @override
+  String get dashViewTrends => 'ಆರೋಗ್ಯ ಪ್ರವೃತ್ತಿ ನೋಡಿ';
+
+  @override
+  String get dashViewHistory => 'ಹಿಂದಿನ ಮೌಲ್ಯಮಾಪನ ನೋಡಿ';
+
+  @override
+  String get dashEditProfile => 'ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ';
+
+  @override
+  String get dashStoredHere =>
+      'ಇಲ್ಲಿ ತೋರಿಸಿರುವ ಎಲ್ಲವೂ ಈ ಫೋನ್‌ನಲ್ಲಿ ಮಾತ್ರ ಇರುತ್ತದೆ.';
+
+  @override
+  String get howToTitle => 'MediVoice ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ';
+
+  @override
+  String get howToHeading => 'ಸಮಾಲೋಚನೆ, ಹಂತ ಹಂತವಾಗಿ';
+
+  @override
+  String get howToSubheading => 'ಕೆಳಗಿನ ಎಲ್ಲವೂ ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲೇ ನಡೆಯುತ್ತದೆ.';
+
+  @override
+  String get howToStep1Title => 'ನೀವು ಮಾತನಾಡುತ್ತೀರಿ';
+
+  @override
+  String get howToStep1Body =>
+      'ಕನ್ನಡ, ಹಿಂದಿ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ನಿಮಗೆ ಹೇಗಿದೆ ಎಂದು ಹೇಳಿ. ಬೇಕಿದ್ದರೆ ಟೈಪ್ ಕೂಡ ಮಾಡಬಹುದು.';
+
+  @override
+  String get howToStep2Title => 'ನಿಮ್ಮ ಫೋನ್ ಕೇಳುತ್ತದೆ';
+
+  @override
+  String get howToStep2Body =>
+      'ಫೋನ್‌ನಲ್ಲೇ ಚಲಿಸುವ ಸಣ್ಣ ಮಾದರಿ ಬಳಸಿ ಮಾತು ಪಠ್ಯವಾಗುತ್ತದೆ. ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ.';
+
+  @override
+  String get howToStep3Title => 'ರೋಗಲಕ್ಷಣಗಳನ್ನು ಗುರುತಿಸಲಾಗುತ್ತದೆ';
+
+  @override
+  String get howToStep3Body =>
+      'ನೀವು ಹೇಳಿದ್ದನ್ನು ಬಹುಭಾಷಾ ರೋಗಲಕ್ಷಣ ಪಟ್ಟಿಯೊಂದಿಗೆ ಹೋಲಿಸಲಾಗುತ್ತದೆ. ನಿಮಗೆ ಏನಿಲ್ಲ ಎಂದು ಹೇಳಿದರೂ ಅದೂ ಲೆಕ್ಕಕ್ಕೆ ಬರುತ್ತದೆ.';
+
+  @override
+  String get howToStep4Title => 'ಕೆಲವು ಪ್ರಶ್ನೆಗಳು';
+
+  @override
+  String get howToStep4Body =>
+      'ಸಾಕಷ್ಟು ಮಾಹಿತಿ ಇಲ್ಲದಿದ್ದರೆ, ಸಾಧ್ಯತೆಗಳನ್ನು ಕಡಿಮೆ ಮಾಡಲು ಕೆಲವು ಹೌದು/ಇಲ್ಲ ಪ್ರಶ್ನೆಗಳನ್ನು ಕೇಳಲಾಗುತ್ತದೆ.';
+
+  @override
+  String get howToStep5Title => 'ಪ್ರಾಥಮಿಕ ಮೌಲ್ಯಮಾಪನ';
+
+  @override
+  String get howToStep5Body =>
+      'ಹಗುರವಾದ ಮಾದರಿ ಈ ಲಕ್ಷಣಗಳು ಯಾವುದಕ್ಕೆ ಹೊಂದಿಕೆಯಾಗಬಹುದು ಎಂದು ಸೂಚಿಸುತ್ತದೆ. ವಿಶ್ವಾಸ ಇಲ್ಲದಿದ್ದರೆ ಊಹಿಸುವ ಬದಲು ಹಾಗೆಂದೇ ಹೇಳುತ್ತದೆ.';
+
+  @override
+  String get howToStep6Title => 'ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಮುಂದಿನ ಹೆಜ್ಜೆ';
+
+  @override
+  String get howToStep6Body =>
+      'ಪ್ರಾಯೋಗಿಕ ಸ್ವಯಂ-ಆರೈಕೆ ಸಲಹೆಗಳು, ಗಮನಿಸಬೇಕಾದ ಅಪಾಯದ ಸೂಚನೆಗಳು, ಮತ್ತು ಯಾವ ತಜ್ಞರನ್ನು ಭೇಟಿ ಮಾಡಬೇಕು ಎಂಬುದು.';
+
+  @override
+  String get howToPrivacyTitle => 'ನಿಮ್ಮ ಸಮಾಲೋಚನೆ ನಿಮ್ಮ ಬಳಿಯೇ ಇರುತ್ತದೆ';
+
+  @override
+  String get howToPrivacyBody =>
+      'ರೋಗಲಕ್ಷಣಗಳು, ಧ್ವನಿಮುದ್ರಣಗಳು ಮತ್ತು ಫಲಿತಾಂಶಗಳನ್ನು ಎಲ್ಲಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. ಮೊದಲ ಬಾರಿ ಧ್ವನಿ ಮಾದರಿ ಡೌನ್‌ಲೋಡ್ ಆಗುವುದನ್ನು ಬಿಟ್ಟರೆ, ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲದೆಯೂ ಆ್ಯಪ್ ಕೆಲಸ ಮಾಡುತ್ತದೆ.';
+
+  @override
+  String get howToNotDiagnosisTitle => 'ಇದು ರೋಗನಿದಾನ ಅಲ್ಲ';
+
+  @override
+  String get howToNotDiagnosisBody =>
+      'MediVoice ಅರಿವು ಮೂಡಿಸಲು ತರಬೇತಿ ದತ್ತಾಂಶದೊಂದಿಗೆ ಹೋಲಿಕೆ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮನ್ನು ಪರೀಕ್ಷಿಸಲಾರದು, ಸೀಮಿತ ಸ್ಥಿತಿಗಳನ್ನು ಮಾತ್ರ ಒಳಗೊಂಡಿದೆ, ಮತ್ತು ಅರ್ಹ ವೈದ್ಯರಿಗೆ ಬದಲಿ ಅಲ್ಲ.';
 }

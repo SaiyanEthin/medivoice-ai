@@ -689,4 +689,174 @@ class AppTextEn extends AppText {
   String trendsReadingsShown(int count) {
     return '$count readings shown';
   }
+
+  @override
+  String get greetMorning => 'Good morning';
+
+  @override
+  String get greetAfternoon => 'Good afternoon';
+
+  @override
+  String get greetEvening => 'Good evening';
+
+  @override
+  String greetWithName(String greeting, String name) {
+    return '$greeting, $name';
+  }
+
+  @override
+  String get dashTitle => 'Health dashboard';
+
+  @override
+  String get dashOverview => 'Here\'s your health overview.';
+
+  @override
+  String dashAge(int age) {
+    return '$age years old';
+  }
+
+  @override
+  String dashConditionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count conditions',
+      one: '1 condition',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dashAllergyCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count allergies',
+      one: '1 allergy',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dashLatestVitals => 'Latest vitals';
+
+  @override
+  String get dashViewAll => 'View all';
+
+  @override
+  String get dashAddFirstReading =>
+      'Add your first reading to start building a record.';
+
+  @override
+  String get dashTapToAdd => 'Tap to add';
+
+  @override
+  String get dashRecentAssessments => 'Recent assessments';
+
+  @override
+  String get dashNoAssessmentsBody =>
+      'Start a consultation and the result will appear here.';
+
+  @override
+  String get dashYourProfile => 'Your profile';
+
+  @override
+  String get actionEdit => 'Edit';
+
+  @override
+  String get dashNoneRecorded => 'None recorded';
+
+  @override
+  String get dashNoProfileTitle => 'No profile yet';
+
+  @override
+  String get dashNoProfileBody =>
+      'Add your details so MediVoice can keep your health information in one place.';
+
+  @override
+  String get dashSetUpProfile => 'Set up profile';
+
+  @override
+  String get dashQuickActions => 'Quick actions';
+
+  @override
+  String get dashAddVital => 'Add a vital reading';
+
+  @override
+  String get dashViewTrends => 'View health trends';
+
+  @override
+  String get dashViewHistory => 'View past assessments';
+
+  @override
+  String get dashEditProfile => 'Edit your profile';
+
+  @override
+  String get dashStoredHere =>
+      'Everything shown here is stored on this phone only.';
+
+  @override
+  String get howToTitle => 'How MediVoice Works';
+
+  @override
+  String get howToHeading => 'A consultation, step by step';
+
+  @override
+  String get howToSubheading => 'Everything below happens on your phone.';
+
+  @override
+  String get howToStep1Title => 'You speak';
+
+  @override
+  String get howToStep1Body =>
+      'Describe how you\'re feeling in Kannada, Hindi or English. You can type instead if you\'d rather.';
+
+  @override
+  String get howToStep2Title => 'Your phone listens';
+
+  @override
+  String get howToStep2Body =>
+      'Speech becomes text using a compact recognition model running on the device itself. Your voice is never uploaded.';
+
+  @override
+  String get howToStep3Title => 'Symptoms are identified';
+
+  @override
+  String get howToStep3Body =>
+      'What you said is matched against a multilingual symptom vocabulary. Saying you DON\'T have something counts too.';
+
+  @override
+  String get howToStep4Title => 'A few questions';
+
+  @override
+  String get howToStep4Body =>
+      'If there isn\'t enough to go on, you\'ll be asked a short set of yes/no questions chosen to narrow the possibilities.';
+
+  @override
+  String get howToStep5Title => 'A preliminary assessment';
+
+  @override
+  String get howToStep5Body =>
+      'A lightweight model suggests what the pattern may be consistent with. If it isn\'t confident, it says so instead of guessing.';
+
+  @override
+  String get howToStep6Title => 'Guidance and next steps';
+
+  @override
+  String get howToStep6Body =>
+      'Practical self-care suggestions, warning signs to watch for, and the kind of specialist worth seeing.';
+
+  @override
+  String get howToPrivacyTitle => 'Your consultation stays with you';
+
+  @override
+  String get howToPrivacyBody =>
+      'Symptoms, recordings and results are never sent anywhere. The app works with the network switched off - apart from a one-time download of the speech model when you first use it.';
+
+  @override
+  String get howToNotDiagnosisTitle => 'This is not a diagnosis';
+
+  @override
+  String get howToNotDiagnosisBody =>
+      'MediVoice matches patterns against training data to raise awareness. It cannot examine you, it covers a limited set of conditions, and it is not a substitute for a qualified doctor.';
 }

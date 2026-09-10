@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 
 /// Walks through what happens during a consultation.
 ///
@@ -51,18 +52,18 @@ class HowItWorksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("How MediVoice Works")),
+      appBar: AppBar(title: Text(AppText.of(context).howToTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
           children: [
             Text(
-              "A consultation, step by step",
+              AppText.of(context).howToHeading,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 8),
             Text(
-              "Everything below happens on your phone.",
+              AppText.of(context).howToSubheading,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),
