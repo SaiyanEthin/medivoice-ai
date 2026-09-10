@@ -288,4 +288,213 @@ class AppTextHi extends AppText {
   String doctorCopiedNumber(String name) {
     return '$name का नंबर कॉपी हो गया';
   }
+
+  @override
+  String get profileSetupTitle => 'अपनी प्रोफ़ाइल बनाएं';
+
+  @override
+  String get profileTitle => 'आपकी प्रोफ़ाइल';
+
+  @override
+  String get profileHeading => 'आपके बारे में थोड़ा';
+
+  @override
+  String get profileIntro =>
+      'इससे MediVoice आपको सही तरीके से संबोधित कर सकेगा और आपकी स्वास्थ्य जानकारी एक जगह रख सकेगा। आप इसे छोड़कर बाद में भर सकते हैं।';
+
+  @override
+  String get profilePrivacyNote =>
+      'यह केवल आपके फ़ोन पर रहता है। इसे कहीं भेजा या साझा नहीं किया जाता, और आप इसे कभी भी बदल या हटा सकते हैं।';
+
+  @override
+  String get profileLanguageLabel => 'भाषा';
+
+  @override
+  String get fieldName => 'नाम';
+
+  @override
+  String get fieldNameHint => 'आपको क्या कहकर बुलाएं?';
+
+  @override
+  String get fieldAge => 'उम्र';
+
+  @override
+  String get fieldOptional => 'वैकल्पिक';
+
+  @override
+  String get fieldSex => 'लिंग';
+
+  @override
+  String get sexFemale => 'महिला';
+
+  @override
+  String get sexMale => 'पुरुष';
+
+  @override
+  String get sexOther => 'अन्य';
+
+  @override
+  String get sexPreferNotToSay => 'बताना नहीं चाहते';
+
+  @override
+  String get fieldConditions => 'मौजूदा बीमारियां';
+
+  @override
+  String get fieldConditionsHint =>
+      'जो आपको पहले से पता हो - डायबिटीज़, अस्थमा, ब्लड प्रेशर।';
+
+  @override
+  String get fieldAddCondition => 'बीमारी जोड़ें';
+
+  @override
+  String get fieldAllergies => 'एलर्जी';
+
+  @override
+  String get fieldAllergiesHint => 'दवा, खाना या कुछ और जो आपको सूट न करता हो।';
+
+  @override
+  String get fieldAddAllergy => 'एलर्जी जोड़ें';
+
+  @override
+  String get actionSaveAndContinue => 'सहेजें और आगे बढ़ें';
+
+  @override
+  String get actionSave => 'सहेजें';
+
+  @override
+  String get actionSkipForNow => 'अभी छोड़ें';
+
+  @override
+  String get profileNameRequired => 'आगे बढ़ने के लिए नाम भरें।';
+
+  @override
+  String homeGreeting(String name) {
+    return 'नमस्ते, $name';
+  }
+
+  @override
+  String get homeGreetingSub => 'आज मैं आपकी क्या मदद करूं?';
+
+  @override
+  String get homeTagline => 'आपका ऑफ़लाइन स्वास्थ्य साथी';
+
+  @override
+  String get homeHowAreYou => 'आज आप कैसा महसूस कर रहे हैं?';
+
+  @override
+  String get homeTellMe =>
+      'अपने शब्दों में बताइए क्या तकलीफ़ है - बोलें या लिखें, जो आसान लगे।';
+
+  @override
+  String get homeTapToSpeak => 'बोलने के लिए दबाएं';
+
+  @override
+  String get homeStartConsultation => 'परामर्श शुरू करें';
+
+  @override
+  String get homeWorksOffline => 'ऑफ़लाइन काम करता है';
+
+  @override
+  String get homeNoInternet => 'इंटरनेट की ज़रूरत नहीं';
+
+  @override
+  String get homeStaysPrivate => 'निजी रहता है';
+
+  @override
+  String get homeNothingLeaves => 'कुछ भी आपके फ़ोन से बाहर नहीं जाता';
+
+  @override
+  String get homeDashboard => 'स्वास्थ्य डैशबोर्ड';
+
+  @override
+  String get homeSettings => 'सेटिंग्स';
+
+  @override
+  String get homeHowItWorks => 'MediVoice कैसे काम करता है';
+
+  @override
+  String get homeDisclaimer =>
+      'MediVoice केवल प्रारंभिक स्वास्थ्य जानकारी देता है। यह निदान नहीं है और डॉक्टर का विकल्प नहीं है।';
+
+  @override
+  String get homeProfileTooltip => 'आपकी प्रोफ़ाइल';
+
+  @override
+  String get settingsTitle => 'सेटिंग्स';
+
+  @override
+  String get settingsLanguage => 'भाषा';
+
+  @override
+  String get settingsLanguageDesc => 'MediVoice किस भाषा में दिखेगा और बोलेगा।';
+
+  @override
+  String get settingsLanguageNote =>
+      'कन्नड़ और हिंदी का अनुवाद चल रहा है। जो अभी तक अनुवादित नहीं है वह अंग्रेज़ी में ही रहेगा।';
+
+  @override
+  String get settingsDisplay => 'प्रदर्शन';
+
+  @override
+  String get settingsTextSize => 'टेक्स्ट का आकार';
+
+  @override
+  String get settingsMeasurements => 'माप';
+
+  @override
+  String get settingsTemperature => 'तापमान';
+
+  @override
+  String get settingsWeight => 'वज़न';
+
+  @override
+  String get settingsUnitsNote =>
+      'रीडिंग एक ही रूप में सहेजी जाती हैं और दिखाने के लिए बदली जाती हैं, इसलिए यूनिट बदलने से सहेजा गया मान नहीं बदलता।';
+
+  @override
+  String get settingsVoice => 'आवाज़';
+
+  @override
+  String get settingsVoiceGuidance => 'आवाज़ मार्गदर्शन';
+
+  @override
+  String get settingsVoiceGuidanceSub => 'सवाल और नतीजे पढ़कर सुनाता है';
+
+  @override
+  String get settingsVoiceNote =>
+      'आवाज़ मार्गदर्शन ऊपर की भाषा के अनुसार चलता है। आपके फ़ोन में उस भाषा का वॉइस डेटा होना चाहिए - न हो तो ऐप ग़लत उच्चारण के बजाय चुप रहता है।';
+
+  @override
+  String get settingsYourData => 'आपका डेटा';
+
+  @override
+  String get settingsDataNote =>
+      'आपकी प्रोफ़ाइल, स्वास्थ्य रीडिंग और पिछले आकलन केवल इसी फ़ोन पर रहते हैं। कुछ भी अपलोड या साझा नहीं किया जाता।';
+
+  @override
+  String get settingsNothingStored => 'अभी कुछ भी सहेजा नहीं है।';
+
+  @override
+  String get settingsCurrentlyStored => 'अभी सहेजा गया:';
+
+  @override
+  String get settingsDeleteData => 'स्वास्थ्य डेटा हटाएं';
+
+  @override
+  String get settingsDeleteTitle => 'स्वास्थ्य डेटा हटाएं?';
+
+  @override
+  String get settingsDeleteBody => 'यह स्थायी रूप से हटा देगा:';
+
+  @override
+  String get settingsDeleteUndone => 'इसे वापस नहीं लाया जा सकता।';
+
+  @override
+  String get actionCancel => 'रद्द करें';
+
+  @override
+  String get actionDelete => 'हटाएं';
+
+  @override
+  String get settingsDataDeleted => 'स्वास्थ्य डेटा हटा दिया गया।';
 }

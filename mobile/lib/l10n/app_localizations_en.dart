@@ -289,4 +289,215 @@ class AppTextEn extends AppText {
   String doctorCopiedNumber(String name) {
     return 'Copied $name\'s number';
   }
+
+  @override
+  String get profileSetupTitle => 'Set up your profile';
+
+  @override
+  String get profileTitle => 'Your profile';
+
+  @override
+  String get profileHeading => 'A little about you';
+
+  @override
+  String get profileIntro =>
+      'This helps MediVoice address you properly and keep your health information in one place. You can skip this and fill it in later.';
+
+  @override
+  String get profilePrivacyNote =>
+      'This is stored on your phone only. It is never uploaded, shared, or sent anywhere, and you can change or delete it at any time.';
+
+  @override
+  String get profileLanguageLabel => 'Language';
+
+  @override
+  String get fieldName => 'Name';
+
+  @override
+  String get fieldNameHint => 'What should we call you?';
+
+  @override
+  String get fieldAge => 'Age';
+
+  @override
+  String get fieldOptional => 'Optional';
+
+  @override
+  String get fieldSex => 'Sex';
+
+  @override
+  String get sexFemale => 'Female';
+
+  @override
+  String get sexMale => 'Male';
+
+  @override
+  String get sexOther => 'Other';
+
+  @override
+  String get sexPreferNotToSay => 'Prefer not to say';
+
+  @override
+  String get fieldConditions => 'Existing conditions';
+
+  @override
+  String get fieldConditionsHint =>
+      'Anything you already know about - diabetes, asthma, high blood pressure.';
+
+  @override
+  String get fieldAddCondition => 'Add a condition';
+
+  @override
+  String get fieldAllergies => 'Allergies';
+
+  @override
+  String get fieldAllergiesHint =>
+      'Medicines, foods or anything else you react to.';
+
+  @override
+  String get fieldAddAllergy => 'Add an allergy';
+
+  @override
+  String get actionSaveAndContinue => 'Save and continue';
+
+  @override
+  String get actionSave => 'Save';
+
+  @override
+  String get actionSkipForNow => 'Skip for now';
+
+  @override
+  String get profileNameRequired => 'Please enter a name to continue.';
+
+  @override
+  String homeGreeting(String name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String get homeGreetingSub => 'How can I help you today?';
+
+  @override
+  String get homeTagline => 'Your offline health companion';
+
+  @override
+  String get homeHowAreYou => 'How are you feeling today?';
+
+  @override
+  String get homeTellMe =>
+      'Tell me what\'s wrong in your own words - speak or type, whichever is easier.';
+
+  @override
+  String get homeTapToSpeak => 'Tap to speak now';
+
+  @override
+  String get homeStartConsultation => 'Start consultation';
+
+  @override
+  String get homeWorksOffline => 'Works offline';
+
+  @override
+  String get homeNoInternet => 'No internet needed';
+
+  @override
+  String get homeStaysPrivate => 'Stays private';
+
+  @override
+  String get homeNothingLeaves => 'Nothing leaves your phone';
+
+  @override
+  String get homeDashboard => 'Health dashboard';
+
+  @override
+  String get homeSettings => 'Settings';
+
+  @override
+  String get homeHowItWorks => 'How MediVoice works';
+
+  @override
+  String get homeDisclaimer =>
+      'MediVoice offers preliminary health awareness only. It is not a diagnosis and does not replace a doctor.';
+
+  @override
+  String get homeProfileTooltip => 'Your profile';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageDesc =>
+      'The language MediVoice is shown and spoken in.';
+
+  @override
+  String get settingsLanguageNote =>
+      'Kannada and Hindi are being translated. Anything not yet translated stays in English.';
+
+  @override
+  String get settingsDisplay => 'Display';
+
+  @override
+  String get settingsTextSize => 'Text size';
+
+  @override
+  String get settingsMeasurements => 'Measurements';
+
+  @override
+  String get settingsTemperature => 'Temperature';
+
+  @override
+  String get settingsWeight => 'Weight';
+
+  @override
+  String get settingsUnitsNote =>
+      'Readings are stored in one form and converted for display, so switching units never changes a saved value.';
+
+  @override
+  String get settingsVoice => 'Voice';
+
+  @override
+  String get settingsVoiceGuidance => 'Voice guidance';
+
+  @override
+  String get settingsVoiceGuidanceSub => 'Reads questions and results aloud';
+
+  @override
+  String get settingsVoiceNote =>
+      'Voice guidance follows the language above. Your phone needs that language\'s voice data installed - if it isn\'t, the app stays silent rather than reading the wrong pronunciation.';
+
+  @override
+  String get settingsYourData => 'Your data';
+
+  @override
+  String get settingsDataNote =>
+      'Your profile, vital readings and past assessments are stored on this phone only. Nothing is uploaded or shared.';
+
+  @override
+  String get settingsNothingStored => 'Nothing is stored yet.';
+
+  @override
+  String get settingsCurrentlyStored => 'Currently stored:';
+
+  @override
+  String get settingsDeleteData => 'Delete health data';
+
+  @override
+  String get settingsDeleteTitle => 'Delete health data?';
+
+  @override
+  String get settingsDeleteBody => 'This will permanently remove:';
+
+  @override
+  String get settingsDeleteUndone => 'This cannot be undone.';
+
+  @override
+  String get actionCancel => 'Cancel';
+
+  @override
+  String get actionDelete => 'Delete';
+
+  @override
+  String get settingsDataDeleted => 'Health data deleted.';
 }

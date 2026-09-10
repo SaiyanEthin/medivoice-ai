@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/app_locale.dart';
 import '../core/text_scale_prefs.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../core/unit_prefs.dart';
 import '../services/health_data_service.dart';
 import '../services/speech_output_service.dart';
@@ -41,30 +42,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Delete health data?"),
+        title: Text(AppText.of(context).settingsDeleteTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("This will permanently remove:"),
+            Text(AppText.of(context).settingsDeleteBody),
             const SizedBox(height: 8),
             ..._storedSummary.map((item) => Padding(
                   padding: const EdgeInsets.only(bottom: 3),
                   child: Text("\u2022  $item"),
                 )),
             const SizedBox(height: 10),
-            const Text("This cannot be undone."),
+            Text(AppText.of(context).settingsDeleteUndone),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text("Cancel"),
+            child: Text(AppText.of(context).actionCancel),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: AppTheme.danger),
-            child: const Text("Delete"),
+            child: Text(AppText.of(context).actionDelete),
           ),
         ],
       ),
@@ -76,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await _refresh();
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Health data deleted.")),
+      SnackBar(content: Text(AppText.of(context).settingsDataDeleted)),
     );
   }
 
@@ -86,12 +87,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final units = UnitPrefs();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      appBar: AppBar(title: Text(AppText.of(context).settingsTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
           children: [
-            _Heading("Language"),
+            _Heading(AppText.of(context).settingsLanguage),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -99,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "The language MediVoice is shown and spoken in.",
+                      AppText.of(context).settingsLanguageDesc,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 12),
@@ -138,14 +139,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 22),
-            _Heading("Display"),
+            _Heading(AppText.of(context).settingsDisplay),
             Card(
               child: ListTile(
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 leading: const Icon(Icons.format_size_rounded,
                     color: AppTheme.primaryDark),
-                title: const Text("Text size"),
+                title: Text(AppText.of(context).settingsTextSize),
                 subtitle: Text(textScale.value.label),
                 trailing: const Icon(Icons.chevron_right_rounded),
                 onTap: () async {
@@ -159,14 +160,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 22),
-            _Heading("Measurements"),
+            _Heading(AppText.of(context).settingsMeasurements),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Temperature",
+                    Text(AppText.of(context).settingsTemperature,
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 8),
                     Wrap(
@@ -185,7 +186,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           .toList(),
                     ),
                     const SizedBox(height: 16),
-                    Text("Weight",
+                    Text(AppText.of(context).settingsWeight,
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(height: 8),
                     Wrap(
@@ -204,9 +205,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Readings are stored in one form and converted for "
-                      "display, so switching units never changes a saved "
-                      "value.",
+                      AppText.of(context).settingsUnitsNote,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -214,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 22),
-            _Heading("Voice"),
+            _Heading(AppText.of(context).settingsVoice),
             Card(
               child: Column(
                 children: [
@@ -227,9 +226,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Icons.volume_off_rounded,
                       color: AppTheme.primaryDark,
                     ),
-                    title: const Text("Voice guidance"),
-                    subtitle: const Text(
-                        "Reads questions and results aloud"),
+                    title: Text(AppText.of(context).settingsVoiceGuidance),
+                    subtitle: Text(AppText.of(context).settingsVoiceGuidanceSub),
                     value: _voice.enabled,
                     onChanged: (value) async {
                       await _voice.setEnabled(value);
@@ -251,7 +249,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SizedBox(height: 22),
-            _Heading("Your data"),
+            _Heading(AppText.of(context).settingsYourData),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -266,9 +264,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
-                            "Your profile, vital readings and past "
-                            "assessments are stored on this phone only. "
-                            "Nothing is uploaded or shared.",
+                            AppText.of(context).settingsDataNote,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
@@ -282,10 +278,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     else if (_storedSummary.isEmpty)
-                      Text("Nothing is stored yet.",
+                      Text(AppText.of(context).settingsNothingStored,
                           style: Theme.of(context).textTheme.bodySmall)
                     else ...[
-                      Text("Currently stored:",
+                      Text(AppText.of(context).settingsCurrentlyStored,
                           style: Theme.of(context).textTheme.bodySmall),
                       const SizedBox(height: 4),
                       ..._storedSummary.map((item) => Text("\u2022  $item",
@@ -302,7 +298,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           icon: const Icon(Icons.delete_outline_rounded,
                               size: 18),
-                          label: const Text("Delete health data"),
+                          label: Text(AppText.of(context).settingsDeleteData),
                         ),
                       ),
                     ],

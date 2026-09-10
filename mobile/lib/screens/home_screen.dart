@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../models/health_profile.dart';
 import '../services/health_profile_service.dart';
 import '../services/language_prefs_service.dart';
@@ -133,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (_) => const DashboardScreen()),
                     ),
                     icon: const Icon(Icons.dashboard_outlined, size: 18),
-                    label: const Text("Health dashboard"),
+                    label: Text(AppText.of(context).homeDashboard),
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(
@@ -148,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       _refreshProfile();
                     },
                     icon: const Icon(Icons.settings_outlined, size: 18),
-                    label: const Text("Settings"),
+                    label: Text(AppText.of(context).homeSettings),
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(
@@ -158,12 +159,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (_) => const HowItWorksScreen()),
                     ),
                     icon: const Icon(Icons.help_outline_rounded, size: 18),
-                    label: const Text("How MediVoice works"),
+                    label: Text(AppText.of(context).homeHowItWorks),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    "MediVoice offers preliminary health awareness only. "
-                    "It is not a diagnosis and does not replace a doctor.",
+                    AppText.of(context).homeDisclaimer,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
@@ -220,7 +220,7 @@ class _Header extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: onProfileTap,
-                tooltip: "Your profile",
+                tooltip: AppText.of(context).homeProfileTooltip,
                 icon: Icon(
                   name.isEmpty
                       ? Icons.person_add_alt_1_outlined
@@ -232,7 +232,9 @@ class _Header extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            name.isEmpty ? "MediVoice AI" : "Hello, $name",
+            name.isEmpty
+                ? "MediVoice AI"
+                : AppText.of(context).homeGreeting(name),
             style: const TextStyle(
               fontSize: 29,
               fontWeight: FontWeight.bold,
@@ -242,8 +244,8 @@ class _Header extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             name.isEmpty
-                ? "Your offline health companion"
-                : "How can I help you today?",
+                ? AppText.of(context).homeTagline
+                : AppText.of(context).homeGreetingSub,
             style: TextStyle(
               fontSize: 15,
               color: Colors.white.withOpacity(0.85),
@@ -268,12 +270,11 @@ class _StartCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("How are you feeling today?",
+            Text(AppText.of(context).homeHowAreYou,
                 style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 8),
             Text(
-              "Tell me what's wrong in your own words - speak or type, "
-              "whichever is easier.",
+              AppText.of(context).homeTellMe,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),
@@ -282,7 +283,7 @@ class _StartCard extends StatelessWidget {
             Center(child: _SpeakNowButton(onTap: onSpeakNow)),
             const SizedBox(height: 10),
             Center(
-              child: Text("Tap to speak now",
+              child: Text(AppText.of(context).homeTapToSpeak,
                   style: Theme.of(context).textTheme.bodyMedium),
             ),
             const SizedBox(height: 18),
@@ -291,7 +292,7 @@ class _StartCard extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: onStart,
                 icon: const Icon(Icons.keyboard_alt_outlined, size: 18),
-                label: const Text("Start consultation"),
+                label: Text(AppText.of(context).homeStartConsultation),
               ),
             ),
             const SizedBox(height: 14),

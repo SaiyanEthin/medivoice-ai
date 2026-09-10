@@ -566,6 +566,402 @@ abstract class AppText {
   /// In en, this message translates to:
   /// **'Copied {name}\'s number'**
   String doctorCopiedNumber(String name);
+
+  /// No description provided for @profileSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your profile'**
+  String get profileSetupTitle;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get profileTitle;
+
+  /// No description provided for @profileHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'A little about you'**
+  String get profileHeading;
+
+  /// No description provided for @profileIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'This helps MediVoice address you properly and keep your health information in one place. You can skip this and fill it in later.'**
+  String get profileIntro;
+
+  /// No description provided for @profilePrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This is stored on your phone only. It is never uploaded, shared, or sent anywhere, and you can change or delete it at any time.'**
+  String get profilePrivacyNote;
+
+  /// No description provided for @profileLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profileLanguageLabel;
+
+  /// No description provided for @fieldName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get fieldName;
+
+  /// No description provided for @fieldNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get fieldNameHint;
+
+  /// No description provided for @fieldAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get fieldAge;
+
+  /// No description provided for @fieldOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get fieldOptional;
+
+  /// No description provided for @fieldSex.
+  ///
+  /// In en, this message translates to:
+  /// **'Sex'**
+  String get fieldSex;
+
+  /// No description provided for @sexFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get sexFemale;
+
+  /// No description provided for @sexMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get sexMale;
+
+  /// No description provided for @sexOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get sexOther;
+
+  /// No description provided for @sexPreferNotToSay.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefer not to say'**
+  String get sexPreferNotToSay;
+
+  /// No description provided for @fieldConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Existing conditions'**
+  String get fieldConditions;
+
+  /// No description provided for @fieldConditionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything you already know about - diabetes, asthma, high blood pressure.'**
+  String get fieldConditionsHint;
+
+  /// No description provided for @fieldAddCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a condition'**
+  String get fieldAddCondition;
+
+  /// No description provided for @fieldAllergies.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergies'**
+  String get fieldAllergies;
+
+  /// No description provided for @fieldAllergiesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Medicines, foods or anything else you react to.'**
+  String get fieldAllergiesHint;
+
+  /// No description provided for @fieldAddAllergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an allergy'**
+  String get fieldAddAllergy;
+
+  /// No description provided for @actionSaveAndContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and continue'**
+  String get actionSaveAndContinue;
+
+  /// No description provided for @actionSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get actionSave;
+
+  /// No description provided for @actionSkipForNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get actionSkipForNow;
+
+  /// No description provided for @profileNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a name to continue.'**
+  String get profileNameRequired;
+
+  /// No description provided for @homeGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String homeGreeting(String name);
+
+  /// No description provided for @homeGreetingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'How can I help you today?'**
+  String get homeGreetingSub;
+
+  /// No description provided for @homeTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your offline health companion'**
+  String get homeTagline;
+
+  /// No description provided for @homeHowAreYou.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you feeling today?'**
+  String get homeHowAreYou;
+
+  /// No description provided for @homeTellMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me what\'s wrong in your own words - speak or type, whichever is easier.'**
+  String get homeTellMe;
+
+  /// No description provided for @homeTapToSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to speak now'**
+  String get homeTapToSpeak;
+
+  /// No description provided for @homeStartConsultation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start consultation'**
+  String get homeStartConsultation;
+
+  /// No description provided for @homeWorksOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Works offline'**
+  String get homeWorksOffline;
+
+  /// No description provided for @homeNoInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet needed'**
+  String get homeNoInternet;
+
+  /// No description provided for @homeStaysPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Stays private'**
+  String get homeStaysPrivate;
+
+  /// No description provided for @homeNothingLeaves.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing leaves your phone'**
+  String get homeNothingLeaves;
+
+  /// No description provided for @homeDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Health dashboard'**
+  String get homeDashboard;
+
+  /// No description provided for @homeSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get homeSettings;
+
+  /// No description provided for @homeHowItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'How MediVoice works'**
+  String get homeHowItWorks;
+
+  /// No description provided for @homeDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'MediVoice offers preliminary health awareness only. It is not a diagnosis and does not replace a doctor.'**
+  String get homeDisclaimer;
+
+  /// No description provided for @homeProfileTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile'**
+  String get homeProfileTooltip;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'The language MediVoice is shown and spoken in.'**
+  String get settingsLanguageDesc;
+
+  /// No description provided for @settingsLanguageNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Kannada and Hindi are being translated. Anything not yet translated stays in English.'**
+  String get settingsLanguageNote;
+
+  /// No description provided for @settingsDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get settingsDisplay;
+
+  /// No description provided for @settingsTextSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size'**
+  String get settingsTextSize;
+
+  /// No description provided for @settingsMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get settingsMeasurements;
+
+  /// No description provided for @settingsTemperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature'**
+  String get settingsTemperature;
+
+  /// No description provided for @settingsWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get settingsWeight;
+
+  /// No description provided for @settingsUnitsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Readings are stored in one form and converted for display, so switching units never changes a saved value.'**
+  String get settingsUnitsNote;
+
+  /// No description provided for @settingsVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get settingsVoice;
+
+  /// No description provided for @settingsVoiceGuidance.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice guidance'**
+  String get settingsVoiceGuidance;
+
+  /// No description provided for @settingsVoiceGuidanceSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Reads questions and results aloud'**
+  String get settingsVoiceGuidanceSub;
+
+  /// No description provided for @settingsVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice guidance follows the language above. Your phone needs that language\'s voice data installed - if it isn\'t, the app stays silent rather than reading the wrong pronunciation.'**
+  String get settingsVoiceNote;
+
+  /// No description provided for @settingsYourData.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data'**
+  String get settingsYourData;
+
+  /// No description provided for @settingsDataNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your profile, vital readings and past assessments are stored on this phone only. Nothing is uploaded or shared.'**
+  String get settingsDataNote;
+
+  /// No description provided for @settingsNothingStored.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing is stored yet.'**
+  String get settingsNothingStored;
+
+  /// No description provided for @settingsCurrentlyStored.
+  ///
+  /// In en, this message translates to:
+  /// **'Currently stored:'**
+  String get settingsCurrentlyStored;
+
+  /// No description provided for @settingsDeleteData.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete health data'**
+  String get settingsDeleteData;
+
+  /// No description provided for @settingsDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete health data?'**
+  String get settingsDeleteTitle;
+
+  /// No description provided for @settingsDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently remove:'**
+  String get settingsDeleteBody;
+
+  /// No description provided for @settingsDeleteUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone.'**
+  String get settingsDeleteUndone;
+
+  /// No description provided for @actionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
+
+  /// No description provided for @actionDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get actionDelete;
+
+  /// No description provided for @settingsDataDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data deleted.'**
+  String get settingsDataDeleted;
 }
 
 class _AppTextDelegate extends LocalizationsDelegate<AppText> {

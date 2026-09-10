@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../core/app_locale.dart';
 import '../core/theme/app_theme.dart';
+import '../l10n/app_localizations.dart';
 import '../models/health_profile.dart';
 import '../services/health_profile_service.dart';
 
@@ -31,12 +33,28 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
   bool _loading = true;
   bool _saving = false;
 
+  /// STORED values, deliberately English. A profile saved in Kannada
+  /// must still read correctly if the user later switches to English, so
+  /// only the display is translated - same rule as the symptom keys.
   static const _sexOptions = [
     "Female",
     "Male",
     "Other",
     "Prefer not to say",
   ];
+
+  String _sexLabel(AppText t, String option) {
+    switch (option) {
+      case "Female":
+        return t.sexFemale;
+      case "Male":
+        return t.sexMale;
+      case "Other":
+        return t.sexOther;
+      default:
+        return t.sexPreferNotToSay;
+    }
+  }
 
   @override
   void initState() {
@@ -72,7 +90,7 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
     final name = _nameController.text.trim();
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter a name to continue.")),
+        SnackBar(content: Text(AppText.of(context).profileNameRequired)),
       );
       return;
     }
@@ -112,7 +130,9 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.isSetup ? "Set up your profile" : "Your profile"),
+        title: Text(widget.isSetup
+            ? AppText.of(context).profileSetupTitle
+            : AppText.of(context).profileTitle),
       ),
       body: SafeArea(
         child: _loading
@@ -122,29 +142,52 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
                 children: [
                   if (widget.isSetup) ...[
                     Text(
-                      "A little about you",
+                      AppText.of(context).profileHeading,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "This helps MediVoice address you properly and keep "
-                      "your health information in one place. You can skip "
-                      "this and fill it in later.",
+                      AppText.of(context).profileIntro,
                       style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 18),
+                    // Offered here because on a fresh install this screen
+                    // appears before the user can reach Settings, so a
+                    // Kannada-only user would otherwise meet an English
+                    // form with no way out of it.
+                    _label(context, AppText.of(context).profileLanguageLabel),
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        for (final option in const [
+                          ('en', 'English'),
+                          ('kn', '\u0c95\u0ca8\u0ccd\u0ca8\u0ca1'),
+                          ('hi', '\u0939\u093f\u0902\u0926\u0940'),
+                        ])
+                          ChoiceChip(
+                            label: Text(option.$2),
+                            selected:
+                                AppLocale().value.languageCode == option.$1,
+                            onSelected: (_) async {
+                              await AppLocale().set(option.$1);
+                              if (mounted) setState(() {});
+                            },
+                          ),
+                      ],
                     ),
                     const SizedBox(height: 20),
                   ],
                   _PrivacyNote(),
                   const SizedBox(height: 20),
-                  _label(context, "Name"),
+                  _label(context, AppText.of(context).fieldName),
                   TextField(
                     controller: _nameController,
                     textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(
-                        hintText: "What should we call you?"),
+                    decoration: InputDecoration(
+                        hintText: AppText.of(context).fieldNameHint),
                   ),
                   const SizedBox(height: 18),
-                  _label(context, "Age"),
+                  _label(context, AppText.of(context).fieldAge),
                   TextField(
                     controller: _ageController,
                     keyboardType: TextInputType.number,
@@ -152,16 +195,17 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(3),
                     ],
-                    decoration: const InputDecoration(hintText: "Optional"),
+                    decoration:
+                        InputDecoration(hintText: AppText.of(context).fieldOptional),
                   ),
                   const SizedBox(height: 18),
-                  _label(context, "Sex"),
+                  _label(context, AppText.of(context).fieldSex),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: _sexOptions
                         .map((option) => ChoiceChip(
-                              label: Text(option),
+                              label: Text(_sexLabel(AppText.of(context), option)),
                               selected: _sex == option,
                               onSelected: (selected) => setState(
                                   () => _sex = selected ? option : null),
@@ -169,16 +213,15 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
                         .toList(),
                   ),
                   const SizedBox(height: 22),
-                  _label(context, "Existing conditions"),
+                  _label(context, AppText.of(context).fieldConditions),
                   Text(
-                    "Anything you already know about - diabetes, asthma, "
-                    "high blood pressure.",
+                    AppText.of(context).fieldConditionsHint,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 8),
                   _EntryField(
                     controller: _conditionController,
-                    hint: "Add a condition",
+                    hint: AppText.of(context).fieldAddCondition,
                     onAdd: () => _addTo(_conditions, _conditionController),
                   ),
                   _ChipList(
@@ -186,15 +229,15 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
                     onRemove: (item) => setState(() => _conditions.remove(item)),
                   ),
                   const SizedBox(height: 22),
-                  _label(context, "Allergies"),
+                  _label(context, AppText.of(context).fieldAllergies),
                   Text(
-                    "Medicines, foods or anything else you react to.",
+                    AppText.of(context).fieldAllergiesHint,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 8),
                   _EntryField(
                     controller: _allergyController,
-                    hint: "Add an allergy",
+                    hint: AppText.of(context).fieldAddAllergy,
                     onAdd: () => _addTo(_allergies, _allergyController),
                   ),
                   _ChipList(
@@ -206,14 +249,16 @@ class _HealthProfileScreenState extends State<HealthProfileScreen> {
                     height: 52,
                     child: ElevatedButton(
                       onPressed: _saving ? null : _save,
-                      child: Text(widget.isSetup ? "Save and continue" : "Save"),
+                      child: Text(widget.isSetup
+                          ? AppText.of(context).actionSaveAndContinue
+                          : AppText.of(context).actionSave),
                     ),
                   ),
                   if (widget.isSetup) ...[
                     const SizedBox(height: 8),
                     TextButton(
                       onPressed: _saving ? null : _skip,
-                      child: const Text("Skip for now"),
+                      child: Text(AppText.of(context).actionSkipForNow),
                     ),
                   ],
                 ],
@@ -247,9 +292,7 @@ class _PrivacyNote extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              "This is stored on your phone only. It is never uploaded, "
-              "shared, or sent anywhere, and you can change or delete it "
-              "at any time.",
+              AppText.of(context).profilePrivacyNote,
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
