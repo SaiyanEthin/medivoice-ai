@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../core/app_locale.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 /// Result of a self-care lookup.
@@ -64,7 +65,7 @@ class SelfCareGuidanceService {
       final group = entry.value as Map<String, dynamic>;
       final groupSymptoms = List<String>.from(group['symptoms'] as List);
       if (groupSymptoms.any(symptomSet.contains)) {
-        matchedGroups.add(List<String>.from(group['guidance'] as List));
+        matchedGroups.add(_localisedList(group, 'guidance'));
       }
     }
 
@@ -81,13 +82,43 @@ class SelfCareGuidanceService {
     }
 
     if (bullets.isEmpty) {
-      bullets.addAll(List<String>.from(data['fallback_guidance'] as List));
+      bullets.addAll(_localisedList(data, 'fallback_guidance'));
     }
 
     return SelfCareGuidance(
       guidance: bullets,
-      redFlags: List<String>.from(data['red_flags'] as List),
-      disclaimer: data['disclaimer'] as String,
+      redFlags: _localisedList(data, 'red_flags'),
+      disclaimer: _localisedString(data, 'disclaimer'),
     );
   }
+}
+
+/// A list in the app's language, falling back to English.
+///
+/// Kept per language rather than translated at runtime: the red flags in
+/// particular are the strings that tell someone to go to a hospital, and
+/// a correction to their wording should happen in one reviewed place.
+List<String> _localisedList(Map<String, dynamic> source, String key) {
+  final code = UnitPrefsLocale.code;
+  if (code != 'en') {
+    final localised = source['${key}_$code'];
+    if (localised is List && localised.isNotEmpty) {
+      return List<String>.from(localised);
+    }
+  }
+  return List<String>.from(source[key] as List);
+}
+
+String _localisedString(Map<String, dynamic> source, String key) {
+  final code = UnitPrefsLocale.code;
+  if (code != 'en') {
+    final localised = source['${key}_$code'];
+    if (localised is String && localised.isNotEmpty) return localised;
+  }
+  return source[key] as String;
+}
+
+/// Thin indirection so this file doesn't import a widget-layer type.
+class UnitPrefsLocale {
+  static String get code => AppLocale().value.languageCode;
 }
