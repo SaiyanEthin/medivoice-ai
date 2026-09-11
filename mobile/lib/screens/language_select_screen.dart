@@ -40,7 +40,7 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Choose Your Language")),
+      appBar: AppBar(title: const Text('Choose your language \u00B7 \u0cad\u0cbe\u0cb7\u0cc6 \u0c86\u0cb0\u0cbf\u0cb8\u0cbf \u00B7 \u092d\u093e\u0937\u093e \u091a\u0941\u0928\u0947\u0902')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
